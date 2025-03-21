@@ -232,3 +232,7 @@
 - 色をリアルタイムで反映したデザイン例の表示
 	- SVG形式で出力可能な画像生成AIを使用。
 	- ユーザーが選択した色を即座にSVG要素に反映する機能を実装。
+
+
+# ■画面遷移図
+https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=98-3836&t=puWVYFvVXkDzwcMp-1
