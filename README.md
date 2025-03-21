@@ -236,3 +236,8 @@
 
 # ■画面遷移図
 https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=98-3836&t=puWVYFvVXkDzwcMp-1
+
+#  ■ER図
+ER図リンク：https://drive.google.com/file/d/1vktY-LZ0QD7LKSTwgLW3uwZGf3dFzwLh/view?usp=sharing
+
+![https://gyazo.com/35403539213eb68a783cc2ebbe46f942](https://gyazo.com/35403539213eb68a783cc2ebbe46f942)
