@@ -241,4 +241,4 @@ https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=98-3836&t=
 ER図リンク：https://drive.google.com/file/d/1vktY-LZ0QD7LKSTwgLW3uwZGf3dFzwLh/view?usp=sharing
 
 
-[![Image from Gyazo](https://i.gyazo.com/c4ee4ef917e5c042b64aeba9c267fb34.jpg)](https://gyazo.com/c4ee4ef917e5c042b64aeba9c267fb34)
+[![Image from Gyazo](https://i.gyazo.com/b5e83b50d29b46aaea1c855b72de09d6.jpg)](https://gyazo.com/b5e83b50d29b46aaea1c855b72de09d6)
