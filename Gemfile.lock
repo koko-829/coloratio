@@ -110,6 +110,8 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    dockerfile-rails (1.7.9)
+      rails (>= 3.0.0)
     drb (2.2.1)
     erubi (1.13.1)
     globalid (1.2.1)
@@ -363,6 +365,7 @@ DEPENDENCIES
   dartsass-rails
   debug
   devise
+  dockerfile-rails (>= 1.7)
   jbuilder
   jsbundling-rails
   pg (~> 1.1)
@@ -379,4 +382,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.6.6
+   2.6.2
