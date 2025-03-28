@@ -61,4 +61,4 @@ gem "tailwindcss-ruby", "3.4.17"
 gem "dartsass-rails"
 gem "devise"
 
-gem "dockerfile-rails", ">= 1.7", :group => :development
+gem "dockerfile-rails", ">= 1.7", group: :development
