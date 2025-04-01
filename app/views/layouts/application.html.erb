@@ -16,9 +16,13 @@
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+
   </head>
 
   <body>
+      <%= render 'layouts/header_pre_login' %>
+      <%= render 'layouts/header_logged_in' %>
       <%= yield %>
       <%= render 'layouts/footer' %>
   </body>
