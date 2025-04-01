@@ -3,6 +3,15 @@ Rails.application.routes.draw do
   root to: "top#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # 静的ページ用ルーティング
+  resource :static, only: [] do
+    collection do
+      get 'terms_of_service' #利用規約
+      get 'privacy_policy' #プライバシーポリシー
+      get 'contact' #お問い合わせ
+      get 'about_app' #アプリの使い方ページ
+    end
+  end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
