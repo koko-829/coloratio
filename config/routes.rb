@@ -6,10 +6,10 @@ Rails.application.routes.draw do
   # 静的ページ用ルーティング
   resource :static, only: [] do
     collection do
-      get 'terms_of_service' #利用規約
-      get 'privacy_policy' #プライバシーポリシー
-      get 'contact' #お問い合わせ
-      get 'about_app' #アプリの使い方ページ
+      get "terms_of_service" # 利用規約
+      get "privacy_policy" # プライバシーポリシー
+      get "contact" # お問い合わせ
+      get "about_app" # アプリの使い方ページ
     end
   end
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
