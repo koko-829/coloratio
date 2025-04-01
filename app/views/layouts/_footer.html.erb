@@ -1,4 +1,4 @@
-<footer class="bg-white dark:bg-gray-900">
+<footer class="bg-white border-t-2 dark:bg-gray-900">
   <div class="flex flex-col items-center px-6 py-4 mx-auto">
     <div class="flex sns-icons"> <%# SNSアイコン %>
         <%= link_to "https://github.com/koko-829", class: "mx-1 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400", target: :_blank, rel: "noopener noreferrer" do %>
@@ -29,11 +29,11 @@
         <% end %>
     </div>
     <div class="flex justify-center my-3 ml-8"> <%# 各画面遷移案内 %>
-        <%= link_to "利用規約", "#", class: "mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" %>
+        <%= link_to "利用規約", terms_of_service_static_path, class: "mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" %>
         <span class="w-[1px] bg-gray-600 dark:bg-gray-300"></span>
-        <%= link_to "プライバシーポリシー", "#", class: "mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" %>
+        <%= link_to "プライバシーポリシー", privacy_policy_static_path, class: "mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" %>
         <span class="w-[1px] bg-gray-600 dark:bg-gray-300"></span>
-        <%= link_to "お問い合わせ", "#", class: "mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" %>
+        <%= link_to "お問い合わせ", contact_static_path, class: "mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400" %>
     </div>
     <p class="text-xs text-gray-500 dark:text-gray-300">© 2025 Coloratio.</p> <%# コピーライト表記 %>
   </div>
