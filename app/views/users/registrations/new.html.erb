@@ -1,0 +1,185 @@
+<!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
+<div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center"> <%# フォーム画面の土台枠外span %>
+  <div class="relative max-w-screen-xl m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
+    <span class="absolute top-[-35px] left-0"> <%# 戻るボタン設置 %>
+      <%= render 'shared/back_button' %>
+    </span>
+    <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"> <%# フォーム本体枠 %>
+        <div class="flex mx-auto items-center justify-center w-full"> <%# アプリロゴ欄 %>
+          <p class="text-xl xl:text-2xl">Coloratio</p>
+        </div>
+        <div class="mt-10 flex flex-col items-center"> <%# 「会員登録」以下のフォーム部分 %>
+            <h1 class="text-2xl xl:text-3xl font-bold"> <%# 太文字「会員登録」 %>
+                会員登録
+            </h1>
+            <div class="w-full flex-1 mt-8"> <%# メアド登録＆SNSログインボタン %>
+
+              <div class="mx-auto max-w-xs"> <%# メールで登録 %>
+                <span class="hidden"> <%# ユーザーネーム入力欄 %>
+                  <p class="font-bold mb-1">ユーザーネーム</p>
+                  <input
+                      class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                      type="email" placeholder="アプリ内で使用するネームを登録してください"
+                  />
+                </span>
+                <span> <%# メールアドレス入力欄 %>
+                  <p class="font-bold mb-1 mt-5">メールアドレス</p>
+                  <input
+                      class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                      type="email" placeholder="メールアドレスを入力してください"
+                  />
+                </span>
+                <span> <%# 新パスワード入力欄 %>
+                  <p class="font-bold mb-1 mt-5">パスワード</p>
+                  <div x-data="{ show: false }" class="relative flex items-center mt-1">
+                    <input
+                        :type="show ? 'text' : 'password'"
+                        name="input_show_hide_password"
+                        id="input_show_hide_password"
+                        class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+                        placeholder="8文字以上・半角英数字記号"
+                    />
+                    <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
+                        <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                        </svg>
+                        <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </button>
+                  </div>
+                </span>
+                <span> <%# パスワード(確認用)入力欄 %>
+                  <p class="font-bold mb-1 mt-5">パスワード確認用</p>
+                  <div x-data="{ show: false }" class="relative flex items-center mt-1">
+                    <input
+                        :type="show ? 'text' : 'password'"
+                        name="input_show_hide_password"
+                        id="input_show_hide_password"
+                        class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
+                        placeholder="再度入力してください"
+                    />
+                    <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
+                        <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                        </svg>
+                        <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                        </svg>
+                    </button>
+                  </div>
+                </span>
+                <span> <%# みなし同意テキスト %>
+                  <p class="mt-8 mb-1 text-xs text-gray-400 text-left">
+                      アカウントを作成すると、
+                      <a href="#" class="text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
+                        利用規約
+                      </a>
+                      および
+                      <a href="#" class="text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
+                        プライバシーポリシー
+                      </a>
+                      に同意したとみなされます。
+                  </p>
+                </span>
+                <span> <%# 同意して登録ボタン %>
+                  <button
+                      class="tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
+                      <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle cx="8.5" cy="7" r="4" />
+                          <path d="M20 8v6M23 11h-6" />
+                      </svg>
+                      <span class="ml-3">
+                          同意して登録
+                      </span>
+                  </button>
+                </span>
+
+              </div>
+
+              <div class="mt-6 text-center"> <%# パスワードをお忘れですか？ %>
+                <%= link_to "パスワードをお忘れですか?", "#", class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+              </div>
+              <div class="my-1 text-center"> <%# 既にアカウントをお持ちの方はこちら %>
+                <%= link_to "既にアカウントをお持ちの方はこちら", "#", class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+              </div>
+
+              <div class="my-12 border-b text-center"> <%# 区切り線「または」 %>
+                  <div
+                      class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                      または
+                  </div>
+              </div>
+
+              <div class="flex flex-col items-center"> <%# SNSログイン %>
+
+                <button type="button" class="w-full max-w-xs shadow py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
+                  <svg width="18" height="18" viewBox="0 0 256 262" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><path d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027" fill="#4285F4"/><path d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1" fill="#34A853"/><path d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73L15.26 71.312l-1.335.635C5.077 89.644 0 109.517 0 130.55s5.077 40.905 13.925 58.602l42.356-32.782" fill="#FBBC05"/><path d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251" fill="#EB4335"/>
+                  </svg>
+                  Googleで登録
+                </button> <%# Googleログイン %>
+
+                <button type="button" class="w-full max-w-xs shadow py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 mt-2">
+                  <svg viewBox="0 0 256 250" width="18" height="18" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid">
+                    <path d="M128.001 0C57.317 0 0 57.307 0 128.001c0 56.554 36.676 104.535 87.535 121.46 6.397 1.185 8.746-2.777 8.746-6.158 0-3.052-.12-13.135-.174-23.83-35.61 7.742-43.124-15.103-43.124-15.103-5.823-14.795-14.213-18.73-14.213-18.73-11.613-7.944.876-7.78.876-7.78 12.853.902 19.621 13.19 19.621 13.19 11.417 19.568 29.945 13.911 37.249 10.64 1.149-8.272 4.466-13.92 8.127-17.116-28.431-3.236-58.318-14.212-58.318-63.258 0-13.975 5-25.394 13.188-34.358-1.329-3.224-5.71-16.242 1.24-33.874 0 0 10.749-3.44 35.21 13.121 10.21-2.836 21.16-4.258 32.038-4.307 10.878.049 21.837 1.47 32.066 4.307 24.431-16.56 35.165-13.12 35.165-13.12 6.967 17.63 2.584 30.65 1.255 33.873 8.207 8.964 13.173 20.383 13.173 34.358 0 49.163-29.944 59.988-58.447 63.157 4.591 3.972 8.682 11.762 8.682 23.704 0 17.126-.148 30.91-.148 35.126 0 3.407 2.304 7.398 8.792 6.14C219.37 232.5 256 184.537 256 128.002 256 57.307 198.691 0 128.001 0Zm-80.06 182.34c-.282.636-1.283.827-2.194.39-.929-.417-1.45-1.284-1.15-1.922.276-.655 1.279-.838 2.205-.399.93.418 1.46 1.293 1.139 1.931Zm6.296 5.618c-.61.566-1.804.303-2.614-.591-.837-.892-.994-2.086-.375-2.66.63-.566 1.787-.301 2.626.591.838.903 1 2.088.363 2.66Zm4.32 7.188c-.785.545-2.067.034-2.86-1.104-.784-1.138-.784-2.503.017-3.05.795-.547 2.058-.055 2.861 1.075.782 1.157.782 2.522-.019 3.08Zm7.304 8.325c-.701.774-2.196.566-3.29-.49-1.119-1.032-1.43-2.496-.726-3.27.71-.776 2.213-.558 3.315.49 1.11 1.03 1.45 2.505.701 3.27Zm9.442 2.81c-.31 1.003-1.75 1.459-3.199 1.033-1.448-.439-2.395-1.613-2.103-2.626.301-1.01 1.747-1.484 3.207-1.028 1.446.436 2.396 1.602 2.095 2.622Zm10.744 1.193c.036 1.055-1.193 1.93-2.715 1.95-1.53.034-2.769-.82-2.786-1.86 0-1.065 1.202-1.932 2.733-1.958 1.522-.03 2.768.818 2.768 1.868Zm10.555-.405c.182 1.03-.875 2.088-2.387 2.37-1.485.271-2.861-.365-3.05-1.386-.184-1.056.893-2.114 2.376-2.387 1.514-.263 2.868.356 3.061 1.403Z" />
+                  </svg>
+                  GitHubで登録
+                </button> <%# GitHubでログイン %>
+
+                <button type="button" class="w-full max-w-xs shadow py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 mt-2">
+                  <svg class="fill-current" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z">
+                    </path>
+                  </svg>
+                  X(旧Twitter)で登録
+                </button> <%# X(旧Twitter)で登録 %>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex-1 bg-yellow-50 text-center hidden lg:flex"> <%# 右側画像枠 %>
+      <div class="m-12 xl:m-16 w-full flex justify-center items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="326.79" viewBox="0 0 751.13137 489.52029" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" artist="Katerina Limpitsouni" source="https://undraw.co/"><path d="M399.1898,633.24368l-22.05938-7.70714a75.39333,75.39333,0,0,1,1.58645-36.24062c8.3685,20.14711,34.46936,25.77988,48.96151,42.08676A45.3495,45.3495,0,0,1,438.187,669.25957l4.22387,16.02538A75.9913,75.9913,0,0,1,388.039,652.23689a73.40422,73.40422,0,0,1-8.12594-16.52483C389.4353,635.03668,399.1898,633.24368,399.1898,633.24368Z" transform="translate(-224.43432 -205.23986)" fill="#f2f2f2"/><path d="M655.33033,490.0077h-115.51a6.1631,6.1631,0,0,0-6.15377,6.16965V678.64914H661.5V496.17735A6.16641,6.16641,0,0,0,655.33033,490.0077ZM597.964,593.68594a13.70383,13.70383,0,0,1-13.63985-13.63975V558.99965a13.6398,13.6398,0,0,1,27.2796,0v21.04654A13.70363,13.70363,0,0,1,597.964,593.68594Z" transform="translate(-224.43432 -205.23986)" fill="#e6e6e6"/><path d="M533.27005,672.8126v17.6049a3.44873,3.44873,0,0,0,3.44174,3.44164H658.45485a3.459,3.459,0,0,0,3.44164-3.44164V672.8126Z" transform="translate(-224.43432 -205.23986)" fill="#ccc"/><path d="M846.60453,205.23986H352.84429a16.02852,16.02852,0,0,0-16.003,16.0029V554.43427a16.01831,16.01831,0,0,0,16.003,16.0029H846.60453a16.01831,16.01831,0,0,0,16.003-16.0029V221.24276A16.02852,16.02852,0,0,0,846.60453,205.23986Z" transform="translate(-224.43432 -205.23986)" fill="#e6e6e6"/><path d="M842.48121,216.794h-485.51a8.58038,8.58038,0,0,0-8.56,8.58v324.93a8.56972,8.56972,0,0,0,8.56,8.56h485.51a8.56969,8.56969,0,0,0,8.56-8.56V225.374A8.58034,8.58034,0,0,0,842.48121,216.794Z" transform="translate(-224.43432 -205.23986)" fill="#fff"/><path d="M853.96063,224.14526v282.82a179.02234,179.02234,0,0,1-183.37-291.4h174.81A8.58036,8.58036,0,0,1,853.96063,224.14526Z" transform="translate(-224.43432 -205.23986)" fill="#ffa500"/><path d="M818.07711,261.567H363.7841a1.807,1.807,0,0,1,0-3.61318h454.293a1.807,1.807,0,0,1,0,3.61318Z" transform="translate(-224.43432 -205.23986)" fill="#cacaca"/><ellipse cx="170.2741" cy="32.66644" rx="10.58751" ry="10.82345" fill="#3f3d56"/><ellipse cx="206.84912" cy="32.66644" rx="10.58751" ry="10.82345" fill="#3f3d56"/><ellipse cx="243.42414" cy="32.66644" rx="10.58751" ry="10.82345" fill="#3f3d56"/><path d="M796.05585,229.76554h-25.981a1.96762,1.96762,0,0,0,0,3.93446h25.981a1.96762,1.96762,0,0,0,0-3.93446Z" transform="translate(-224.43432 -205.23986)" fill="#3f3d56"/><path d="M796.05585,237.14991h-25.981a1.96762,1.96762,0,0,0,0,3.93446h25.981a1.96762,1.96762,0,0,0,0-3.93446Z" transform="translate(-224.43432 -205.23986)" fill="#3f3d56"/><path d="M796.05585,244.52458h-25.981a1.96762,1.96762,0,0,0,0,3.93446h25.981a1.96762,1.96762,0,0,0,0-3.93446Z" transform="translate(-224.43432 -205.23986)" fill="#3f3d56"/><path d="M478.39374,459.52281a6.75989,6.75989,0,0,0-1.348-10.27748l5.54-23.3749-11.7253,4.28376-3.46326,21.54045a6.79654,6.79654,0,0,0,10.9966,7.82817Z" transform="translate(-224.43432 -205.23986)" fill="#9e616a"/><path d="M506.59037,361.56982l-4.70569,12.10034s2.01673,12.10034-1.34448,14.7893-2.01672,2.689-2.01672,4.70569a10.3407,10.3407,0,0,1-4.03345,7.39466c-2.689,2.01672-14.78931,43.02343-14.78931,43.02343H467.60038a37.91153,37.91153,0,0,0,0-9.41137c-.67224-4.70569,2.01672-16.806,3.36121-18.82276s0-4.70569,0-8.73913,2.689-6.05017,2.689-12.77259,8.0669-59.15722,7.39465-65.20739,6.72242-11.4281,6.72242-11.4281H494.49Z" transform="translate(-224.43432 -205.23986)" fill="#e6e6e6"/><polygon points="325.812 471.541 335.127 471.541 339.56 435.611 325.812 435.611 325.812 471.541" fill="#9e616a"/><path d="M547.2064,670.4006l14.88188-.88825,0,6.37605L576.23691,685.66a3.98272,3.98272,0,0,1-2.26311,7.26013H556.25635l-3.05387-6.30689-1.19238,6.30689h-6.68019Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><polygon points="209.063 463.627 217.718 467.072 235.125 435.33 222.352 430.245 209.063 463.627" fill="#9e616a"/><path d="M433.03274,661.815l14.15519,4.6787-2.35814,5.92395,9.53146,14.31147a3.98271,3.98271,0,0,1-4.78775,5.90834l-16.46118-6.55268-.50477-6.98914-3.4404,5.41869-6.20652-2.47062Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><path d="M531.47,569.86773l-15.53311-72.48781L491.68149,577.9201l-38.40724,76.373-.20348.40525L440.90466,648.148c-1.717-31.01074,2.3609-60.07025,17.2757-85.48078l7.06253-69.74591c.21642-2.3832,5.48465-58.33168,22.16624-68.25337l4.8854-11.1396,48.58976-12.00054.17676.19918a37.14682,37.14682,0,0,1,8.90082,18.657L564.481,508.34061l.00819.04915-3.893,61.35983,5.32514,90.52568H546.65307Q528.773,626.63239,531.47,569.86773Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><path d="M577.41451,328.45918l29.45633-10.3052a3.65188,3.65188,0,0,1,2.41185,6.894l-29.45633,10.3052a3.65188,3.65188,0,0,1-2.41185-6.894Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><path d="M609.06454,324.11c.57637,1.99481,3.06279,2.96366,5.07,2.43187a8.23931,8.23931,0,0,0,4.61679-3.9496c1.07866-1.77426,1.81932-3.73954,2.9287-5.49475a15.41178,15.41178,0,0,1,9.30269-6.66964,16.1417,16.1417,0,0,0-9.92325,1.87951,11.97779,11.97779,0,0,1-3.47656,1.6386,30.05478,30.05478,0,0,1-3.96746-.05179,6.123,6.123,0,0,0-4.15807,10.3" transform="translate(-224.43432 -205.23986)" fill="#ffa500"/><path d="M605.21273,327.28279a6.75991,6.75991,0,0,1-8.71879,5.60593l-14.27365,19.322-4.2988-11.7198L592.135,323.9392a6.79654,6.79654,0,0,1,13.07769,3.34359Z" transform="translate(-224.43432 -205.23986)" fill="#9e616a"/><path d="M477.97256,437.12791c-1.30854,0-2.05182-.25662-2.33966-.80686-.42231-.80763.31057-1.86263,1.159-3.08486.59185-.85155,2.32048-2.54485,1.47039-2.64867-12.88965-1.57412-6.70227-81.04373-1.11621-91.54831,1.135-2.13437-.06587-5.40909,1.21223-9.03109,3.49137-9.8919,8.257-12.93206,17.75086-18.98773q1.156-.7375,2.40747-1.54051c1.07928-.69357,1.01917-2.99315.95559-5.42836-.07051-2.70648-.14372-5.50544,1.18216-7.25478l.08631-.11406.1391-.03236c3.207-.74136,13.99323-2.11772,20.38105.01l.08823.03006.06589.0655c1.51739,1.51739,1.65572,4.4566,1.78942,7.29871.10943,2.33349.21308,4.53674,1.07157,5.49387,6.56314,7.31566,14.00672,7.17309,14.08224,7.17155l.36875-.01079.03662.36682c4.60139,8.75816.99861,41.28476,4.197,61.48919,3.24943,20.5267,31,38,7.238,41.10233a.51488.51488,0,0,1,.01618.53329C548.7791,422.88345,482.90464,437.12791,477.97256,437.12791Zm71.56561-17.02877Z" transform="translate(-224.43432 -205.23986)" fill="#e6e6e6"/><path d="M553.19224,377.3476l-12.83149-7.21779c-22.37546-15.50908-27.88706-27.8254-28.576-35.43-.73518-8.114,3.58771-12.55214,3.77227-12.73632l.0998-.07321,11.56688-5.91a11.64147,11.64147,0,0,1,16.23694,6.38858L554.15978,351.794l11.862-8.74905,5.05885-1.99364,4.08207-5.45842,11.21123-6.53886,8.32866,7.496L584.2285,357.49752l-5.81908,1.48194-1.23418,3.17888-.10981.07013Z" transform="translate(-224.43432 -205.23986)" fill="#e6e6e6"/><path d="M530.22585,283.20406a21.84456,21.84456,0,1,1,1.11-18.61c.1.25.19.5.28.76A21.81478,21.81478,0,0,1,530.22585,283.20406Z" transform="translate(-224.43432 -205.23986)" fill="#9e616a"/><path d="M533.36581,265.35408c-.94-2.63-.53-1.26-1.48-3.88a6.53877,6.53877,0,0,1-.27,3.88h-26.01v-15.12c7.62005-3.02,15.07-5.59,19.57,0a15.12065,15.12065,0,0,1,15.12,15.12Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><path d="M524.14584,307.38405c-.02-.28-.05-.57-.09-.85a29.44785,29.44785,0,0,0-1.69-6c-.75-2.11-1.51-4.23-2.27-6.34a18.15165,18.15165,0,0,1-.85,11.52c-4.39-3.42-1.61993-11.24-7.36-11.24-13.8,0-28-11.19-28-25,0-13.80005,5.92-24.12,19.72-24.12,13.81006,0,25.01007,6.31995,25.28,20.12C511.88583,269.47408,527.3558,305.98409,524.14584,307.38405Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><circle cx="261.17592" cy="46.11905" r="16" fill="#2f2e41"/><path d="M490.97548,251.98053c-2.74,3.19-7.03,4.43-10.9,6.09a45.85493,45.85493,0,0,0-26.64,33.5c-1.07,5.97-.93,12.15-2.62,17.97-1.68,5.82-5.84,11.53-11.81,12.54-4.04.69-8.09-.87-11.89-2.41q-3.135-1.26-6.27-2.53,3.27-8.205,6.53-16.41a83.16136,83.16136,0,0,1-12.11,14.17q-11.235-4.53-22.49-9.06006c18.46.07,15.31-17.85,19.44-35.82995,2.27-9.88,21.6-16.57,25.39-25.97a28.75636,28.75636,0,0,1,52.16-2.62C493.55549,242.93054,493.66548,248.83056,490.97548,251.98053Z" transform="translate(-224.43432 -205.23986)" fill="#2f2e41"/><path d="M974.375,694.45281l-748.75.30733a1.19068,1.19068,0,0,1,0-2.38136l748.75-.30734a1.19068,1.19068,0,0,1,0,2.38137Z" transform="translate(-224.43432 -205.23986)" fill="#cacaca"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<span class="hidden"> <%# デフォルトデザイン %>
+  <%= render "shared/back_button" %>
+  <h2>Sign up</h2>
+
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <%= render "users/shared/error_messages", resource: resource %>
+
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %>
+      <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> characters minimum)</em>
+      <% end %><br />
+      <%= f.password_field :password, autocomplete: "new-password" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up" %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+</span>
