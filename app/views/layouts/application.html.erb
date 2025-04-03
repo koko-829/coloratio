@@ -21,8 +21,7 @@
   </head>
 
   <body>
-      <%= render 'layouts/header_pre_login' %>
-      <%#= render 'layouts/header_logged_in' %>
+      <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %> <%# ログインの有無で表示するヘッダーを変更する %>
       <%= yield %>
       <%= render 'layouts/footer' %>
   </body>
