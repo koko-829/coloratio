@@ -60,7 +60,7 @@ gem "tailwindcss-rails"
 gem "tailwindcss-ruby", "3.4.17"
 gem "dartsass-rails"
 gem "devise"
-gem 'devise-i18n'
-gem 'devise-i18n-views'
+gem "devise-i18n"
+gem "devise-i18n-views"
 
 gem "dockerfile-rails", ">= 1.7", group: :development
