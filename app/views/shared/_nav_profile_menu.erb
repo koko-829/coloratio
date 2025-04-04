@@ -88,7 +88,7 @@
     </a>
   </div> <%# 投稿済み一覧と下書きといいねパレットボタン%>
   <div> <%# ログアウトボタン %>
-    <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class:"flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
+    <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトします。よろしいですか？" }, class:"flex w-full items-center justify-between text-red-600 px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
         <svg
           width="16"
