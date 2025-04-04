@@ -22,35 +22,33 @@
     </div>
 
     <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"> <%# フォーム本体枠 %>
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <div class="hidden flex mx-auto items-center justify-center w-full"> <%# アプリロゴ欄 %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="flex mx-auto items-center justify-center w-full"> <%# アプリロゴ欄 %>
           <p class="text-xl xl:text-2xl">Coloratio</p>
         </div>
         <div class="mt-10 flex flex-col items-center"> <%# 「ログイン」以下のフォーム部分 %>
           <h1 class="text-2xl xl:text-3xl font-bold"> <%# 太文字「ログイン」 %>
               ログイン
           </h1>
+
           <div class="w-full flex-1 mt-8"> <%# メアド＆SNSログイン %>
 
             <div class="mx-auto max-w-xs"> <%# メールで登録 %>
 
-              <div> <%# エラー用 %>
-                <%= render "users/shared/error_messages", resource: resource %>
-              </div>
-
-              <span class="hidden"> <%# ユーザーネーム入力欄(今のところ非表示) %>
+              <div class="hidden"> <%# ユーザーネーム入力欄(今のところ非表示) %>
                 <p class="font-bold mb-1">ユーザーネーム</p>
                 <input
                     class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
                     type="email" placeholder="アプリ内で使用するネームを登録してください"
                 />
-              </span>
+              </div>
 
               <div> <%# メールアドレス入力欄 %>
                 <div class="mb-1 mt-5"> <%# メールアドレスラベル用 %>
-                  <label class="font-bold" for="user_email">メールアドレス</label>
+                  <%= f.label :email, "メールアドレス", class: "font-bold" %>
                 </div>
                 <%= f.email_field :email,
+                  autofocus: true,
                   autocomplete: "email",
                   class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", 
                   placeholder: "メールアドレスを入力してください"
@@ -58,12 +56,12 @@
               </div>
 
               <div> <%# パスワード入力欄 %>
-                <div class="mb-1 mt-5"> <%# パスワードラベル用 %>
+                <div class="mt-5"> <%# パスワードラベル用 %>
                   <%= f.label :password, "パスワード", class: "font-bold" %>
                 </div>
-                <div x-data="{ show: false }" class="relative flex items-center mt-1"> <%# パスワード入力欄 %>
+                <div x-data="{ show: false }" class="relative flex items-center mt-1 mb-10"> <%# パスワード入力欄 %>
                   <input
-                      autocomplete="new-password"
+                      autocomplete="current-password"
                       :type="show ? 'text' : 'password'"
                       name="user[password]"
                       id="user_password"
@@ -82,16 +80,18 @@
                 </div>
               </div>
 
-            <div class="flex gap-1 mx-2 mt-8 text-left"> <%# ログイン情報を保存する %>
-              <%= f.check_box :remember_me %>
-              <p class="text-xs">ログイン情報を保持する<p>
-            </div>
+              <% if devise_mapping.rememberable? %> <%# ログイン保存チェックボタン %>
+                <div class="flex gap-1 mx-2 text-left"> <%# ログイン情報を保存する %>
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me, "ログイン情報を保存する", class: "text-xs" %>
+                </div>
+              <% end %>
 
               <div> <%# ログインボタン %>
                 <button
                   type="submit"
                   name="commit"
-                  data-disable-with="Sign up"
+                  data-disable-with="Log in"
                   class="mt-2 tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 -ml-2" viewBox="0 0 24 24" fill="currentColor"> <%# ログインボタンアイコン %>
                     <path d="M4 15H6V20H18V4H6V9H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V15ZM10 11V8L15 12L10 16V13H2V11H10Z"/>
