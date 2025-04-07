@@ -2,8 +2,8 @@ RailsAdmin.config do |config|
   config.asset_source = :sprockets
 
   config.authenticate_with do
-    authenticate_or_request_with_http_basic('Site Administration') do |username, password|
-      username == ENV['RAILS_ADMIN_USER'] && password == ENV['RAILS_ADMIN_PASSWORD']
+    authenticate_or_request_with_http_basic("Site Administration") do |username, password|
+      username == ENV["RAILS_ADMIN_USER"] && password == ENV["RAILS_ADMIN_PASSWORD"]
     end
   end
 
