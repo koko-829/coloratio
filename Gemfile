@@ -58,7 +58,7 @@ group :test do
 end
 
 gem "tailwindcss-rails"
-gem "tailwindcss-ruby", "3.4.17"
+gem "tailwindcss-ruby", "4.1.3"
 gem "dartsass-rails"
 gem "devise"
 gem "devise-i18n"
