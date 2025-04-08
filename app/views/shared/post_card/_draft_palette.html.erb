@@ -2,20 +2,20 @@
 <div class="max-w-[720px]">
   <div class="relative flex w-full max-w-[26rem] h-[29rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
     <div class="w-96 h-56 flex relative mx-4 mt-8 overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
-      <div class="w-[20%] h-full bg-red-500"></div>
-      <div class="w-[30%] h-full bg-green-500"></div>
-      <div class="w-[50%] h-full bg-blue-500"></div>
+      <div class="w-[70%] h-full bg-[#462e2e]"></div>
+      <div class="w-[5%] h-full bg-[#cfaa2a]"></div>
+      <div class="w-[25%] h-full bg-[#ad722f]"></div>
     </div>
     <div class="p-6">
-      <div class="flex items-center justify-between mb-2">
+      <div class="flex items-center justify-between"> <%# タイトルとゴミ箱ボタン用 %>
           <h5 class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
-              palette
+              Draft Palette
           </h5>
           <button type="button" class="mr-3">
-            <svg xmlns="http://www.w3.org/2000/svg"  class="size-8 transition-all duration-500 ease-out hover:scale-110" viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg"  class="size-10 transition-all duration-500 ease-out hover:scale-110" viewBox="0 0 24 24" fill="currentColor"><path d="M17 6H22V8H20V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V8H2V6H7V3C7 2.44772 7.44772 2 8 2H16C16.5523 2 17 2.44772 17 3V6ZM18 8H6V20H18V8ZM9 11H11V17H9V11ZM13 11H15V17H13V11ZM9 4V6H15V4H9Z"></path></svg>
           </button>
       </div>
-      <div class="flex items-center gap-1">
+      <div class="flex items-center gap-1"> <%# ユーザーネーム表示用 %>
         <svg class="size-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
           <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
             <path d="M 45 0 C 20.147 0 0 20.147 0 45 c 0 24.853 20.147 45 45 45 s 45 -20.147 45 -45 C 90 20.147 69.853 0 45 0 z M 45 22.007 c 8.899 0 16.14 7.241 16.14 16.14 c 0 8.9 -7.241 16.14 -16.14 16.14 c -8.9 0 -16.14 -7.24 -16.14 -16.14 C 28.86 29.248 36.1 22.007 45 22.007 z M 45 83.843 c -11.135 0 -21.123 -4.885 -27.957 -12.623 c 3.177 -5.75 8.144 -10.476 14.05 -13.341 c 2.009 -0.974 4.354 -0.958 6.435 0.041 c 2.343 1.126 4.857 1.696 7.473 1.696 c 2.615 0 5.13 -0.571 7.473 -1.696 c 2.083 -1 4.428 -1.015 6.435 -0.041 c 5.906 2.864 10.872 7.591 14.049 13.341 C 66.123 78.957 56.135 83.843 45 83.843 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
@@ -25,8 +25,20 @@
           username1
         </p>
       </div>
+
+      <div class="flex items-center gap-2 mt-2"> <%# 公開日時用 %>
+        <span class="inline-flex items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500"> <%# https://preline.co/docs/badge.html %>
+          <span class="size-1.5 inline-block rounded-full bg-red-800 dark:bg-red-500"></span>
+          下書き
+        </span>
+        <div class="bg-gray-100 text-gray-800 text-xs font-medium flex gap-1 items-center rounded-sm dark:bg-gray-700 dark:text-gray-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM13 12H17V14H11V7H13V12Z"></path></svg>
+          <p>3 days ago<p>
+        </div> <%# 作成日時用 %>
+      </div>
+
     </div>
-    <div class="p-6 pt-3">
+    <div class="px-6">
         <button
             class="block w-full select-none rounded-lg bg-gray-900 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
