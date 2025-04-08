@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   root to: "top#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # postsコントローラーのルーティング
+  resources :posts
+
   # 静的ページ用ルーティング
   resource :static, only: [] do
     collection do
