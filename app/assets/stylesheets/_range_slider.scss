@@ -1,0 +1,46 @@
+.noUi-horizontal {
+  height: 1rem;
+  background-color: #b19962; //スライダーそのものの背景色部分。
+  border: none;
+
+  .noUi-handle {
+    height: 3.5rem;
+    width: 0.5rem;
+    border:1px solid #ccc;
+    background: #fff;
+    top: -1rem;
+    right: -4px; //メモリ部分と微妙にズレてる部分を合わせるため。
+    &:before,
+    &:after { content:none; }
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    &:hover,
+    &:active {
+      transform: scale(1.1);
+      background: #f3f4f6;
+    &:active {
+      border: 1px solid #fb923c; // active時のみ枠線色つける。
+    }
+    }
+  }
+}
+
+// .noUi-touch-area {
+//   padding: 0 10px; // つまみの掴める範囲をもう少し大きくしたいためのコード
+// }
+
+
+.noUi-tooltip {
+  display: none !important;
+  font-size: 1rem;
+
+  .noUi-active & { //親要素にアクティブがついた時だけ.noUi-tooltipをdisplay: blockに指定。
+    display: block !important;
+  }
+}
+
+.noUi-handle-upper,
+.noUi-handle-lower,
+.noUi-draggable {
+  pointer-events: none; //両端のハンドルを動かせないようにするために根本的にユーザー選択を無効化する。
+}
