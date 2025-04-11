@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
     margin: 5, // ハンドル同士の最小距離。5にしたら、少なくとも5%の幅は持てる？
     step: 5,
 
-    tooltips: toolTips, //上で定義したツールチップ用配列を使用。
+    //tooltips: toolTips, //上で定義したツールチップ用配列を使用。
 
     pips: {  // 特定の間隔で値のマーカーを追加
       mode: 'positions',

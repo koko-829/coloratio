@@ -4,11 +4,11 @@
   border: none;
 
   .noUi-handle {
-    height: 3.5rem;
+    height: 2rem;
     width: 0.5rem;
     border:1px solid #ccc;
     background: #fff;
-    top: -1rem;
+    //top: -1rem;
     right: -4px; //メモリ部分と微妙にズレてる部分を合わせるため。
     &:before,
     &:after { content:none; }
