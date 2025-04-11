@@ -1,11 +1,13 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<div class= "min-h-fit bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
-  <div class="mx-20 my-5 md:mx-0">
+<div class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
+  <div class="mx-20 my-5">
     <div class="max-w-fit mb-6"> <%# 戻るボタン設置 %>
     <%= render 'shared/back_button' %>
     </div>
+
     <div class="mb-1 text-xl font-bold">パレット作成 </div>
-    <div class="px-2 sm:p-5  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
+
+    <div class="px-2  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
       <div class="flex flex-col p-6"> <%# 左側欄 %>
         <div class="flex justify-between items-end">
           <div class="text-xl font-bold">プレビュー</div> <%# プレビュー見出し %>
@@ -34,8 +36,8 @@
             </div>
           </div>
         </div>
-        <div class="w-[24rem] h-56 md:w-[28rem] md:h-72 mt-3 flex justify-center items-center overflow-hidden text-white shadow-xl rounded-xl bg-blue-gray-500 bg-clip-border border-2">
-          <div class="w-80 h-48 md:w-96 md:h-56 flex overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
+        <div class="w-[24rem] h-56 lg:w-[28rem] lg:h-72 mt-3 flex justify-center items-center overflow-hidden text-white shadow-xl rounded-xl bg-blue-gray-500 bg-clip-border border-2">
+          <div class="w-80 h-48 lg:w-96 lg:h-56 flex overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
             <div class="w-[60%] h-full bg-[#fcf7b0]"></div>
             <div class="w-[5%] h-full bg-[#e8380d]"></div>
             <div class="w-[45%] h-full bg-[#004c83]"></div>
@@ -76,9 +78,13 @@
       </div>
     </div>
 
-    <%= render "shared/edit_palette/palette_base" %>
-    <%= render "shared/edit_palette/color_ratio" %>
+
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-2 mt-10"> <%# 画面サイズ大のときは、「ベース・比率選択」を左に、「色選択」を右側に配置したい。 %>
+      <div class="flex flex-col gap-5"> <%# 左側部分。「ベース・比率選択」は縦に並べたい。 %>
+        <%= render "shared/edit_palette/palette_base" %> <%# ベース選択テンプレ %>
+        <%#= render "shared/edit_palette/color_ratio" %> <%# 配色比率テンプレ %>
+      </div>
+      <%= render "shared/edit_palette/color_selector" %> <%# 色選択テンプレ %>
+    </div>
   </div>
 </div>
-
-
