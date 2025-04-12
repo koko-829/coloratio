@@ -8,11 +8,16 @@ window.defaultAddColors = ['#808080', '#ff0000', '#ff00ff', '#00ff00', '#ffff00'
 // 色の数管理用の変数を定義。(JSでの要素数取得メソッドはlengthのみ)
 window.colorCount = window.colors.length;
 // つまみの数を使用する色の数で動的管理するための変数を定義。(3色使用の場合は4つ摘みが必要になる。)
-let handleCount = colorCount + 1;
+window.handleCount = colorCount + 1;
 // ツールチップを実装するための定義。下のnoUiSlider.createのtooltips: toolTipsで参照する。
-const toolTips = [false]; //1つ目のつまみはツールチップを表示する必要がないからfalseにしておく。
-for (let i=1; i < handleCount; i++) {
-  toolTips.push({ to: function(value) { return value + '%';}});
+window.toolTipsSetting = [false];
+
+window.toolTipsUpdate = function(){
+  window.toolTipsSetting = [false];
+  for (let i=1; i < window.colors.length + 1; i++) {
+  toolTipsSetting.push({ to: function(value) { return value + '%';}});
+  }
+  return toolTipsSetting;
 }
 
 // デフォルトのつまみ設置場所を定義しておく。{色の数: noUiのスタート位置}の形。
@@ -46,6 +51,13 @@ window.createSlider = function(){
     },
     margin: 5, // ハンドル同士の最小距離。5にしたら、少なくとも5%の幅は持てる？
     step: 5,
+    //tooltips: toolTipsUpdate(),
+    pips: {
+      mode: 'positions',
+      values: [0, 25, 50, 75, 100],
+      //values: [0,10,20,30,40,50,60,70,80,90,100],
+      density: 5,
+    }
   });
 }
 
