@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', function() {
   window.colors = JSON.parse(document.getElementById('tag-info').dataset.json);
   // 選択中の色番号を管理するための変数を定義
   window.currentBaseNum = 0;
+  // ベース追加時に登録されるデフォルトの色管理用
+  window.defaultAddColors = ['#808080', '#ff0000', '#ff00ff', '#00ff00', '#ffff00', '#0000ff', '#00ffff', '#008080', '#000080', '#808000', '#008000', '#800080', '#800000', '#c0c0c0', '#000000'];
   // 色の数管理用の変数を定義。(JSでの要素数取得メソッドはlengthのみ)
   const colorCount = window.colors.length;
 
