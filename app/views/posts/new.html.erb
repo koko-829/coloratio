@@ -40,9 +40,9 @@
         </div>
         <div class="w-[24rem] h-56 lg:w-[28rem] lg:h-72 mt-3 flex justify-center items-center overflow-hidden text-white shadow-xl rounded-xl bg-blue-gray-500 bg-clip-border border-2">
           <div class="w-80 h-48 lg:w-96 lg:h-56 flex overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
-            <div class="w-[60%] h-full bg-[#fcf7b0]"></div>
-            <div class="w-[5%] h-full bg-[#e8380d]"></div>
-            <div class="w-[45%] h-full bg-[#004c83]"></div>
+            <% (1..5).each do |i| %>
+              <div id="preview-<%= i %>" x-show="setting >= <%= i %>" class="w-[20%] h-full"></div>
+            <% end%>
           </div>
         </div>
       </div>

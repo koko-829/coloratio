@@ -47,4 +47,5 @@ iroSetButton.addEventListener('click',() => {
   selectorToBase();
   window.colors[window.currentBaseNum - 1] = colorPicker.color.hexString;
   window.changeConnectColors();
+  window.previewUpdate(); //プレビューの色を変更
 });

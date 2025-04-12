@@ -63,12 +63,22 @@ window.changeConnectColors = function(){
 // バーの色をセット。
 changeConnectColors();
 
+// プレビューのパレットリアルタイム反映用。
+window.previewUpdate = function(){
+  for(let i = 0; i < window.colors.length; i++){ //colorsの要素数分繰り返す。
+    document.getElementById(`preview-${i+1}`).style.background = window.colors[i];
+  }
+}
+
 window.updateRatio = function(){
   // スライドの値が変更されるたびに実行される処理を定義(各色の差をリアルタイムで反映させる。)
   window.slider.noUiSlider.on('update', function(values) {
     for(let i = 1; i < values.length; i++){ //今あるvalue(つまみの)の要素分繰り返し処理
-      document.getElementById(`ratio-${i}`).textContent = `${values[i] - values[i - 1]}%`;
+      const ratio = values[i] - values[i - 1];
+      document.getElementById(`ratio-${i}`).textContent = `${ratio}%`;
+      document.getElementById(`preview-${i}`).style.width = `${ratio}%`;
     }
+    previewUpdate(); //プレビューの色を変更する。
   });
 }
 
