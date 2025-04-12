@@ -1,8 +1,8 @@
 const colorPicker = new iro.ColorPicker("#picker", {
   // Set the size of the color picker
   width: 250,
-  // Set the initial color to pure red
-  color: "#00909b",
+  // デフォルト色リストを格納したグローバル変数から
+  color: window.defaultAddColors[Math.floor( Math.random() * window.defaultAddColors.length)],
   padding: 2, //明度バーの太さ、パディングを実装できる。
   wheelLightness: false, //明度バーを下げた時に色相ホイールの色は変わらない状態になる。
   borderWidth: 2,
@@ -24,6 +24,12 @@ function iroSetBase(selectedIro){
   document.getElementById('selected-color').textContent = selectedIro;
 }
 
+// 選択画面の変更をベースにも反映する用の定義。
+function selectorToBase(){
+  document.getElementById("svg-base").style.fill = colorPicker.color.hexString;
+  document.getElementById("square-base").style.background = colorPicker.color.hexString;
+  document.getElementById("based-hex").textContent = colorPicker.color.hexString;
+}
 // ページ更新時にIro.jsの初期色をプレビューに反映したい。
 selectedIroChange(colorPicker.color.hexString);
 
@@ -38,5 +44,8 @@ const iroSetButton = document.getElementById('iro-set-button');
 // ボタンを押した時にクリックイベントを補足して処理を実行。
 iroSetButton.addEventListener('click',() => {
   iroSetBase(colorPicker.color.hexString); //ベースに現在のIroカラーをセットするための関数呼び出し。
-  selectedIroChange("#ffffff"); //ベースにセットしたときにIroプレビューはリセットして白に戻したい。。
+  selectorToBase();
+  window.colors[window.currentBaseNum - 1] = colorPicker.color.hexString;
+  window.changeConnectColors();
+  window.previewUpdate(); //プレビューの色を変更
 });

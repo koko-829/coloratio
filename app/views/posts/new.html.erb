@@ -1,5 +1,7 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<div class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
+<% @colors = ['#303967', '#e60012', '#ffe200'] %>
+<div id="tag-info" data-json=<%= @colors.to_json %>></div>
+<div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
     <div class="max-w-fit mb-6"> <%# 戻るボタン設置 %>
     <%= render 'shared/back_button' %>
@@ -38,9 +40,9 @@
         </div>
         <div class="w-[24rem] h-56 lg:w-[28rem] lg:h-72 mt-3 flex justify-center items-center overflow-hidden text-white shadow-xl rounded-xl bg-blue-gray-500 bg-clip-border border-2">
           <div class="w-80 h-48 lg:w-96 lg:h-56 flex overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
-            <div class="w-[60%] h-full bg-[#fcf7b0]"></div>
-            <div class="w-[5%] h-full bg-[#e8380d]"></div>
-            <div class="w-[45%] h-full bg-[#004c83]"></div>
+            <% (1..5).each do |i| %>
+              <div id="preview-<%= i %>" x-show="setting >= <%= i %>" class="w-[20%] h-full"></div>
+            <% end%>
           </div>
         </div>
       </div>
@@ -88,3 +90,64 @@
     </div>
   </div>
 </div>
+
+<script>
+// 選択ボタンが押された時に色選択画面にベースの色を反映させるための関数。
+// Alpine.jsで呼び出すにはhtmlのscript内で書かないといけない？？
+function baseToSelector(basedNum){
+  window.currentBaseNum = basedNum; // 他の処理でも選択中のベース番号を扱うための上書き処理。
+  document.getElementById('selected-base').style.background = window.colors[basedNum - 1];
+  document.getElementById('selected-mini-base').style.background = window.colors[basedNum - 1];
+  document.getElementById('selected-color').textContent = window.colors[basedNum - 1];
+}
+
+// 削除ボタンが押された時のパレット再整列処理
+function deleteColors(baseNum){
+  window.colors.splice(baseNum - 1, 1);
+  for (let i = 1; i <= window.colors.length; i++){
+    resetLists = document.getElementsByClassName(`reset-base-${i}`);
+    resetLists[0].style.fill = window.colors[i - 1];
+    resetLists[1].style.background = window.colors[i - 1];
+    resetLists[2].textContent = window.colors[i - 1];
+  }
+}
+
+// 追加ボタンが押された時のパレット再生列処理。
+function addColors(){
+  // 候補色セットのループ処理抜け出し用変数。
+  let setSituation = false;
+  while( !setSituation ) { // setSituationがfalseの間は繰り返す。
+    // 追加候補のdefaultAddColorsから先頭の値を一つ取り出す。
+    const candidateColor = window.defaultAddColors.shift();
+    if (!window.colors.includes(candidateColor)){ // colorsにcandidateColorが含まれてない時だけ処理実行。
+      // 色を配列に一つ追加する。
+      window.colors.push(candidateColor);
+      setSituation = true;
+    }
+    // colorsに追加できたら、候補として取り出してた色をdefaultAddColorsの最後に戻す。
+    window.defaultAddColors.push(candidateColor);
+  }
+  // 配列の要素数を取得する。
+  const addIndex = window.colors.length;
+  // 配列の最後の値をベースの最後に反映させる。
+  resetLists = document.getElementsByClassName(`reset-base-${addIndex}`); //3色目が追加されたなら、それをreset-base-3に格納する。
+    resetLists[0].style.fill = window.colors[addIndex - 1];
+    resetLists[1].style.background = window.colors[addIndex - 1];
+    resetLists[2].textContent = window.colors[addIndex - 1];
+}
+
+// スライダーを最新に変更する関数。(色が変更される処理のときに実行する。)
+function recreateSlider(){
+  // 現在のスライダーを削除
+  window.slider.noUiSlider.destroy();
+  // 新しいスライダーを作成
+  createSlider();
+  // つまみ間に色をつけたい。
+  connect = slider.querySelectorAll('.noUi-connect');
+  for (var i = 0; i < connect.length; i++) {
+      connect[i].style.background = window.colors[i]; // backgroundのスタイルを直接指定する。
+  }
+  window.updateRatio();
+}
+
+</script>
