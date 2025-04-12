@@ -1,8 +1,8 @@
 const colorPicker = new iro.ColorPicker("#picker", {
   // Set the size of the color picker
   width: 250,
-  // Set the initial color to pure red
-  color: "#00909b",
+  // デフォルト色リストを格納したグローバル変数から
+  color: window.defaultAddColors[Math.floor( Math.random() * window.defaultAddColors.length)],
   padding: 2, //明度バーの太さ、パディングを実装できる。
   wheelLightness: false, //明度バーを下げた時に色相ホイールの色は変わらない状態になる。
   borderWidth: 2,

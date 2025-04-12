@@ -62,3 +62,14 @@ window.changeConnectColors = function(){
 
 // バーの色をセット。
 changeConnectColors();
+
+window.updateRatio = function(){
+  // スライドの値が変更されるたびに実行される処理を定義(各色の差をリアルタイムで反映させる。)
+  window.slider.noUiSlider.on('update', function(values) {
+    for(let i = 1; i < values.length; i++){ //今あるvalue(つまみの)の要素分繰り返し処理
+      document.getElementById(`ratio-${i}`).textContent = `${values[i] - values[i - 1]}%`;
+    }
+  });
+}
+
+updateRatio();
