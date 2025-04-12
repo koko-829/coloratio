@@ -114,12 +114,19 @@ function deleteColors(baseNum){
 
 // 追加ボタンが押された時のパレット再生列処理。
 function addColors(){
-  // 追加候補のdefaultAddColorsから先頭の値を一つ取り出す。
-  const candidateColor = window.defaultAddColors.shift();
-  // 色を配列に一つ追加する。
-  window.colors.push(candidateColor);
-  // colorsに追加できたら、候補として取り出してた色をdefaultAddColorsの最後に戻す。
-  defaultAddColors.push(candidateColor);
+  // 候補色セットのループ処理抜け出し用変数。
+  let setSituation = false;
+  while( !setSituation ) { // setSituationがfalseの間は繰り返す。
+    // 追加候補のdefaultAddColorsから先頭の値を一つ取り出す。
+    const candidateColor = window.defaultAddColors.shift();
+    if (!window.colors.includes(candidateColor)){ // colorsにcandidateColorが含まれてない時だけ処理実行。
+      // 色を配列に一つ追加する。
+      window.colors.push(candidateColor);
+      setSituation = true;
+    }
+    // colorsに追加できたら、候補として取り出してた色をdefaultAddColorsの最後に戻す。
+    window.defaultAddColors.push(candidateColor);
+  }
   // 配列の要素数を取得する。
   const addIndex = window.colors.length;
   // 配列の最後の値をベースの最後に反映させる。
