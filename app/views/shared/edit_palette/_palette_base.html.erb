@@ -30,7 +30,7 @@
           </div>
           <div x-show="setting < <%= i %>" class="w-20"><%# 未選択コンポーネント用 %>
             <%# color1表示 %><p class="ml-1 text-base opacity-30">color<%= i %></p>
-            <div @click="setting++; addColors(); choice = setting; baseToSelector(setting)" class="group/base-set relative w-full h-24 shadow-xl rounded-xl border-2 border-dotted hover:bg-gray-100">
+            <div @click="setting++; addColors(); choice = setting; baseToSelector(setting)" :class="{ 'pointer-events-none opacity-30': <%= i %> != setting + 1 }" class="group/base-set relative w-full h-24 shadow-xl rounded-xl border-2 border-dotted hover:bg-gray-100">
               <button class="size-8 group-hover/base-set:scale-110 transition-all duration-500 ease-out absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                 <%# addボタン %><svg class="fill-gray-600 active:translate-y-0.5 active:scale-95" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M11 11V7H13V11H17V13H13V17H11V13H7V11H11ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20Z"></path></svg>
               </button>
