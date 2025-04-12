@@ -1,9 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   const slider = document.getElementById('ratio-slider');
   // 色情報の配列を格納する変数を定義。
-  const classes = ['#150c15', '#9a1117', '#917c50', '#bbe3f5', '#da6a38'];
+  window.colors = JSON.parse(document.getElementById('tag-info').dataset.json);
+  // 選択中の色番号を管理するための変数を定義
+  window.currentBaseNum = 0;
   // 色の数管理用の変数を定義。(JSでの要素数取得メソッドはlengthのみ)
-  const colorCount = classes.length;
+  const colorCount = window.colors.length;
 
   // つまみの数を使用する色の数で動的管理するための変数を定義。(3色使用の場合は4つ摘みが必要になる。)
   const handleCount = colorCount + 1;
@@ -55,6 +57,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var connect = slider.querySelectorAll('.noUi-connect');
 
   for (var i = 0; i < connect.length; i++) {
-      connect[i].style.background = classes[i]; // backgroundのスタイルを直接指定する。
+      connect[i].style.background = window.colors[i]; // backgroundのスタイルを直接指定する。
   }
 });

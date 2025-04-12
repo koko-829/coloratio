@@ -1,5 +1,7 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<div class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
+<% @colors = ['#150c15', '#9a1117', '#917c50', '#bbe3f5', '#da6a38'] %>
+<div id="tag-info" data-json=<%= @colors.to_json %>></div>
+<div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
     <div class="max-w-fit mb-6"> <%# 戻るボタン設置 %>
     <%= render 'shared/back_button' %>
@@ -88,3 +90,26 @@
     </div>
   </div>
 </div>
+
+<script>
+// 選択ボタンが押された時に色選択画面にベースの色を反映させるための関数。
+// Alpine.jsで呼び出すにはhtmlのscript内で書かないといけない？？
+function baseToSelector(basedNum){
+  window.currentBaseNum = basedNum; // 他の処理でも選択中のベース番号を扱うための上書き処理。
+  document.getElementById('selected-base').style.background = window.colors[basedNum - 1];
+  document.getElementById('selected-mini-base').style.background = window.colors[basedNum - 1];
+  document.getElementById('selected-color').textContent = window.colors[basedNum - 1];
+}
+
+// 削除ボタンが押された時のパレット再整列処理
+function deleteColors(baseNum){
+  window.colors.splice(baseNum - 1, 1);
+  console.log(window.colors);
+  for (let i = 1; i <= window.colors.length; i++){
+    resetLists = document.getElementsByClassName(`reset-base-${i}`);
+    resetLists[0].style.fill = window.colors[i - 1];
+    resetLists[1].style.background = window.colors[i - 1];
+    resetLists[2].textContent = window.colors[i - 1];
+  }
+}
+</script>
