@@ -46,4 +46,5 @@ iroSetButton.addEventListener('click',() => {
   iroSetBase(colorPicker.color.hexString); //ベースに現在のIroカラーをセットするための関数呼び出し。
   selectorToBase();
   window.colors[window.currentBaseNum - 1] = colorPicker.color.hexString;
+  window.changeConnectColors();
 });

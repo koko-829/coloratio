@@ -1,5 +1,5 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<% @colors = ['#150c15', '#9a1117', '#917c50', '#bbe3f5', '#da6a38'] %>
+<% @colors = ['#303967', '#e60012', '#ffe200'] %>
 <div id="tag-info" data-json=<%= @colors.to_json %>></div>
 <div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
@@ -135,4 +135,22 @@ function addColors(){
     resetLists[1].style.background = window.colors[addIndex - 1];
     resetLists[2].textContent = window.colors[addIndex - 1];
 }
+
+// スライダーを最新に変更する関数。(色が変更される処理のときに実行する。)
+function recreateSlider(){
+  console.log('recreateSliderが呼び出されました')
+  // 現在のスライダーを削除
+  window.slider.noUiSlider.destroy();
+  console.log('スライドを削除しました。再作成に移ります');
+  // 新しいスライダーを作成
+  createSlider();
+  console.log('スライドの再作成に成功しました');
+  // つまみ間に色をつけたい。
+  connect = slider.querySelectorAll('.noUi-connect');
+  for (var i = 0; i < connect.length; i++) {
+      connect[i].style.background = window.colors[i]; // backgroundのスタイルを直接指定する。
+  }
+  console.log('色付けに成功しました');
+}
+
 </script>
