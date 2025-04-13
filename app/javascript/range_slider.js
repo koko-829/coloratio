@@ -77,6 +77,7 @@ changeConnectColors();
 
 // プレビューのパレットリアルタイム反映用。
 window.previewUpdate = function(){
+  document.getElementById('post_color').value = window.colors;
   for(let i = 0; i < window.colors.length; i++){ //colorsの要素数分繰り返す。
     document.getElementById(`preview-${i+1}`).style.background = window.colors[i];
   }
@@ -85,11 +86,19 @@ window.previewUpdate = function(){
 window.updateRatio = function(){
   // スライドの値が変更されるたびに実行される処理を定義(各色の差をリアルタイムで反映させる。)
   window.slider.noUiSlider.on('update', function(values) {
+    let inputRatio = ''; // フォームへの入力値格納用の変数。
     for(let i = 1; i < values.length; i++){ //今あるvalue(つまみの)の要素分繰り返し処理
       const ratio = values[i] - values[i - 1];
+      if (i === 1) {
+        inputRatio = ratio; // 求めたratioが1色目の時は単純にinputRatioに代入。
+      } else {
+        inputRatio = inputRatio + `,${ratio}`; // 2色目以降は,区切りで入力したいから+ `,${ratio}`の形。
+      }
+      document.getElementById('post_ratio').value = `${ratio}`;
       document.getElementById(`ratio-${i}`).textContent = `${ratio}%`;
       document.getElementById(`preview-${i}`).style.width = `${ratio}%`;
     }
+    document.getElementById('post_ratio').value = inputRatio; // 繰り返し処理変更後にフォームにinputRatioの値を入力。
     previewUpdate(); //プレビューの色を変更する。
   });
 }

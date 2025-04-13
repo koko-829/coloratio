@@ -1,5 +1,5 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<% @colors = ['#303967', '#e60012', '#ffe200'] %>
+<% @colors = @color_candidate.sample %>
 <div id="tag-info" data-json=<%= @colors.to_json %>></div>
 <div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
@@ -9,76 +9,95 @@
 
     <div class="mb-1 text-xl font-bold">パレット作成 </div>
 
-    <div class="px-2  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
-      <div class="flex flex-col p-6"> <%# 左側欄 %>
-        <div class="flex justify-between items-end">
-          <div class="text-xl font-bold">プレビュー</div> <%# プレビュー見出し %>
-          <div x-data="{modalIsOpen: false}" class="mr-3"> <%# パレットを削除する %>
-            <button x-on:click="modalIsOpen = true" type="button" class="flex items-center">
-              <p class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">パレットを削除する</p>
-            </button>
-            <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex items-end justify-center bg-black/20 p-4 pb-8 backdrop-blur-md sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
-                <!-- Modal Dialog -->
-                <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-sm border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-                    <!-- Dialog Header -->
-                    <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
-                        <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">パレット削除</h3>
-                        <button x-on:click="modalIsOpen = false" aria-label="close modal">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <!-- Dialog Body -->
-                    <div class="px-4 py-8">
-                        <p>開発予定。準備中です。</p>
-                    </div>
-                    <!-- Dialog Footer -->
-                </div>
+    <%= form_with model: @post, data: { turbo_confirm: 'パレットを保存して公開します。よろしいですか？'} do |f| %>
+      <div class="px-2  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
+        <div class="flex flex-col p-6"> <%# 左側欄 %>
+          <div class="flex justify-between items-end">
+            <div class="text-xl font-bold">プレビュー</div> <%# プレビュー見出し %>
+            <div x-data="{modalIsOpen: false}" class="mr-3"> <%# パレットを削除する %>
+              <button x-on:click="modalIsOpen = true" type="button" class="flex items-center">
+                <p class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">パレットを削除する</p>
+              </button>
+              <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex items-end justify-center bg-black/20 p-4 pb-8 backdrop-blur-md sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                  <!-- Modal Dialog -->
+                  <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-sm border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+                      <!-- Dialog Header -->
+                      <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
+                          <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">パレット削除</h3>
+                          <button x-on:click="modalIsOpen = false" aria-label="close modal">
+                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                              </svg>
+                          </button>
+                      </div>
+                      <!-- Dialog Body -->
+                      <div class="px-4 py-8">
+                          <p>開発予定。準備中です。</p>
+                      </div>
+                      <!-- Dialog Footer -->
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="w-[24rem] h-56 lg:w-[28rem] lg:h-72 mt-3 flex justify-center items-center overflow-hidden text-white shadow-xl rounded-xl bg-blue-gray-500 bg-clip-border border-2">
+            <div class="w-80 h-48 lg:w-96 lg:h-56 flex overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
+              <% (1..5).each do |i| %>
+                <div id="preview-<%= i %>" x-show="setting >= <%= i %>" class="w-[20%] h-full"></div>
+              <% end%>
             </div>
           </div>
         </div>
-        <div class="w-[24rem] h-56 lg:w-[28rem] lg:h-72 mt-3 flex justify-center items-center overflow-hidden text-white shadow-xl rounded-xl bg-blue-gray-500 bg-clip-border border-2">
-          <div class="w-80 h-48 lg:w-96 lg:h-56 flex overflow-hidden text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
-            <% (1..5).each do |i| %>
-              <div id="preview-<%= i %>" x-show="setting >= <%= i %>" class="w-[20%] h-full"></div>
-            <% end%>
+
+        <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
+          <div x-data="{status : 'draft'}" class="mx-auto max-w-xs">
+            <div class="mt-3"> <%# タイトル %>
+              <%= f.label :title, "タイトル", class:"font-bold" %>
+              <div class="flex gap-1 items-center justify-center">
+                <%= f.text_field :title, placeholder:"パレット名を入力して下さい", value:"untitled", class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+              </div>
+            </div>
+
+            <div class="pointer-events-none"> <%# 比率(非表示) %>
+              <div class="flex gap-1 items-center justify-center">
+                <%= f.hidden_field :ratio, placeholder:"比率入力箇所", class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+              </div>
+            </div>
+
+            <div class="pointer-events-none"> <%# 色情報(非表示) %>
+              <div class="flex gap-1 items-center justify-center">
+                <%= f.hidden_field :color, placeholder:"色情報入力箇所", class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+              </div>
+            </div>
+
+            <div class="pointer-events-none"> <%# 記事状態管理(非表示) %>
+              <div class="flex gap-1 items-center justify-center">
+                <%= f.hidden_field :status, value:"draft", placeholder:"下書き保存or公開", class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+              </div>
+            </div>
+
+            <div class="pointer-events-none mt-3"> <%# 概要欄(任意) %>
+              <p class="font-bold">概要欄(任意)</p>
+              <div class="flex gap-1 items-center justify-center">
+                <textarea disabled rows="3" placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"></textarea>
+              </div>
+            </div>
+
+            <div class="mt-3"> <%# タグ(任意) %>
+              <p class="font-bold">タグ</p>
+              <div class="flex gap-1 items-center justify-center">
+                <input disabled placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"/>
+              </div>
+            </div>
+
+            <div class="mt-5 flex gap-2 justify-end">
+              <%= f.submit "下書き保存", id:"draft_button",  class:"py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %> <%# https://flowbite.com/docs/components/buttons/ %>
+              <%= f.submit "公開する", id:"published_button", class:"focus:outline-none text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-lg text-sm px-5 py-2.5" %>
+            </div>
+
           </div>
         </div>
       </div>
-
-      <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
-        <div class="mx-auto max-w-xs">
-          <div class="mt-3"> <%# タイトル %>
-            <p class="font-bold">タイトル</p>
-            <div class="flex gap-1 items-center justify-center">
-              <input placeholder="non-title" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-              </input>
-            </div>
-          </div>
-
-          <div class="mt-3"> <%# 概要欄(任意) %>
-            <p class="font-bold">概要欄(任意)</p>
-            <div class="flex gap-1 items-center justify-center">
-              <textarea disabled rows="3" placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"></textarea>
-            </div>
-          </div>
-
-          <div class="mt-3"> <%# タグ(任意) %>
-            <p class="font-bold">タグ</p>
-            <div class="flex gap-1 items-center justify-center">
-              <input disabled placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"/>
-            </div>
-          </div>
-
-          <div class="mt-5 flex gap-2 justify-end">
-            <button type="button" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">下書き保存</button> <%# https://flowbite.com/docs/components/buttons/ %>
-            <button type="button" class="focus:outline-none text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-lg text-sm px-5 py-2.5">公開する</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
+    <% end %>
 
 
     <div class="flex flex-col lg:flex-row justify-center items-center gap-2 mt-10"> <%# 画面サイズ大のときは、「ベース・比率選択」を左に、「色選択」を右側に配置したい。 %>
@@ -92,6 +111,17 @@
 </div>
 
 <script>
+// 「公開する」ボタンが押された時だけpublishedに変更する
+const publishedButton = document.getElementById('published_button');
+const draftButton = document.getElementById('draft_button');
+publishedButton.addEventListener('click', () => {
+  document.getElementById('post_status').value = 'published';
+});
+draftButton.addEventListener('click', () => {
+  document.getElementById('post_status').value = 'draft';
+});
+
+
 // 選択ボタンが押された時に色選択画面にベースの色を反映させるための関数。
 // Alpine.jsで呼び出すにはhtmlのscript内で書かないといけない？？
 function baseToSelector(basedNum){
