@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_27_041815) do
+ActiveRecord::Schema[7.2].define(version: 2025_04_13_175600) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,11 +52,12 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_27_041815) do
     t.string "title"
     t.text "description"
     t.integer "color_count"
-    t.integer "status"
-    t.integer "views_count"
+    t.integer "status", default: 0, null: false
+    t.integer "views_count", default: 0
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "ratio", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
