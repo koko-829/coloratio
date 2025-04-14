@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations"
   }
 
-  root to: "top#index"
+  root to: "posts#index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # postsコントローラーのルーティング
