@@ -1,0 +1,5 @@
+<% if @user.id == current_user.id %>
+  <%= render 'my_page' %>
+<% else %>
+  <%= render 'user_page' %>
+<% end %>

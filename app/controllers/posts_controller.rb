@@ -29,9 +29,9 @@ class PostsController < ApplicationController
     @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
     if @post.save
       if @post.status == "draft"
-        redirect_to post_path(@post), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
+        redirect_to user_path(current_user), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
       else
-        redirect_to post_path(@post), notice: "パレットを公開しました。"
+        redirect_to user_path(current_user), notice: "パレットを公開しました。"
       end
     else
     render :new
@@ -53,9 +53,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     if @post.user_id == current_user.id
       if @post.destroy
-        redirect_to root_path, notice: "削除が完了しました"
+        redirect_to user_path(current_user), notice: "削除が完了しました"
       else
-        redirect_to root_path, alert: "削除に失敗しました"
+        redirect_to user_path(current_user), alert: "削除に失敗しました"
       end
     end
   end

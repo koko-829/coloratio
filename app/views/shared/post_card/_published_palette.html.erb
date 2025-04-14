@@ -1,12 +1,11 @@
 <%# 他ユーザーパレット用カードコンポーネント %>
-<div class="max-w-[720px]">
-  <div class="relative flex w-full max-w-[26rem] h-[29rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
-    <div class="w-96 h-56 flex justify-center items-center mx-4 mt-8 text-white shadow-xl rounded-md bg-blue-gray-500 bg-clip-border shadow-blue-gray-500/40">
+  <div class="transform scale-[0.9] md:scale-[0.8] lg:scale-[0.7] flex w-[26rem] h-[29rem] flex-col gap-2 rounded-xl border border-solid bg-gray-50 text-gray-700 shadow-2xl">
+    <div class="w-[24rem] h-1/2 flex m-auto text-white shadow-2xl rounded-md border-2 border-solid">
       <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
         <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
       <% end %>
     </div>
-    <div class="p-6">
+    <div class="px-6 mt-3">
       <div class="flex items-center justify-between"> <%# タイトルといいね用 %>
         <h5 class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
           <%= post.title %>
@@ -38,7 +37,7 @@
         </div> <%# 作成日時用 %>
       </div>
     </div>
-    <div class="px-6">
+    <div class="px-6 my-3">
       <div class="flex items-center justify-end"><%# 詳細ページ矢印用 %>
         <div class="">
           <svg xmlns="http://www.w3.org/2000/svg" class="opacity-80 transition-all duration-500 ease-out hover:scale-125 hover:opacity-100 size-10 mr-4" viewBox="0 0 24 24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
@@ -46,4 +45,3 @@
       </div>
     </div>
   </div>
-</div>

@@ -1,6 +1,6 @@
 <div class="my-16">
   <div class="text-3xl mb-10 ml-10 lg:ml-24">投稿一覧</div>
-  <div class="flex flex-wrap justify-center gap-5 mx-5">
+  <div class="flex flex-wrap justify-center gap-3 mx-5">
     <% @posts.each do |post|  %> <%# @postsはすでにpublishedのものだけ入ってる状態 %>
       <%# ログインしてる状態ならそれが自分の投稿かを確認、trueなら自投稿用のviewでパレット表示 %>
       <% if user_signed_in? && post.user_id == current_user.id %>
