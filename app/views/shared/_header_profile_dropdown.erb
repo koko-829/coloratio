@@ -48,7 +48,7 @@
               <p class="text-sm font-semibold text-dark dark:text-white">
                 <%= current_user.name.presence || "user-#{current_user.id}" %>
               </p>
-              <%= link_to "マイページ", "#", class: "text-sm text-body-color underline text-gray-300" %>
+              <%= link_to "マイページ", user_path(current_user), class: "text-sm text-body-color underline text-gray-400 hover:text-extrabold hover:text-black active:text-gray-700" %>
             </div>
           </div>
           <div>

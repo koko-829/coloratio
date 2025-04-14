@@ -1,5 +1,5 @@
 <% post = @post %>
-<div class="my-10 lg:mx-20 gap-5 flex flex-wrap justify-center">
+<div class="my-10 lg:mx-20 gap-1 flex flex-wrap justify-center">
   <% if post.user_id == current_user.id && post.status == "draft"  %>
     <%= render "shared/post_card/draft_palette", post: post %>
   <% elsif post.user_id == current_user.id && post.status == "published" %>
