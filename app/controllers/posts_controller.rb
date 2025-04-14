@@ -1,4 +1,8 @@
 class PostsController < ApplicationController
+  def index
+    @posts = Post.where(status: "published")
+  end
+
   def new
     @color_candidate = [
       [ "#303967", "#e60012", "#ffe200" ],
@@ -24,9 +28,13 @@ class PostsController < ApplicationController
     # input_colors = params[:post][:color].split(',') # colorの入力値を配列の形でinput_colorsに格納する。
     @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
     if @post.save
-      redirect_to post_path(@post) # 作成が成功したら詳細ページへ移動する。
+      if @post.status == "draft"
+        redirect_to post_path(@post), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
+      else
+        redirect_to post_path(@post), notice: "パレットを公開しました。"
+      end
     else
-      render :new
+    render :new
     end
   end
 
@@ -39,10 +47,17 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
-    @colors = @post.colors
   end
 
   def destroy
+    @post = Post.find(params[:id])
+    if @post.user_id == current_user.id
+      if @post.destroy
+        redirect_to root_path, notice: "削除が完了しました"
+      else
+        redirect_to root_path, alert: "削除に失敗しました"
+      end
+    end
   end
 
   private

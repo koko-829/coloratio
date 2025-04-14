@@ -1,7 +1,10 @@
+<% post = @post %>
 <div class="my-10 lg:mx-20 gap-5 flex flex-wrap justify-center">
-<% if @post.status == "draft" %>
-  <%= render "shared/post_card/draft_palette" %>
-<% elsif @post.status == "published" %>
-  <%= render "shared/post_card/my_published_palette" %>
-<% end %>
+  <% if post.user_id == current_user.id && post.status == "draft"  %>
+    <%= render "shared/post_card/draft_palette", post: post %>
+  <% elsif post.user_id == current_user.id && post.status == "published" %>
+    <%= render "shared/post_card/my_published_palette", post: post %>
+  <% elsif post.user_id != current_user.id && post.status == "published" %>
+    <%= render "shared/post_card/published_palette", post: post %>
+  <% end %>
 </div>
