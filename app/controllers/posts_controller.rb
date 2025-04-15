@@ -1,6 +1,10 @@
 class PostsController < ApplicationController
   def index
-    @posts = Post.where(status: "published")
+    unless user_signed_in?
+      redirect_to top_index_path
+      return
+    end
+    @pagy, @posts = pagy(Post.where(status: "published"))
   end
 
   def new
