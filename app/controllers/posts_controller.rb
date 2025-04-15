@@ -32,13 +32,19 @@ class PostsController < ApplicationController
     # input_colors = params[:post][:color].split(',') # colorの入力値を配列の形でinput_colorsに格納する。
     @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
     if @post.save
+
+      # タイトルが空の場合、デフォルト設定を施したい。
+      if @post.title.blank?
+        @post.update(title: "untitled-#{@post.id}")
+      end
+
       if @post.status == "draft"
         redirect_to user_path(current_user), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
       else
         redirect_to user_path(current_user), notice: "パレットを公開しました。"
       end
     else
-    render :new
+      render :new
     end
   end
 
