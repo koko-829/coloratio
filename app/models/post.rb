@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   has_many :tag_posts
   has_many :tags, through: :tag_posts
   enum status: { draft: 0, published: 1 }
+  validates :title, length: { maximum: 16 }
 
   def create_colors(input_colors)
     input_colors.each do |color|
