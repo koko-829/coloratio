@@ -13,16 +13,6 @@ document.addEventListener("turbo:load", function() {
   // ツールチップを実装するための定義。下のnoUiSlider.createのtooltips: toolTipsで参照する。
   window.toolTipsSetting = [false];
 
-  // // 保存ボタンが押された時に下書き保存と公開を切り替えるための記載。
-  // const publishedButton = document.getElementById('published_button');
-  // const draftButton = document.getElementById('draft_button');
-  // publishedButton.addEventListener('click', () => {
-  //   document.getElementById('post_status').value = 'published';
-  // });
-  // draftButton.addEventListener('click', () => {
-  //   document.getElementById('post_status').value = 'draft';
-  // });
-
   window.toolTipsUpdate = function(){
     window.toolTipsSetting = [false];
     for (let i=1; i < window.colors.length + 1; i++) {
