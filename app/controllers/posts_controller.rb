@@ -8,20 +8,20 @@ class PostsController < ApplicationController
   end
 
   def new
-    @color_candidate = [
-      [ "#303967", "#e60012", "#ffe200" ],
-      [ "#34485e", "#3c7d9b", "#5b9f8a" ],
-      [ "#dcc58c", "#db3a09", "#478657" ],
-      [ "#4f85a6", "#79a7d9", "#d8dbd9" ],
-      [ "#7c2e1e", "#b19962", "#2a4743" ],
-      [ "#eae4d1", "#6c8650", "#a87570" ],
-      [ "#b32425", "#fffde1", "#d6b845", "#150c15" ],
-      [ "#150c15", "#9a1117", "#917c50", "#bbe3f5", "#da6a38" ],
-      [ "#8b272b", "#e5006a" ],
-      [ "#462e2e", "#cfaa2a" ],
-      [ "#fff5e0", "#1a0b08" ],
-      [ "#494544", "#c41a30", "#bac8c6" ]
-    ]
+    # @color_candidate = [
+    #   [ "#303967", "#e60012", "#ffe200" ],
+    #   [ "#34485e", "#3c7d9b", "#5b9f8a" ],
+    #   [ "#dcc58c", "#db3a09", "#478657" ],
+    #   [ "#4f85a6", "#79a7d9", "#d8dbd9" ],
+    #   [ "#7c2e1e", "#b19962", "#2a4743" ],
+    #   [ "#eae4d1", "#6c8650", "#a87570" ],
+    #   [ "#b32425", "#fffde1", "#d6b845", "#150c15" ],
+    #   [ "#150c15", "#9a1117", "#917c50", "#bbe3f5", "#da6a38" ],
+    #   [ "#8b272b", "#e5006a" ],
+    #   [ "#462e2e", "#cfaa2a" ],
+    #   [ "#fff5e0", "#1a0b08" ],
+    #   [ "#494544", "#c41a30", "#bac8c6" ]
+    # ]
     @post = Post.new
   end
 
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
         redirect_to user_path(current_user), notice: "パレットを公開しました。"
       end
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
