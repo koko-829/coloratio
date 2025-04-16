@@ -23,6 +23,6 @@ module Myapp
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    # config.i18n.default_locale = :ja
+    config.i18n.default_locale = :ja
   end
 end
