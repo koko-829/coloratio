@@ -60,7 +60,7 @@
                                 <div class="m-5 px-4 py-8 w-96">
                                   <div> <%# ネーム入力欄%>
                                     <%= f.label :name, "ユーザーネーム", class:"font-bold mb-1" %>
-                                    <%= f.text_field :name, "x-model": "userName", placeholder: "アプリ内で使用するネームを登録してください", class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+                                    <%= f.text_field :name, "x-model": "userName", placeholder: "アプリ内で使用するネームを登録してください", class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", maxlength: 20 %>
                                   </div>
                                 </div>
                                 <!-- Dialog Footer -->

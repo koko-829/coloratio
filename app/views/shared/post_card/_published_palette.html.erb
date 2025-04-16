@@ -7,9 +7,9 @@
     </div>
     <div class="px-6 mt-3">
       <div class="flex items-center justify-between"> <%# タイトルといいね用 %>
-        <h5 class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+        <div class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
           <%= post.title %>
-        </h5> <%# いいねボタン %>
+        </div>
 
         <div class="flex flex-row items-end"> <%# いいねボタン %>
           <button x-data="{ open: false }" @click="open = !open" type="button" class="hover:scale-110 transition-all duration-500 ease-out active:translate-y-1">
@@ -39,9 +39,9 @@
     </div>
     <div class="px-6 my-3">
       <div class="flex items-center justify-end"><%# 詳細ページ矢印用 %>
-        <div class="">
+        <%= link_to post_path(post), class:"" do %>
           <svg xmlns="http://www.w3.org/2000/svg" class="opacity-80 transition-all duration-500 ease-out hover:scale-125 hover:opacity-100 size-10 mr-4" viewBox="0 0 24 24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
-        </div>
+        <% end %>
       </div>
     </div>
   </div>
