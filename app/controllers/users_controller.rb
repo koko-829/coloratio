@@ -7,10 +7,10 @@ class UsersController < ApplicationController
       return
     end
 
-    published_posts = Post.where(user_id: @user.id, status: "published")
+    published_posts = Post.where(user_id: @user.id, status: "published").order(created_at: :desc)
     @my_page_published_posts = published_posts.limit(5)
     @published_count = published_posts.count
-    draft_posts = Post.where(user_id: @user.id, status: "draft")
+    draft_posts = Post.where(user_id: @user.id, status: "draft").order(created_at: :desc)
     @my_page_draft_posts = draft_posts.limit(5)
     @draft_count = draft_posts.count
   end

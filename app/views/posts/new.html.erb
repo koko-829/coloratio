@@ -1,5 +1,5 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<% @colors = [ "#303967", "#e60012", "#ffe200" ] %>
+<% @colors = @default_palette %>
 <div id="tag-info" data-json=<%= @colors.to_json %>></div>
 <div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
