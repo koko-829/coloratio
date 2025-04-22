@@ -14,7 +14,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
-        resource.update(name: "default-name-#{resource.id}")
+        resource.update(name: params[:user][:name].presence || "default-name-#{resource.id}")
       end
     end
   end
