@@ -106,18 +106,27 @@
                   </div>
                 </div>
 
-                <div> <%# みなし同意テキスト %>
+                <!-- みなし同意テキスト用 -->
+                <div x-data="{privacyModalIsOpen: false, termsOfServiceModalIsOpen: false}">
                   <p class="mt-8 mb-1 text-xs text-gray-400 text-left">
-                      アカウントを作成すると、
-                      <a href="#" class="text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
-                        利用規約
-                      </a>
-                      および
-                      <a href="#" class="text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
-                        プライバシーポリシー
-                      </a>
-                      に同意したとみなされます。
+                    アカウントを作成すると、
+
+                    <!-- 利用規約テキスト -->
+                    <span x-on:click="termsOfServiceModalIsOpen = true" class="cursor-pointer text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
+                      利用規約
+                    </span>
+
+                    および
+
+                    <!-- プライバシーポリシーテキスト -->
+                    <span x-on:click="privacyModalIsOpen = true" class="cursor-pointer text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
+                      プライバシーポリシー
+                    </span>
+
+                    に同意したとみなされます。
                   </p>
+                  <%= render 'shared/terms_of_service_modal' %>
+                  <%= render 'shared/privacy_policy_modal' %>
                 </div>
 
                 <div> <%# 同意して登録ボタン %>
