@@ -1,0 +1,7 @@
+<%# 作成後にlike-button-id要素をunlikeのパーシャルに変更できたらOK %>
+<%= turbo_stream.replace "like-button-#{@post.id}" do %>
+  <%= render 'posts/unlike', post: @post %>
+<% end %>
+<%= turbo_stream.update "like-count-#{@post.id}" do %>
+  <%= @post.likes.count %>
+<% end %>
