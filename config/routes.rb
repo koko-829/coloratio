@@ -13,7 +13,10 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # postsコントローラーのルーティング
-  resources :posts
+  resources :posts do
+    # 同じユーザーが1つの投稿に何度もいいねすることはできないようにしたいので、resourceでネスト。
+    resource :likes, only: %i[create destroy]
+  end
 
   # 静的ページ用ルーティング
   resource :static, only: [] do

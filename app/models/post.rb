@@ -1,6 +1,6 @@
 class Post < ApplicationRecord
   belongs_to :user
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :users, through: :likes
   has_many :color_posts, dependent: :destroy
   has_many :colors, through: :color_posts
@@ -18,5 +18,9 @@ class Post < ApplicationRecord
       # @post.create_colors(input_colors)という感じでコントローラーで格納されるから、このcolorsは@post.colorsのことを指してる。
       colors << new_color
     end
+  end
+
+  def liked_by?(user)
+    likes.exists?(user_id: user.id)
   end
 end
