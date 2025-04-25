@@ -1,4 +1,8 @@
 class PostsController < ApplicationController
+  rescue_from ActiveRecord::RecordNotFound do |exception|
+    redirect_to :root, alert: "無効なURLです"
+  end
+
   def index
     unless user_signed_in?
       redirect_to top_index_path
@@ -52,32 +56,41 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     # 最新のカラー情報を取得して編集画面に渡したい。
     @palette_colors = @post.colors
+    if @post.user == current_user && @post.status == "draft"
+      render :edit
+    else
+      redirect_to posts_path, alert: "編集権限のないパレットです。"
+    end
   end
 
   def update
     # 更新する@postを取得
     @post = Post.find(params[:id])
-    # @post.idを持つpost_colorsテーブルのデータを全て削除。
-    ColorPost.where(post_id: @post.id).delete_all
-    # 新しい色を登録する
-    input_colors = color_params[:color].split(",")
-    @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
-    # フォームの入力内容を関連するカラムにセットする。
-    @post.assign_attributes(post_params)
-    # color_countも新しい値をセットしておく。
-    @post.color_count = params[:post][:ratio].split(",").length
-    # タイトルが未記入だった場合は、デフォルトのタイトルをセットしておく。
-    @post.title = "untitled-#{@post.id}" if @post.title.blank?
-    # 全てのセットが終わってから、最後にまとめてsaveメソッド使うことでデータに反映させる。
-    if @post.save
-      if @post.status == "draft"
-        redirect_to user_path(current_user), notice: "下書き情報を更新しました。" # 作成が成功したら詳細ページへ移動する。
+    ActiveRecord::Base.transaction do
+      # @post.idを持つpost_colorsテーブルのデータを全て削除。
+      ColorPost.where(post_id: @post.id).delete_all
+      # 新しい色を登録する
+      input_colors = color_params[:color].split(",")
+      @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
+      # フォームの入力内容を関連するカラムにセットする。
+      @post.assign_attributes(post_params)
+      # color_countも新しい値をセットしておく。
+      @post.color_count = params[:post][:ratio].split(",").length
+      # タイトルが未記入だった場合は、デフォルトのタイトルをセットしておく。
+      @post.title = "untitled-#{@post.id}" if @post.title.blank?
+      # 全てのセットが終わってから、最後にまとめてsaveメソッド使うことでデータに反映させる。
+      if @post.save
+        if @post.status == "draft"
+          redirect_to user_path(current_user), notice: "下書き情報を更新しました。" # 作成が成功したら詳細ページへ移動する。
+        else
+          redirect_to post_path(@post), notice: "パレットを公開しました。"
+        end
       else
-        redirect_to post_path(@post), notice: "パレットを公開しました。"
+        raise ActiveRecord::Rollback #saveまでうまくいかなかった時はロールバックを発生させる。
       end
-    else
-      render :edit, status: :unprocessable_entity
     end
+  rescue ActiveRecord::Rollback #ロールバックが起こった時の処理。
+    render :edit, status: :unprocessable_entity
   end
 
   def show
