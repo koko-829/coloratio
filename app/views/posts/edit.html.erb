@@ -1,10 +1,10 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<% @colors = @default_palette %>
+<% @colors = @palette_colors.map(&:hex_code) %>
 <div id="tag-info" data-json=<%= @colors.to_json %>></div>
 <div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
 
-    <div class="mb-1 text-xl font-bold">パレット作成 </div>
+    <div class="mb-1 text-xl font-bold">パレット編集 </div>
 
     <%= form_with model: @post, local: true do |f| %>
       <div class="px-2  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
@@ -73,7 +73,7 @@
             <%= link_to "※変更を保存せず終了する", root_path, data: { turbo_method: :get, turbo_confirm: "直近に保存した内容からの変更を反映せずに終了し、トップページに戻ります。よろしいですか?"}, class:"text-xs text-center text-blue-500 hover:text-blue-600 active:text-blue-500 underline" %>
 
             <div class="mt-5 flex gap-2 justify-end">
-              <%= f.button "下書き保存", type: 'button', onclick: "statusDraft(); confirmAndSubmit(this);", id:"draft_button", data: { turbo_confirm: 'パレットを下書き保存します'},  class:"py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
+              <%= f.button "下書きを更新", type: 'button', onclick: "statusDraft(); confirmAndSubmit(this);", id:"draft_button", data: { turbo_confirm: 'パレットを下書き保存します'},  class:"py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>
               <%= f.button "公開する", type: 'button', onclick: "statusPublished(); confirmAndSubmit(this);", id:"published_button", data: { turbo_confirm: 'パレットを保存して公開します。よろしいですか？'}, class:"focus:outline-none text-white bg-orange-400 hover:bg-orange-500 font-medium rounded-lg text-sm px-5 py-2.5" %>
 
             </div>
