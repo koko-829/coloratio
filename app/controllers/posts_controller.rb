@@ -56,6 +56,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     # 最新のカラー情報を取得して編集画面に渡したい。
     @palette_colors = @post.colors
+    # noUiSlider用のratio変数を用意する。
+    ratio = @post.ratio.split(",").map(&:to_i)
+    @slider_range = create_slider_range(ratio)
     if @post.user == current_user && @post.status == "draft"
       render :edit
     else
@@ -86,10 +89,10 @@ class PostsController < ApplicationController
           redirect_to post_path(@post), notice: "パレットを公開しました。"
         end
       else
-        raise ActiveRecord::Rollback #saveまでうまくいかなかった時はロールバックを発生させる。
+        raise ActiveRecord::Rollback # saveまでうまくいかなかった時はロールバックを発生させる。
       end
     end
-  rescue ActiveRecord::Rollback #ロールバックが起こった時の処理。
+  rescue ActiveRecord::Rollback # ロールバックが起こった時の処理。
     render :edit, status: :unprocessable_entity
   end
 
@@ -117,5 +120,16 @@ class PostsController < ApplicationController
 
   def color_params # color関連のストロングパラメータ
     params.require(:post).permit(:color)
+  end
+
+  # edit時にnoUiSlider用の比率をjsに渡すための@slider_range定義用メソッド
+  def create_slider_range(ratio)
+    slider_range = [ 0 ]
+    sum = 0
+    ratio.each do |i|
+      sum += i
+      slider_range << sum
+    end
+    slider_range
   end
 end

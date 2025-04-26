@@ -1,7 +1,12 @@
 document.addEventListener("turbo:load", function() {
   window.slider = document.getElementById('ratio-slider');
   // 色情報の配列を格納する変数を定義。
-  window.colors = JSON.parse(document.getElementById('tag-info').dataset.json);
+  const colorTagInfo = document.getElementById('color-tag-info');
+  window.colors = colorTagInfo ? JSON.parse(colorTagInfo.dataset.json) : null
+
+  // edit用に既存の比率を格納するためのpreEditRatio変数も定義(editページでない場合はnullで取得する。)
+  const ratioTagInfo = document.getElementById('ratio-tag-info');
+  window.preEditRatio = ratioTagInfo ? JSON.parse(ratioTagInfo.dataset.json) : null;
   // 選択中の色番号を管理するための変数を定義
   window.currentBaseNum = 0;
   // ベース追加時に登録されるデフォルトの色管理用
@@ -40,10 +45,10 @@ document.addEventListener("turbo:load", function() {
   };
 
   // スライド作成用の関数を作成しておく(グローバル)
-  window.createSlider = function(){
+  window.createSlider = function(ratio = null){
     window.colorCount = window.colors.length;
     noUiSlider.create(window.slider, {
-      start: defaultRanges[colorCount], // ハッシュのインデックスは色の数で指定することに注意(handleCountではない。)
+      start: ratio || defaultRanges[colorCount], // 引数が指定されてた場合は、その引数を元につまみの位置を設置する。ハッシュのインデックスは色の数で指定することに注意(handleCountではない。)
       behaviour: 'drag-all', //スライドをまとめてドラックできるオプション。両端をcssで動かせないようにすることで、完全に固定するための逆説的な使い方試してみた…
       connect: defaultConnects[colorCount], // 上で定義したdefaultConnectsでconnect状態を数に対応させる。
       range: {
@@ -62,8 +67,8 @@ document.addEventListener("turbo:load", function() {
     });
   }
 
-  //スライダー作成の呼び出し(ページ更新時用)
-  createSlider();
+  //スライダー作成の呼び出し(ページ更新時用。editの場合は既存の面積比率を取得する。)
+  createSlider(preEditRatio);
 
   // 色選択でベースが変更された時は、connectの色だけ変更する
   window.changeConnectColors = function(){
