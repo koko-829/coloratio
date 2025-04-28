@@ -1,0 +1,57 @@
+<!-- ログイン用のAlpine.jsスクリプト -->
+<script>
+
+  const emailPattern = /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/; //emailの正規表現パターン定義。
+  document.addEventListener('alpine:init', () => {
+    console.log("Alpineが読み込まれました");
+    Alpine.data('formValidation', () => ({
+      email: '', //メアド
+      password: '', // パスワード
+      errors: {}, //エラーメッセージ
+      status_submit: false,
+
+      // email関連のバリデーション
+      validateEmailBlur() { //emailのバリデーション確認用
+        if (!this.email) {
+          this.errors.email = "※emailは必須です。" // emailのエラーを表示する。
+        } else if (!emailPattern.test(this.email)) {
+          this.errors.email = "※メールアドレスの形式で入力してください"
+        } else {
+          delete this.errors.email; // emailのエラーを消す
+        }
+      },
+
+      validateEmailInput() { // エラーが出た後はリアルタイムでエラー削除のチェック行う。
+        if (this.email) {
+          delete this.errors.email;
+        }
+      },
+
+      // password関連のバリデーション
+      validatePasswordBlur() { // passwordのバリデーション確認用。
+        //console.log('validatePasswordBlurが実行されます');
+        if (!this.password) { // 入力値が空の時
+          this.errors.password = "※passwordは必須です。"
+        } else {
+          delete this.errors.password;
+        }
+      },
+
+      validatePasswordInput() { // エラー出た際にリアルタイムでエラー削除チェックするための処理。
+        if (this.password) {
+          delete this.errors.password;
+        }
+      },
+
+      validateSubmit() { //送信ボタン活性化のためのチェック確認。ちょっと処理重くなりそうやけど、入力内容ごとにすべてのエラー要因を検索して大丈夫な場合活性化させる感じ。
+        if (this.password && this.email && emailPattern.test(this.email) ) {
+          this.status_submit = true;
+        } else {
+          this.status_submit = false;
+        }
+      },
+
+    }));
+
+  });
+</script>
