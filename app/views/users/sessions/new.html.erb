@@ -1,4 +1,4 @@
-<!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
+<!-- ログイン画面！！source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
 <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="relative max-w-screen-xl m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
 
@@ -30,7 +30,7 @@
                 <!-- メアド入力欄 -->
                 <div class="flex flex-col gap-1">
                   <%= f.label :email, "メールアドレス", class: "font-bold" %>
-                  <%= f.email_field :email,
+                  <%= f.text_field :email,
                     "x-model": "email",
                     "x-on:blur": "validateEmailBlur();",
                     "x-on:change": "validateEmailChange();",
@@ -54,6 +54,7 @@
                       placeholder: "パスワードを入力してください",
                       ":type": "show ? 'text' : 'password'",
                       "x-model": "password",
+                      "x-on:blur": "validatePassword();",
                       "x-on:input": "validatePassword(); validateSubmit();"
                     %>
                     <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
@@ -85,7 +86,7 @@
                   name="commit"
                   data-disable-with="Log in"
                   class="mt-2 tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
-                  :disabled ="!status_submit"
+                  :disabled="!status_submit"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 -ml-2" viewBox="0 0 24 24" fill="currentColor"> <%# ログインボタンアイコン %>
                     <path d="M4 15H6V20H18V4H6V9H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V15ZM10 11V8L15 12L10 16V13H2V11H10Z"/>
@@ -124,6 +125,7 @@
         </div>
       <% end %>
     </div>
+
   </div>
 </div>
 
