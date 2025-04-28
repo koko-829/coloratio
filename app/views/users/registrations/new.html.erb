@@ -1,34 +1,38 @@
-<!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-
-
+<!-- 新規登録画面！！source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
 <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="relative max-w-screen-xl m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
-    <span class="absolute top-[-35px] left-0"> <%# 戻るボタン設置 %>
+
+    <!-- 戻るボタン設置 -->
+    <span class="absolute top-[-35px] left-0">
       <%= render 'shared/back_button' %>
     </span>
-    <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12"> <%# フォーム本体枠 %>
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-        <div class="flex mx-auto items-center justify-center w-full"> <%# アプリロゴ欄 %>
-          <%#<p class="text-xl xl:text-2xl">Coloratio</p> %>
-        </div>
-        <div class="mt-10 flex flex-col items-center"> <%# 「会員登録」以下のフォーム部分 %>
-            <h1 class="text-2xl xl:text-3xl font-bold"> <%# 太文字「会員登録」 %>
-                会員登録
-            </h1>
 
-            <div class="w-full flex-1 mt-8"> <%# メアド登録＆SNSログインボタン %>
+    <!-- 左側フォーム本体枠 -->
+    <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+        <div class="mt-10 flex flex-col items-center">
 
-              <div class="mx-auto max-w-xs"> <%# メールで登録 %>
+          <!-- 「会員登録」大文字 -->
+          <h1 class="text-2xl xl:text-3xl font-bold">会員登録</h1>
 
-                <div> <%# エラー用 %>
-                  <%= render "users/shared/error_messages", resource: resource %>
-                </div>
 
-                <div x-data="{ name: '' }" class="mt-10"> <%# ハンドルネーム入力欄 %>
-                  <div class="mb-1 flex gap-1 items-center"> <%# ハンドルネームラベル用 %>
+          <!-- メアド＆SNSログイン -->
+          <div class="w-full flex-1 mt-8">
+
+            <!-- 一般的なメアド会員登録セクション -->
+            <div x-data="signUpValidation" class="mx-auto max-w-xs">
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+
+                <!-- エラー表示用 -->
+                <%= render "users/shared/error_messages", resource: resource %>
+
+                <!-- ハンドルネーム入力欄 -->
+                <div class="flex flex-col gap-1">
+                  <!-- ネームラベルと?マーク -->
+                  <div class="flex gap-1 items-center">
                     <%= f.label :name, "ハンドルネーム(任意)", class:"font-bold" %>
 
-                    <div class="relative w-fit"> <%# ハンドルネームツールチップ %>
+                    <%# ハンドルネームツールチップ %>
+                    <div class="relative w-fit">
                         <svg class="size-5 fill-gray-400 peer cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 15V17H13V15H11ZM13 13.3551C14.4457 12.9248 15.5 11.5855 15.5 10C15.5 8.067 13.933 6.5 12 6.5C10.302 6.5 8.88637 7.70919 8.56731 9.31346L10.5288 9.70577C10.6656 9.01823 11.2723 8.5 12 8.5C12.8284 8.5 13.5 9.17157 13.5 10C13.5 10.8284 12.8284 11.5 12 11.5C11.4477 11.5 11 11.9477 11 12.5V14H13V13.3551Z"></path></svg>
                         <div id="tooltipExample" class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-80 flex-col gap-1 rounded-sm bg-neutral-950 p-2.5 text-xs text-neutral-300 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 dark:bg-white dark:text-neutral-600" role="tooltip">
                             <span class="text-sm font-medium text-white dark:text-neutral-900">ハンドルネームについて</span>
@@ -39,64 +43,71 @@
                             </ul>
                         </div>
                     </div>
-
                   </div>
 
-                  <input x-model="name" class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" maxlength="15" size="15" type="text" name="user[name]" id="user_name" autoComplete='off'>
+                  <!-- フォーム入力欄 -->
+                  <%= f.text_field :name, 'x-model': 'name', class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", maxlength: 15, size: 15, autocomplete: 'off' %>
 
+                  <!-- 「◯文字/15文字以内」 -->
                   <span class="mt-1 text-xs text-gray-500" x-text="`(${name.length}文字/15文字以内)`"></span>
                 </div>
 
-                <div class="mb-1 mt-5"> <%# メールアドレス入力欄(device対応済み) %>
-                  <div class="mb-1"> <%# メールアドレスラベル用 %>
+                <!-- メールアドレス入力欄 -->
+                <div class="flex flex-col gap-1 my-5">
+                  <!-- メアドラベル -->
+                  <div class="flex gap-1">
                     <label class="font-bold" for="user_email">メールアドレス</label>
+                    <div class="text-red-500">*</div>
                   </div>
-                  <%= f.email_field :email,
+                  <!-- 入力フォーム -->
+                  <%= f.text_field :email,
                     autocomplete: "email",
                     class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", 
-                    placeholder: "例：sample@gmail.com"
+                    placeholder: "例：sample@gmail.com",
+                    "x-model": "email",
+                    "x-on:blur": "validateEmailBlur();",
+                    "x-on:change": "validateEmailChange();",
+                    "x-on:input": "validateEmailInput(); validateSubmit();"
                   %>
+                  <!-- メールのエラー表示 -->
+                  <div x-show="errors.email" x-text="errors.email" class="text-red-600 text-xs"></div> <%# メールのエラー表示 %>
                 </div>
 
+                <!-- パスワード入力欄 -->
+                <div class="flex flex-col gap-1 my-5">
 
-                <div> <%# パスワード入力欄 %>
-                  <div class="mb-1 mt-5"> <%# パスワードラベル用 %>
+                  <!-- パスワードラベル -->
+                  <div class="flex gap-1">
                     <%= f.label :password, "パスワード", class: "font-bold" %>
+                    <div class="text-red-500">*</div>
+                    <%# パスワードツールチップ %>
+                    <div class="relative w-fit">
+                        <svg class="size-5 fill-gray-400 peer cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM11 15V17H13V15H11ZM13 13.3551C14.4457 12.9248 15.5 11.5855 15.5 10C15.5 8.067 13.933 6.5 12 6.5C10.302 6.5 8.88637 7.70919 8.56731 9.31346L10.5288 9.70577C10.6656 9.01823 11.2723 8.5 12 8.5C12.8284 8.5 13.5 9.17157 13.5 10C13.5 10.8284 12.8284 11.5 12 11.5C11.4477 11.5 11 11.9477 11 12.5V14H13V13.3551Z"></path></svg>
+                        <div id="tooltipExample" class="pointer-events-none absolute bottom-full mb-2 left-1/2 -translate-x-1/2 z-10 flex w-80 flex-col gap-1 rounded-sm bg-neutral-950 p-2.5 text-xs text-neutral-300 opacity-0 transition-all ease-out peer-hover:opacity-100 peer-focus:opacity-100 dark:bg-white dark:text-neutral-600" role="tooltip">
+                            <span class="text-sm font-medium text-white dark:text-neutral-900">パスワードについて</span>
+                            <ul>
+                              <li>・英字(小文字・大文字)、数字、記号(!#$%&@)が使用できます。</li>
+                              <li>・6文字以上で入力してください。</li>
+                              <li>・半角英字・数字がそれぞれ1文字以上必要です。</li>
+                            </ul>
+                        </div>
+                    </div>
                   </div>
-                  <div x-data="{ show: false }" class="relative flex items-center mt-1">
-                    <input
-                        autocomplete="new-password"
-                        :type="show ? 'text' : 'password'"
-                        name="user[password]"
-                        id="user_password"
-                        class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
-                        placeholder="6文字以上・半角英数字記号"
-                    />
-                    <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
-                        <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                        </svg>
-                        <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                        </svg>
-                    </button>
-                  </div>
-                </div>
 
-                <div> <%# パスワード(確認用)入力欄 %>
-                  <div class="mb-1 mt-5"> <%# ラベル %>
-                    <%= f.label :password_confirmation, "パスワード(確認用)", class: "font-bold" %>
-                  </div>
-                  <div x-data="{ show: false }" class="relative flex items-center mt-1">
-                    <input
-                        autocomplete="off"
-                        :type="show ? 'text' : 'password'"
-                        name="user[password_confirmation]"
-                        id="user_password_confirmation"
-                        class="w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" 
-                        placeholder="再度入力してください"
-                    />
+                  <!-- 入力フォーム -->
+                  <div x-data="{ show: false }" class="relative flex items-center">
+                    <%= f.text_field :password,
+                      autocomplete: "current-password",
+                      class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white",
+                      placeholder: "半角英数字・6文字以上",
+                      maxlength: 128,
+                      ":type": "show ? 'text' : 'password'",
+                      "x-model": "password",
+                      "x-on:blur": "validatePasswordComplexity(); validatePasswordMinLength(); validatePasswordEmpty();",
+                      "x-on:change": "validatePasswordComplexity(); validatePasswordMinLength(); validatePasswordEmpty();",
+                      "x-on:input": "validatePasswordEmpty(); validatePasswordRemove(); validateSubmit();"
+                    %>
+                    <!-- パスワード表示非表示アイコン -->
                     <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
                         <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
@@ -107,6 +118,9 @@
                         </svg>
                     </button>
                   </div>
+
+                  <!-- パスワードバリデーションエラー -->
+                  <div x-show="errors.password" x-text="errors.password" class="text-red-500 text-xs"></div>
                 </div>
 
                 <!-- みなし同意テキスト用 -->
@@ -132,62 +146,65 @@
                   <%= render 'shared/privacy_policy_modal' %>
                 </div>
 
-                <div> <%# 同意して登録ボタン %>
-                  <button
-                    type="submit"
-                    name="commit"
-                    data-disable-with="Sign up"
-                    class="tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
-                    <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                      <circle cx="8.5" cy="7" r="4" />
-                      <path d="M20 8v6M23 11h-6" />
-                    </svg>
-                    <span class="ml-3">
-                      同意して登録
-                    </span>
-                  </button>
-                </div>
-
-              </div>
-
-              <div class="mt-6 my-1 text-center"> <%# 既にアカウントをお持ちの方はこちら %>
-                <%= link_to "既にアカウントをお持ちの方はこちら", new_user_session_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
-              </div>
-
-              <div class="my-12 border-b text-center"> <%# 区切り線「または」 %>
-                  <div
-                      class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                      または
-                  </div>
-              </div>
-
-              <div class="flex flex-col items-center"> <%# SNSログイン %>
-
-                <button type="button" class="w-full max-w-xs shadow py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800">
-                  <%= image_tag "sns_login/google_icon", class:"size-5" %>
-                  Googleで登録
-                </button> <%# Googleログイン %>
-
-                <button type="button" class="w-full max-w-xs shadow py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 mt-2">
-                  <%= image_tag "sns_login/github_icon", class:"size-5" %>
-                  GitHubで登録
-                </button> <%# GitHubでログイン %>
-
-                <button type="button" class="w-full max-w-xs shadow py-3 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-2xs hover:bg-gray-50 focus:outline-hidden focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-800 dark:focus:bg-neutral-800 mt-2">
-                  <%= image_tag "sns_login/twitter_icon", class:"size-5 fill-current" %>
-                  X(旧Twitter)で登録
-                </button> <%# X(旧Twitter)で登録 %>
-              </div>
+                <!-- 「同意して登録」ボタン -->
+                <button
+                  @blur="validateSubmit"
+                  type="submit"
+                  name="commit"
+                  data-disable-with="Sign up"
+                  class="tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+                  :disabled="!status_submit"
+                >
+                  <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                    <circle cx="8.5" cy="7" r="4" />
+                    <path d="M20 8v6M23 11h-6" />
+                  </svg>
+                  <span class="ml-3">同意して登録</span>
+                </button>
+              <% end %>
             </div>
-        </div>
-      <% end %>
+
+            <%# 既にアカウントをお持ちの方はこちら %>
+            <div class="mt-6 my-1 text-center">
+              <%= link_to "既にアカウントをお持ちの方はこちら", new_user_session_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+            </div>
+
+            <!-- 「または」 -->
+            <div class="my-12 border-b text-center">
+                <div
+                    class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                    または
+                </div>
+            </div>
+
+            <!-- SNSログインセクション -->
+            <div class="flex flex-col items-center">
+              <%= render "/users/sns_login" %>
+            </div>
+
+          </div>
+      </div>
     </div>
-    <div class="flex-1 bg-yellow-50 text-center hidden lg:flex"> <%# 右側画像枠 %>
+
+    <!-- 右側イラスト枠 -->
+    <div class="flex-1 bg-yellow-50 text-center hidden lg:flex">
       <div class="m-4 w-full flex justify-center items-center">
         <%= image_tag "signup-image", class:"size-96" %>
       </div>
     </div>
+
   </div>
 </div>
+
+
+
+
+
+
+
+
+<!-- Alpineスクリプト読み込み用 -->
+  <%= render "signup_alpine" %>
+<!-- End -->
