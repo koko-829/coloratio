@@ -40,49 +40,7 @@
 
 <%
 =begin
-%>
-【重要】下記の8行目からのdivを部分テンプレートとして使用。これを使用するエリアの親divにx-data="{modalIsOpen: false}を定義すること。
-<div x-data="{modalIsOpen: false}">
-    <button x-on:click="modalIsOpen = true" type="button" class="whitespace-nowrap rounded-sm bg-black border border-black dark:border-white px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:bg-white dark:text-black dark:focus-visible:outline-white">Open Modal</button>
-    <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 backdrop-blur-md items-center" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle"> <%# こっちはモーダルのぼかし背景の位置 %>
-        <!-- Modal Dialog -->
-        <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="flex w-[450px] flex-col overflow-hidden rounded-sm border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300"> <%# おそらくここのスタイルがモーダル自体の位置を決めてる %>
-            <!-- Dialog Delete Icon -->
-            <div class="flex items-center justify-end bg-neutral-50/60 px-10 pt-8 dark:border-neutral-700 dark:bg-neutral-950/20">
-                <button x-on:click="modalIsOpen = false" aria-label="close modal">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                    </svg>
-                </button>
-            </div>
-            <!-- Dialog Body -->
-            <div class="px-10 py-4 flex flex-col gap-4">
-              <p class="text-2xl font-bold">Coloratioをもっと<br>楽しみませんか？</p>
-              <p class="text-xs">会員登録いただくと、以下の機能が可能になります！</p>
-              <div class="flex flex-col gap-3 ml-2"> <%# 機能一覧 %>
-                <span class="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="black"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
-                  いいね機能
-                </span>
-                <span class="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C17.5222 2 22 5.97778 22 10.8889C22 13.9556 19.5111 16.4444 16.4444 16.4444H14.4778C13.5556 16.4444 12.8111 17.1889 12.8111 18.1111C12.8111 18.5333 12.9778 18.9222 13.2333 19.2111C13.5 19.5111 13.6667 19.9 13.6667 20.3333C13.6667 21.2556 12.9 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2ZM7.5 12C8.32843 12 9 11.3284 9 10.5C9 9.67157 8.32843 9 7.5 9C6.67157 9 6 9.67157 6 10.5C6 11.3284 6.67157 12 7.5 12ZM16.5 12C17.3284 12 18 11.3284 18 10.5C18 9.67157 17.3284 9 16.5 9C15.6716 9 15 9.67157 15 10.5C15 11.3284 15.6716 12 16.5 12ZM12 9C12.8284 9 13.5 8.32843 13.5 7.5C13.5 6.67157 12.8284 6 12 6C11.1716 6 10.5 6.67157 10.5 7.5C10.5 8.32843 11.1716 9 12 9Z"></path></svg>
-                  パレット新規作成
-                </span>
-                <span class="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M11 2C15.968 2 20 6.032 20 11C20 15.968 15.968 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2ZM11 18C14.8675 18 18 14.8675 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18ZM19.4853 18.0711L22.3137 20.8995L20.8995 22.3137L18.0711 19.4853L19.4853 18.0711Z"></path></svg>
-                  パレットの詳細絞り込み
-                </span>
-              </div>
-            </div>
-            <!-- Dialog Footer -->
-            <div class="flex flex-col gap-2 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20 items-center">
-                <button onclick="location.href='./users/sign_up'" type="button" class="whitespace-nowrap bg-orange-400 text-xl text-gray-100 px-8 py-6 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none">新規登録・ログインする</button>
-                <button x-on:click="modalIsOpen = false" type="button" class="whitespace-nowrap rounded-sm  underline px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:text-neutral-300 dark:focus-visible:outline-white">キャンセル</button>
-            </div>
-        </div>
-    </div>
-</div>
-<%
+
 =end
 %>
 

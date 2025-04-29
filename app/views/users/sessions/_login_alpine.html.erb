@@ -1,10 +1,8 @@
 <!-- ログイン用のAlpine.jsスクリプト -->
 <script>
-
-  const emailPattern = /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/; //emailの正規表現パターン定義。
+  const LoginEmailPattern = /^[a-zA-Z0-9_+-]+(\.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/; //emailの正規表現パターン定義。
   document.addEventListener('alpine:init', () => {
-    console.log("Alpineが読み込まれました");
-    Alpine.data('formValidation', () => ({
+    Alpine.data('loginValidation', () => ({
       email: '', //メアド
       password: '', // パスワード
       errors: {}, //エラーメッセージ
@@ -14,13 +12,13 @@
       validateEmailBlur() { //tabキーもしくはfocusが外れた際に未入力と形式チェック
         if (!this.email) {
           this.errors.email = "※emailは必須です" // emailのエラーを表示する。
-        } else if (!emailPattern.test(this.email)) {
+        } else if (!LoginEmailPattern.test(this.email)) {
           this.errors.email = "※正しいメールアドレスを入力してください"
         }
       },
 
       validateEmailChange() { // enterキーが押された際に形式チェック
-        if (!emailPattern.test(this.email)) {
+        if (!LoginEmailPattern.test(this.email)) {
           this.errors.email = "※正しいメールアドレスを入力してください"
         }
       },
@@ -28,7 +26,7 @@
       validateEmailInput() { // エラーが出た後はリアルタイムでエラーを外す。
         if (this.errors.email === "※emailは必須です" && this.email) {
           delete this.errors.email;
-        } else if (this.errors.email === "※正しいメールアドレスを入力してください" && emailPattern.test(this.email)) {
+        } else if (this.errors.email === "※正しいメールアドレスを入力してください" && LoginEmailPattern.test(this.email)) {
           delete this.errors.email;
         }
       },
@@ -44,7 +42,7 @@
       },
 
       validateSubmit() { //送信ボタン活性化のためのチェック確認。ちょっと処理重くなりそうやけど、入力内容ごとにすべてのエラー要因を検索して大丈夫な場合活性化させる感じ。
-        if (this.password && this.email && emailPattern.test(this.email) ) {
+        if (this.password && this.email && LoginEmailPattern.test(this.email) ) {
           this.status_submit = true;
         } else {
           this.status_submit = false;
