@@ -25,7 +25,7 @@
           <div class="w-full flex-1 mt-8">
 
             <!-- 一般的なメアドログインセクション -->
-            <div x-data="formValidation" class="mx-auto max-w-xs">
+            <div x-data="loginValidation" class="mx-auto max-w-xs">
               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <!-- メアド入力欄 -->
                 <div class="flex flex-col gap-1">
@@ -35,7 +35,6 @@
                     "x-on:blur": "validateEmailBlur();",
                     "x-on:change": "validateEmailChange();",
                     "x-on:input": "validateEmailInput(); validateSubmit();",
-                    autofocus: true,
                     autocomplete: "email",
                     class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", 
                     placeholder: "メールアドレスを入力してください"
@@ -103,7 +102,7 @@
 
               <!-- まだアカウントをお持ちでない方はこちら -->
               <div class="my-1 text-center">
-                <%= link_to "まだアカウントをお持ちでない方はこちら", new_user_registration_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+                <%= link_to "まだアカウントをお持ちでない方はこちら", new_user_registration_path, data: { turbo: false }, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
               </div>
             </div>
 
