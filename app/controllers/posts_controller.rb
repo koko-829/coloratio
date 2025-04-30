@@ -8,8 +8,19 @@ class PostsController < ApplicationController
       redirect_to top_index_path
       return
     end
-    @pagy, @posts = pagy(Post.where(status: "published").order(created_at: :desc))
+    if params[:latest]
+      @pagy, @posts = pagy(Post.published.latest)
+    elsif params[:old]
+      @pagy, @posts = pagy(Post.published.old)
+    elsif params[:updated]
+      @pagy, @posts = pagy(Post.published.updated)
+    else
+      @pagy, @posts = pagy(Post.published.latest)
+    end
   end
+
+
+
 
   def new
     @default_palette = [

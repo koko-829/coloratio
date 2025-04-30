@@ -14,7 +14,7 @@
 
       <!-- いいねボタン -->
       <div class="flex flex-row items-end">
-        <% if post.liked_by?(current_user) %>
+        <% if current_user && post.liked_by?(current_user) %>
           <%= render 'posts/unlike', { post: post } %>
         <% else %>
           <%= render 'posts/like', { post: post } %>

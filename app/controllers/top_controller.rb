@@ -1,5 +1,6 @@
 class TopController < ApplicationController
   def index
-    @posts = Post.where(status: "published").order(created_at: :desc).limit(10)
+    # published、latestともにモデルでscope定義済み
+    @posts = Post.published.latest.limit(10)
   end
 end
