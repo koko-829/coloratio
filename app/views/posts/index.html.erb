@@ -2,11 +2,17 @@
   <div class="m-10">
     <div class="text-2xl ml-5 font-bold">投稿一覧 </div>
 
-    <!-- 工事中！！仮置き並び替えセクション -->
-    <%= link_to "公開が新しい順/", posts_path(latest: true) %>
-    <%= link_to "公開が古い順/", posts_path(old: true) %>
-    <%= link_to "最終更新日順", posts_path(updated: true) %>
-    <!-- 工事中！！！ -->
+    <%# 並び替え部分 %>
+    <div class="my-5">
+      <%= render "shared/sort_select" %>
+    </div>
+
+
+
+
+
+
+
 
     <div class="flex flex-col gap-10 my-5">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">

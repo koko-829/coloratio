@@ -10,11 +10,11 @@ class Post < ApplicationRecord
   enum status: { draft: 0, published: 1 }
   validates :title, length: { maximum: 16 }
 
-  scope :published, -> {where(status: "published")} # 投稿済みのみを絞り込む用。
-  scope :latest, -> {order(created_at: :desc)} # 公開が新しい順
-  scope :old, -> {order(created_at: :asc)} # 公開が古い順
-  scope :updated, -> {order(updated_at: :desc)} # 更新が新しい順
-
+  scope :published, -> { where(status: "published") } # 投稿済みのみを絞り込む用。
+  scope :latest, -> { order(created_at: :desc) } # 公開が新しい順
+  scope :old, -> { order(created_at: :asc) } # 公開が古い順
+  scope :updated, -> { order(updated_at: :desc) } # 更新が新しい順
+  scope :most_liked, -> { left_joins(:likes).group("posts.id").order("COUNT(likes.id) DESC") }
 
   def create_colors(input_colors)
     input_colors.each do |color|
