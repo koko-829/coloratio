@@ -1,8 +1,5 @@
 <div class= "min-h-fit text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
-  <div class="m-10">
-    <div class="max-w-fit mb-10"> <%# 戻るボタン設置 %>
-      <%= render 'shared/back_button' %>
-    </div>
+  <div class="m-10 w-full">
     <div class="mb-1 text-2xl font-bold">マイページ </div>
     <div class="flex flex-col gap-5 mt-5 items-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
       <div class="flex flex-col lg:flex-row my-20 xl:gap-10 translate md:scale-110 lg:scale-125"> <%# 上部分のプロフィールとステータス(画面サイズが小さい時だけ縦並び) %>
@@ -45,75 +42,17 @@
                 <svg class="fill-red-400 size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
               </div>
               <div class="text-xs">いいねした数</div>
-              <div>0</div>
+              <div><%= @liked_count %></div>
             </div> <%# いいね数 %>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-10 my-5">
-      <% if @my_page_published_posts.present?  %> <%# 公開済みパレット用 %>
-        <div class="flex flex-col"> <%# 公開済みパレット %>
-          <div class="text-xl font-extrabold ml-3">公開済みのパレット</div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
-            <% @my_page_published_posts.each do |post|  %>
-              <%= render "shared/post_card/my_published_palette", post: post %>
-            <% end %>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-medium text-indigo-500 hover:text-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150 ease-out">
-              公開パレット一覧ページへ -&gt;
-            </div>
-          </div>
-        </div>
-      <% else %>
-        <div class="flex flex-col w-full min-h-96">
-          <div class="text-xl font-extrabold mb-3 ml-3">公開済みパレット</div>
-          <div class="flex-grow grid place-items-center mb-3 border-2 rounded-lg">
-            <div class="flex-col place-items-center">
-              <svg class="size-20 m-3 fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C17.5222 2 22 5.97778 22 10.8889C22 13.9556 19.5111 16.4444 16.4444 16.4444H14.4778C13.5556 16.4444 12.8111 17.1889 12.8111 18.1111C12.8111 18.5333 12.9778 18.9222 13.2333 19.2111C13.5 19.5111 13.6667 19.9 13.6667 20.3333C13.6667 21.2556 12.9 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2ZM10.8111 18.1111C10.8111 16.0843 12.451 14.4444 14.4778 14.4444H16.4444C18.4065 14.4444 20 12.851 20 10.8889C20 7.1392 16.4677 4 12 4C7.58235 4 4 7.58235 4 12C4 16.19 7.2226 19.6285 11.324 19.9718C10.9948 19.4168 10.8111 18.7761 10.8111 18.1111ZM7.5 12C6.67157 12 6 11.3284 6 10.5C6 9.67157 6.67157 9 7.5 9C8.32843 9 9 9.67157 9 10.5C9 11.3284 8.32843 12 7.5 12ZM16.5 12C15.6716 12 15 11.3284 15 10.5C15 9.67157 15.6716 9 16.5 9C17.3284 9 18 9.67157 18 10.5C18 11.3284 17.3284 12 16.5 12ZM12 9C11.1716 9 10.5 8.32843 10.5 7.5C10.5 6.67157 11.1716 6 12 6C12.8284 6 13.5 6.67157 13.5 7.5C13.5 8.32843 12.8284 9 12 9Z"></path></svg>
-              <div class="text-sm">公開中のパレットがありません</div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
-      <% if @my_page_draft_posts.present?  %> <%# 下書きパレット確認用 %>
-        <div class="flex flex-col">
-          <div class="text-xl font-extrabold ml-3">下書きパレット</div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
-            <% @my_page_draft_posts.each do |post|  %>
-              <%= render "shared/post_card/draft_palette", post: post %>
-            <% end %>
-          </div>
-          <div class="text-right">
-            <div class="text-sm font-medium text-indigo-500 hover:text-indigo-600 focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 transition-colors duration-150 ease-out">
-              下書きパレット一覧ページへ -&gt;
-            </div>
-          </div>
-        </div>
-      <% else %>
-        <div class="flex flex-col w-full min-h-96">
-          <div class="text-xl font-extrabold mb-3 ml-3">下書きパレット</div>
-          <div class="flex-grow grid place-items-center mb-3 border-2 rounded-lg">
-            <div class="flex-col place-items-center">
-              <svg class="size-20 m-3 fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C17.5222 2 22 5.97778 22 10.8889C22 13.9556 19.5111 16.4444 16.4444 16.4444H14.4778C13.5556 16.4444 12.8111 17.1889 12.8111 18.1111C12.8111 18.5333 12.9778 18.9222 13.2333 19.2111C13.5 19.5111 13.6667 19.9 13.6667 20.3333C13.6667 21.2556 12.9 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2ZM10.8111 18.1111C10.8111 16.0843 12.451 14.4444 14.4778 14.4444H16.4444C18.4065 14.4444 20 12.851 20 10.8889C20 7.1392 16.4677 4 12 4C7.58235 4 4 7.58235 4 12C4 16.19 7.2226 19.6285 11.324 19.9718C10.9948 19.4168 10.8111 18.7761 10.8111 18.1111ZM7.5 12C6.67157 12 6 11.3284 6 10.5C6 9.67157 6.67157 9 7.5 9C8.32843 9 9 9.67157 9 10.5C9 11.3284 8.32843 12 7.5 12ZM16.5 12C15.6716 12 15 11.3284 15 10.5C15 9.67157 15.6716 9 16.5 9C17.3284 9 18 9.67157 18 10.5C18 11.3284 17.3284 12 16.5 12ZM12 9C11.1716 9 10.5 8.32843 10.5 7.5C10.5 6.67157 11.1716 6 12 6C12.8284 6 13.5 6.67157 13.5 7.5C13.5 8.32843 12.8284 9 12 9Z"></path></svg>
-              <div class="text-sm">下書き状態のパレットがありません</div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-
-      <div class="flex flex-col w-full min-h-96"><%# いいねしたパレット %>
-        <div class="text-xl font-extrabold mb-3 ml-3">いいねしたパレット</div>
-        <div class="flex-grow grid place-items-center mb-3 border-2 rounded-lg">
-          <div class="flex-col place-items-center">
-            <svg class="size-20 m-3 fill-gray-300" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C17.5222 2 22 5.97778 22 10.8889C22 13.9556 19.5111 16.4444 16.4444 16.4444H14.4778C13.5556 16.4444 12.8111 17.1889 12.8111 18.1111C12.8111 18.5333 12.9778 18.9222 13.2333 19.2111C13.5 19.5111 13.6667 19.9 13.6667 20.3333C13.6667 21.2556 12.9 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2ZM10.8111 18.1111C10.8111 16.0843 12.451 14.4444 14.4778 14.4444H16.4444C18.4065 14.4444 20 12.851 20 10.8889C20 7.1392 16.4677 4 12 4C7.58235 4 4 7.58235 4 12C4 16.19 7.2226 19.6285 11.324 19.9718C10.9948 19.4168 10.8111 18.7761 10.8111 18.1111ZM7.5 12C6.67157 12 6 11.3284 6 10.5C6 9.67157 6.67157 9 7.5 9C8.32843 9 9 9.67157 9 10.5C9 11.3284 8.32843 12 7.5 12ZM16.5 12C15.6716 12 15 11.3284 15 10.5C15 9.67157 15.6716 9 16.5 9C17.3284 9 18 9.67157 18 10.5C18 11.3284 17.3284 12 16.5 12ZM12 9C11.1716 9 10.5 8.32843 10.5 7.5C10.5 6.67157 11.1716 6 12 6C12.8284 6 13.5 6.67157 13.5 7.5C13.5 8.32843 12.8284 9 12 9Z"></path></svg>
-            <div class="text-sm">いいねしたパレットがありません</div>
-          </div>
-        </div>
-      </div>
+    <!-- タブセクション -->
+    <div class="mx-auto">
+      <%= render "users/shared/my_page_tab" %>
     </div>
+
   </div>
 </div>
