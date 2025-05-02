@@ -8,8 +8,26 @@ class PostsController < ApplicationController
       redirect_to top_index_path
       return
     end
-    @pagy, @posts = pagy(Post.where(status: "published").order(created_at: :desc))
+    if params[:latest]
+      @pagy, @posts = pagy(Post.published.latest)
+      @sort_status = 0 # alpineのソートに渡す用
+    elsif params[:old]
+      @pagy, @posts = pagy(Post.published.old)
+      @sort_status = 1
+    elsif params[:updated]
+      @pagy, @posts = pagy(Post.published.updated)
+      @sort_status = 2
+    elsif params[:most_liked]
+      @pagy, @posts = pagy(Post.published.most_liked)
+      @sort_status = 3
+    else
+      @pagy, @posts = pagy(Post.published.latest)
+      @sort_status = 1
+    end
   end
+
+
+
 
   def new
     @default_palette = [

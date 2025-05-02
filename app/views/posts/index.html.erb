@@ -1,6 +1,19 @@
 <div class= "min-h-fit text-gray-900 flex items-center justify-center">
   <div class="m-10">
     <div class="text-2xl ml-5 font-bold">投稿一覧 </div>
+
+    <%# 並び替え部分 %>
+    <div class="my-5">
+      <%= render "shared/sort_select" %>
+    </div>
+
+
+
+
+
+
+
+
     <div class="flex flex-col gap-10 my-5">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
         <% @posts.each do |post|  %> <%# @postsはすでにpublishedのものだけ入ってる状態 %>
