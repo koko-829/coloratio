@@ -38,8 +38,13 @@
   <body>
     <div class="main-container">
       <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %> <%# ログインの有無で表示するヘッダーを変更する %>
-      <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
+
+      <div id="flash">
+        <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
+      </div>
+
       <%= yield %>
+
       <%= render 'layouts/footer' %>
     </div>
   </body>

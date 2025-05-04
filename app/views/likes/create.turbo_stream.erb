@@ -5,3 +5,4 @@
 <%= turbo_stream.update "like-count-#{@post.id}" do %>
   <%= @post.likes.count %>
 <% end %>
+<%= turbo_stream.prepend "flash", partial: "shared/liked_flash" %>
