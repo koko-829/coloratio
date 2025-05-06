@@ -1,33 +1,20 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<div class= "min-h-fit bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
-  <div class="mx-20 my-5 md:mx-0">
-    <div class="max-w-fit mb-6"> <%# 戻るボタン設置 %>
-    <%= render 'shared/back_button' %>
+<div class= "min-h-fit text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
+  <div class="m-10">
+
+    <div class="mb-1 text-xl font-bold">
+      プロフィール詳細 / 変更
     </div>
-    <div class="mb-1 text-xl font-bold">プロフィール詳細 / 変更 </div>
     <div class="px-5 sm:p-10  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
 
       <div class="flex flex-col justify-center items-center p-6"> <%# 左側欄 %>
-        <div class="w-full flex justify-center items-center"> <%# プロフィールアイコン %>
-          <svg class="size-32 lg:size-56" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
-            <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
-              <path d="M 45 0 C 20.147 0 0 20.147 0 45 c 0 24.853 20.147 45 45 45 s 45 -20.147 45 -45 C 90 20.147 69.853 0 45 0 z M 45 22.007 c 8.899 0 16.14 7.241 16.14 16.14 c 0 8.9 -7.241 16.14 -16.14 16.14 c -8.9 0 -16.14 -7.24 -16.14 -16.14 C 28.86 29.248 36.1 22.007 45 22.007 z M 45 83.843 c -11.135 0 -21.123 -4.885 -27.957 -12.623 c 3.177 -5.75 8.144 -10.476 14.05 -13.341 c 2.009 -0.974 4.354 -0.958 6.435 0.041 c 2.343 1.126 4.857 1.696 7.473 1.696 c 2.615 0 5.13 -0.571 7.473 -1.696 c 2.083 -1 4.428 -1.015 6.435 -0.041 c 5.906 2.864 10.872 7.591 14.049 13.341 C 66.123 78.957 56.135 83.843 45 83.843 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-            </g>
-          </svg>
+
+        <div class="size-32 lg:size-56 overflow-hidden rounded-full">
+          <%= image_tag "profile_1.svg", class:"size-full" %>
         </div>
 
-        <div> <%# アイコン変更ボタン %>
-          <button
-            type="submit"
-            name="commit"
-            data-disable-with="Sign up"
-            class="mt-3 bg-orange-400 text-gray-100 rounded-3xl hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
-            <span class="text-xs my-1 mx-8">
-              アイコン変更
-            </span>
-          </button>
-        </div>
-
+        <!-- アイコン変更ボタン -->
+        <%= render 'users/registrations/profile_icon_setting' %>
       </div>
 
       <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
@@ -181,23 +168,7 @@
           </div>
       </div>
     </div>
+
+
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- 初期アカウント削除リンク。 -->
-<%#= link_to "アカウント削除", registration_path(resource_name), class:"text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400", data: { confirm: "本当にアカウントを削除してよろしいですか?", turbo_confirm: "本当にアカウントを削除してよろしいですか?", turbo_method: :delete } %>
-
-<%
-=begin
-
-=end
-%>

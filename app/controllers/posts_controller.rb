@@ -22,7 +22,7 @@ class PostsController < ApplicationController
       @sort_status = 3
     else
       @pagy, @posts = pagy(Post.published.latest)
-      @sort_status = 1
+      @sort_status = 0
     end
   end
 
