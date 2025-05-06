@@ -1,0 +1,51 @@
+<% now_name = current_user.name %>
+<div x-data="{modalIsOpen: false}">
+  <p class="font-bold">ユーザーネーム</p>
+
+  <div class="flex gap-1 items-center justify-center">
+    <!-- ネーム表示欄 -->
+    <div x-on:click="modalIsOpen = true" class="cursor-pointer w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+      <%= current_user.name %>
+    </div>
+    <!-- 編集ボタン -->
+    <button x-on:click="modalIsOpen = true" type="button" class="flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-pointer size-6 opacity-70 hover:opacity-100 transition-opacity" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
+    </button>
+
+    <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+      <!-- Modal Dialog -->
+      <div x-data="{user_name: '<%= now_name %>', now_name: '<%= now_name %>'}" x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 -translate-y-8" x-transition:enter-end="opacity-100 translate-y-0" class="flex max-w-lg flex-col gap-4 rounded-2xl border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+
+        <!-- Dialog Header -->
+        <div class="flex gap-1 items-center border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
+          <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">ユーザーネーム変更</h3>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <!-- Dialog Body -->
+          <div class="p-8 flex flex-col gap-4">
+            <!-- 変更前ネームセクション -->
+            <div class="flex flex-col gap-1">
+              <div class="font-semibold">現在のユーザーネーム</div>
+              <div x-text="now_name" class="text-sm"></div>
+            </div>
+            <!-- 変更後ネームセクション -->
+            <div class="flex flex-col gap-1">
+              <%= f.label :name, "変更後", class:"font-bold" %>
+              <%= f.text_field :name, 'x-model':"user_name", placeholder: "入力してください", class: "w-full px-4 py-2 rounded-lg text-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", maxlength: 20 %>
+              <div class="text-xs text-gray-500" x-text="`(${user_name.length}文字/20文字以内)`"></div>
+            </div>
+          </div>
+          <!-- Dialog Footer -->
+          <div class="flex gap-3 border-t border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20 flex-row items-center justify-center">
+            <!-- キャンセルボタン -->
+            <button @click="modalIsOpen = false" type="button" class="tracking-wide font-medium shadow-lg text-sm py-2 px-7 rounded-3xl transition-all text-neutral-600 border-2 duration-300 ease-in-out flex items-center justify-center hover:scale-105 active:scale-95">キャンセル</button>
+            <!-- 変更するボタン -->
+            <%= f.submit "変更する", ':disabled':"user_name === now_name || user_name.trim().length === 0", '@click':"modalIsOpen = false", class:"tracking-wide shadow-lg border-2 text-sm font-semibold bg-orange-400 text-gray-100 py-2 px-8 rounded-3xl hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none hover:scale-105 active:scale-95" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
