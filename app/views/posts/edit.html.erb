@@ -15,7 +15,7 @@
             <div class="text-xl font-bold">プレビュー</div> <%# プレビュー見出し %>
             <% if @post.id.present? %> <%# 既存パレット編集時は削除ボタンを表示して、新規作成時は表示しないための記載 %>
               <div class="mr-3"> <%# パレットを削除する %>
-                <%= link_to post_path(@post), data: {turbo_method: :delete, turbo_confirm: "下書きを削除します。よろしいですか?"}, class:"text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" do %>
+                <%= link_to post_path(@post), data: {turbo_method: :delete, turbo_confirm: "パレットを削除します。よろしいですか?"}, class:"text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" do %>
                   <p>パレットを削除する</p>
                 <% end %>
               </div>
