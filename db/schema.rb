@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_04_13_175600) do
+ActiveRecord::Schema[7.2].define(version: 2025_05_06_110440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -61,13 +61,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_13_175600) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
-  create_table "profile_icons", force: :cascade do |t|
-    t.string "name"
-    t.text "svg_data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tag_posts", force: :cascade do |t|
     t.bigint "tag_id", null: false
     t.bigint "post_id", null: false
@@ -102,9 +95,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_13_175600) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "profile_icon_id"
+    t.integer "profile_icon", default: 0
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["profile_icon_id"], name: "index_users_on_profile_icon_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -118,5 +110,4 @@ ActiveRecord::Schema[7.2].define(version: 2025_04_13_175600) do
   add_foreign_key "tag_posts", "tags"
   add_foreign_key "user_colors", "colors"
   add_foreign_key "user_colors", "users"
-  add_foreign_key "users", "profile_icons"
 end

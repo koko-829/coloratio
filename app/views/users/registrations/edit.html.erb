@@ -1,203 +1,122 @@
 <!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<div class= "min-h-fit bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
-  <div class="mx-20 my-5 md:mx-0">
-    <div class="max-w-fit mb-6"> <%# 戻るボタン設置 %>
-    <%= render 'shared/back_button' %>
+<div class= "min-h-fit text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
+  <div class="m-10">
+
+    <div class="mb-2 text-xl font-bold">
+      プロフィール詳細 / 変更
     </div>
-    <div class="mb-1 text-xl font-bold">プロフィール詳細 / 変更 </div>
-    <div class="px-5 sm:p-10  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
+    <div class="py-10 px-5 lg:px-10 bg-white shadow-2xl border rounded-2xl flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
 
       <div class="flex flex-col justify-center items-center p-6"> <%# 左側欄 %>
-        <div class="w-full flex justify-center items-center"> <%# プロフィールアイコン %>
-          <svg class="size-32 lg:size-56" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 256 256" xml:space="preserve">
-            <g style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(1.4065934065934016 1.4065934065934016) scale(2.81 2.81)">
-              <path d="M 45 0 C 20.147 0 0 20.147 0 45 c 0 24.853 20.147 45 45 45 s 45 -20.147 45 -45 C 90 20.147 69.853 0 45 0 z M 45 22.007 c 8.899 0 16.14 7.241 16.14 16.14 c 0 8.9 -7.241 16.14 -16.14 16.14 c -8.9 0 -16.14 -7.24 -16.14 -16.14 C 28.86 29.248 36.1 22.007 45 22.007 z M 45 83.843 c -11.135 0 -21.123 -4.885 -27.957 -12.623 c 3.177 -5.75 8.144 -10.476 14.05 -13.341 c 2.009 -0.974 4.354 -0.958 6.435 0.041 c 2.343 1.126 4.857 1.696 7.473 1.696 c 2.615 0 5.13 -0.571 7.473 -1.696 c 2.083 -1 4.428 -1.015 6.435 -0.041 c 5.906 2.864 10.872 7.591 14.049 13.341 C 66.123 78.957 56.135 83.843 45 83.843 z" style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform=" matrix(1 0 0 1 0 0) " stroke-linecap="round"/>
-            </g>
-          </svg>
+
+        <div class="size-32 lg:size-56 overflow-hidden rounded-full">
+          <%= image_tag "profile_#{current_user.profile_icon}.svg", class:"size-full" %>
         </div>
 
-        <div> <%# アイコン変更ボタン %>
-          <button
-            type="submit"
-            name="commit"
-            data-disable-with="Sign up"
-            class="mt-3 bg-orange-400 text-gray-100 rounded-3xl hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
-            <span class="text-xs my-1 mx-8">
-              アイコン変更
-            </span>
-          </button>
-        </div>
-
+        <!-- アイコン変更ボタン -->
+        <%= render 'users/registrations/profile_icon_setting' %>
       </div>
 
       <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
-          <div class="flex flex-col"> <%# 「ログイン」以下のフォーム部分 %>
-            <div class="mx-auto max-w-xs"> <%# メールで登録 %>
-              <div x-data="{modalIsOpen: false}"> <%# ユーザーネーム %>
-                <p class="font-bold">ユーザーネーム</p>
-                <div class="flex gap-1 items-center justify-center">
-                  <div x-on:click="modalIsOpen = true" class="cursor-pointer w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                    <%= current_user.name %>
-                  </div>
-                  <div> <%# ユーザーネーム変更ボタン %>
-                      <button x-on:click="modalIsOpen = true" type="button" class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-pointer size-6 opacity-70 hover:opacity-100 transition-opacity" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
-                      </button>
-                      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-                        <div x-data="{ userName: '<%= current_user.name %>' }" x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
-                            <!-- Modal Dialog -->
-                            <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-sm border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-                                <!-- Dialog Header -->
-                                <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
-                                    <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">ユーザーネーム変更</h3>
-                                    <button x-on:click="modalIsOpen = false" type="button" aria-label="close modal">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <!-- Dialog Body -->
-                                <div class="m-5 px-4 py-8 w-96">
-                                  <div> <%# ネーム入力欄%>
-                                    <%= f.label :name, "ユーザーネーム", class:"font-bold mb-1" %>
-                                    <%= f.text_field :name, "x-model": "userName", placeholder: "アプリ内で使用するネームを登録してください", class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", maxlength: 20 %>
-                                  </div>
-                                </div>
-                                <!-- Dialog Footer -->
-                                <div class="flex flex-col-reverse gap-2 border-t border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20 sm:flex-row sm:items-center justify-end">
-                                    <button x-on:click="modalIsOpen = false" type="button" class="whitespace-nowrap rounded-sm px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-600 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:text-neutral-300 dark:focus-visible:outline-white underline">キャンセル</button>
-                                    <div :class="{ 'opacity-30 cursor-not-allowed pointer-events-none': userName.trim().length === 0 }">
-
-
-                                    <button
-                                      type="submit"
-                                      x-bind:disabled="userName.trim().length === 0"
-                                      class="whitespace-nowrap rounded-sm bg-black border border-black dark:border-white px-4 py-2 text-center text-sm font-medium tracking-wide text-neutral-100 transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 dark:bg-white dark:text-black dark:focus-visible:outline-white">
-                                      変更する
-                                    </button>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div> <%# ↑ユーザーネーム変更モーダル中身 %>
-                      <% end %>
-                  </div>
-                </div>
+        <div class="mx-auto max-w-xs"> <%# メールで登録 %>
+          <!-- ユーザーネーム変更欄 -->
+          <%= render 'users/registrations/user_name_setting' %>
+          <div class="mt-3"> <%# メアド %>
+            <p class="font-bold">メールアドレス</p>
+            <div class="flex gap-1 items-center justify-center">
+              <div class="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                <%= current_user.email %>
               </div>
-              <div class="mt-3"> <%# メアド %>
-                <p class="font-bold">メールアドレス</p>
-                <div class="flex gap-1 items-center justify-center">
-                  <div class="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                    <%= current_user.email %>
-                  </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-not-allowed size-6 opacity-20" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
-                </div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-not-allowed size-6 opacity-20" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
+            </div>
+          </div>
+          <div class="mt-3"> <%# パスワード %>
+            <p class="font-bold">パスワード</p>
+            <div class="flex gap-1 items-center justify-center">
+              <div class="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
+                ********
               </div>
-              <div class="mt-3"> <%# パスワード %>
-                <p class="font-bold">パスワード</p>
-                <div class="flex gap-1 items-center justify-center">
-                  <div class="w-64 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white">
-                    ********
-                  </div>
-                  <div x-data="{modalIsOpen: false}"> <%# パスワード変更ボタン %>
-                      <button x-on:click="modalIsOpen = true" type="button" class="flex items-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-pointer size-6 opacity-70 hover:opacity-100 transition-opacity" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
-                      </button>
-                      <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex items-end justify-center bg-black/20 p-4 pb-8 backdrop-blur-md sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
-                          <!-- Modal Dialog -->
-                          <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-sm border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-                              <!-- Dialog Header -->
-                              <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
-                                  <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">パスワード変更</h3>
-                                  <button x-on:click="modalIsOpen = false" aria-label="close modal">
-                                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
-                                          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                                      </svg>
-                                  </button>
-                              </div>
-                              <!-- Dialog Body -->
-                              <div class="px-4 py-8">
-                                  <p>開発予定。準備中です。</p>
-                              </div>
-                              <!-- Dialog Footer -->
+              <div x-data="{modalIsOpen: false}"> <%# パスワード変更ボタン %>
+                  <button x-on:click="modalIsOpen = true" type="button" class="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-pointer size-6 opacity-70 hover:opacity-100 transition-opacity" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
+                  </button>
+                  <div x-cloak x-show="modalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalIsOpen" x-on:keydown.esc.window="modalIsOpen = false" x-on:click.self="modalIsOpen = false" class="fixed inset-0 z-30 flex items-end justify-center bg-black/20 p-4 pb-8 backdrop-blur-md sm:items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="defaultModalTitle">
+                      <!-- Modal Dialog -->
+                      <div x-show="modalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-sm border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+                          <!-- Dialog Header -->
+                          <div class="flex items-center justify-between border-b border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20">
+                              <h3 id="defaultModalTitle" class="font-semibold tracking-wide text-neutral-900 dark:text-white">パスワード変更</h3>
+                              <button x-on:click="modalIsOpen = false" aria-label="close modal">
+                                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4" class="w-5 h-5">
+                                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                  </svg>
+                              </button>
                           </div>
+                          <!-- Dialog Body -->
+                          <div class="px-4 py-8">
+                              <p>開発予定。準備中です。</p>
+                          </div>
+                          <!-- Dialog Footer -->
                       </div>
                   </div>
-                </div>
-              </div>
-              <!-- アカウント削除 -->
-
-              <!-- アカウント削除 -->
-              <div x-data="{dangerModalIsOpen: false}" class="mt-5">
-                <button x-on:click="dangerModalIsOpen = true" type="button" class="flex items-center">
-                  <p class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">アカウントを削除する</p>
-                </button>
-
-                <!-- 削除確認モーダル -->
-                <div x-cloak x-show="dangerModalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="dangerModalIsOpen" x-on:keydown.esc.window="dangerModalIsOpen = false" x-on:click.self="dangerModalIsOpen = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="dangerModalTitle">
-
-                  <div x-show="dangerModalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-lg border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
-                      <!-- モーダルヘッダー -->
-                      <div class="flex items-center justify-center mt-6">
-
-                        <svg class="size-16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50.64 -50.64 607.68 607.68" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#DF5C4E;" cx="253.2" cy="253.2" r="249.2"></circle> <g> <path style="fill:#F4EFEF;" d="M253.2,332.4c-10.8,0-20-8.8-20-19.6v-174c0-10.8,9.2-19.6,20-19.6s20,8.8,20,19.6v174 C273.2,323.6,264,332.4,253.2,332.4z"></path> <path style="fill:#F4EFEF;" d="M253.2,395.6c-5.2,0-10.4-2-14-5.6s-5.6-8.8-5.6-14s2-10.4,5.6-14s8.8-6,14-6s10.4,2,14,6 c3.6,3.6,6,8.8,6,14s-2,10.4-6,14C263.6,393.6,258.4,395.6,253.2,395.6z"></path> </g> <path d="M253.2,506.4C113.6,506.4,0,392.8,0,253.2S113.6,0,253.2,0s253.2,113.6,253.2,253.2S392.8,506.4,253.2,506.4z M253.2,8 C118,8,8,118,8,253.2s110,245.2,245.2,245.2s245.2-110,245.2-245.2S388.4,8,253.2,8z"></path> <path d="M249.2,336.4c-13.2,0-24-10.8-24-23.6v-174c0-13.2,10.8-23.6,24-23.6s24,10.8,24,23.6v174 C273.2,325.6,262.4,336.4,249.2,336.4z M249.2,122.8c-8.8,0-16,7.2-16,15.6v174c0,8.8,7.2,15.6,16,15.6s16-7.2,16-15.6v-174 C265.2,130,258,122.8,249.2,122.8z"></path> <path d="M249.2,399.6c-6.4,0-12.4-2.4-16.8-6.8c-4.4-4.4-6.8-10.4-6.8-16.8s2.4-12.4,6.8-16.8c4.4-4.4,10.8-6.8,16.8-6.8 c6.4,0,12.4,2.4,16.8,6.8c4.4,4.4,6.8,10.4,6.8,16.8s-2.4,12.4-7.2,16.8C261.6,397.2,255.6,399.6,249.2,399.6z M249.2,360 c-4,0-8.4,1.6-11.2,4.8c-2.8,2.8-4.4,6.8-4.4,11.2c0,4,1.6,8.4,4.8,11.2c2.8,2.8,7.2,4.8,11.2,4.8s8.4-1.6,11.2-4.8 c2.8-2.8,4.8-7.2,4.8-11.2s-1.6-8.4-4.8-11.2C257.2,361.6,253.2,360,249.2,360z"></path> </g></svg>
-
-                      </div>
-                      <!-- Dialog Body -->
-                      <div class="px-8 text-center">
-                        <h3 id="dangerModalTitle" class="text-2xl mb-2 font-semibold tracking-wide text-neutral-900 dark:text-white">アカウントを削除しますか？</h3>
-                        <!-- 削除注意事項欄 -->
-                        <div class="flex flex-col gap-1">
-                          <!-- 削除したアカウントの内容は復元できません -->
-                          <div class="flex gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 fill-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM17.4571 9.45711L16.0429 8.04289L11 13.0858L8.20711 10.2929L6.79289 11.7071L11 15.9142L17.4571 9.45711Z"></path></svg>
-                            <p class="text-sm">削除したアカウントの内容は復元できません。</p>
-                          </div>
-                          <!-- 削除すると以下の情報が全て失われます。 -->
-                          <div class="flex gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="size-4 fill-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM17.4571 9.45711L16.0429 8.04289L11 13.0858L8.20711 10.2929L6.79289 11.7071L11 15.9142L17.4571 9.45711Z"></path></svg>
-                            <p class="text-sm">削除すると以下の情報が全て失われます。</p>
-                          </div>
-
-                          <!-- 失われる情報一覧 -->
-                          <div class="py-3 pl-1 w-full border flex flex-col items-start bg-gray-100 text-sm">
-                            <p>・プロフィール情報</p>
-                            <p>・作成したカラーパレット</p>
-                            <p>・いいね</p>
-                          </div>
-                        </div>
-                      </div>
-                      <!-- Dialog Footer -->
-                      <div class="flex items-center justify-center border-neutral-300 p-6 dark:border-neutral-700 gap-3">
-                        <button x-on:click="dangerModalIsOpen = false" type="button" class="w-full whitespace-nowrap rounded-lg border py-2 text-center text-base font-semibold tracking-wide transition focus-visible:outline-2 focus-visible:outline-offset-2 hover:opacity-75 hover:underline focus-visible:outline-current active:opacity-100 active:outline-offset-0">キャンセル</button>
-                        <%= link_to "削除する", registration_path(resource_name), class:"w-full whitespace-nowrap rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-base font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0", data: { confirm: "本当にアカウントを削除してよろしいですか?", turbo_confirm: "本当にアカウントを削除してよろしいですか?", turbo_method: :delete } %>
-                      </div>
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
+          <!-- アカウント削除 -->
+
+          <!-- アカウント削除 -->
+          <div x-data="{dangerModalIsOpen: false}" class="mt-5">
+            <button x-on:click="dangerModalIsOpen = true" type="button" class="flex items-center">
+              <p class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">アカウントを削除する</p>
+            </button>
+
+            <!-- 削除確認モーダル -->
+            <div x-cloak x-show="dangerModalIsOpen" x-transition.opacity.duration.200ms x-trap.inert.noscroll="dangerModalIsOpen" x-on:keydown.esc.window="dangerModalIsOpen = false" x-on:click.self="dangerModalIsOpen = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center lg:p-8" role="dialog" aria-modal="true" aria-labelledby="dangerModalTitle">
+
+              <div x-show="dangerModalIsOpen" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="flex max-w-lg flex-col gap-4 overflow-hidden rounded-lg border border-neutral-300 bg-white text-neutral-600 dark:border-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
+                  <!-- モーダルヘッダー -->
+                  <div class="flex items-center justify-center mt-6">
+
+                    <svg class="size-16" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50.64 -50.64 607.68 607.68" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle style="fill:#DF5C4E;" cx="253.2" cy="253.2" r="249.2"></circle> <g> <path style="fill:#F4EFEF;" d="M253.2,332.4c-10.8,0-20-8.8-20-19.6v-174c0-10.8,9.2-19.6,20-19.6s20,8.8,20,19.6v174 C273.2,323.6,264,332.4,253.2,332.4z"></path> <path style="fill:#F4EFEF;" d="M253.2,395.6c-5.2,0-10.4-2-14-5.6s-5.6-8.8-5.6-14s2-10.4,5.6-14s8.8-6,14-6s10.4,2,14,6 c3.6,3.6,6,8.8,6,14s-2,10.4-6,14C263.6,393.6,258.4,395.6,253.2,395.6z"></path> </g> <path d="M253.2,506.4C113.6,506.4,0,392.8,0,253.2S113.6,0,253.2,0s253.2,113.6,253.2,253.2S392.8,506.4,253.2,506.4z M253.2,8 C118,8,8,118,8,253.2s110,245.2,245.2,245.2s245.2-110,245.2-245.2S388.4,8,253.2,8z"></path> <path d="M249.2,336.4c-13.2,0-24-10.8-24-23.6v-174c0-13.2,10.8-23.6,24-23.6s24,10.8,24,23.6v174 C273.2,325.6,262.4,336.4,249.2,336.4z M249.2,122.8c-8.8,0-16,7.2-16,15.6v174c0,8.8,7.2,15.6,16,15.6s16-7.2,16-15.6v-174 C265.2,130,258,122.8,249.2,122.8z"></path> <path d="M249.2,399.6c-6.4,0-12.4-2.4-16.8-6.8c-4.4-4.4-6.8-10.4-6.8-16.8s2.4-12.4,6.8-16.8c4.4-4.4,10.8-6.8,16.8-6.8 c6.4,0,12.4,2.4,16.8,6.8c4.4,4.4,6.8,10.4,6.8,16.8s-2.4,12.4-7.2,16.8C261.6,397.2,255.6,399.6,249.2,399.6z M249.2,360 c-4,0-8.4,1.6-11.2,4.8c-2.8,2.8-4.4,6.8-4.4,11.2c0,4,1.6,8.4,4.8,11.2c2.8,2.8,7.2,4.8,11.2,4.8s8.4-1.6,11.2-4.8 c2.8-2.8,4.8-7.2,4.8-11.2s-1.6-8.4-4.8-11.2C257.2,361.6,253.2,360,249.2,360z"></path> </g></svg>
+
+                  </div>
+                  <!-- Dialog Body -->
+                  <div class="px-8 text-center">
+                    <h3 id="dangerModalTitle" class="text-2xl mb-2 font-semibold tracking-wide text-neutral-900 dark:text-white">アカウントを削除しますか？</h3>
+                    <!-- 削除注意事項欄 -->
+                    <div class="flex flex-col gap-1">
+                      <!-- 削除したアカウントの内容は復元できません -->
+                      <div class="flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 fill-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM17.4571 9.45711L16.0429 8.04289L11 13.0858L8.20711 10.2929L6.79289 11.7071L11 15.9142L17.4571 9.45711Z"></path></svg>
+                        <p class="text-sm">削除したアカウントの内容は復元できません。</p>
+                      </div>
+                      <!-- 削除すると以下の情報が全て失われます。 -->
+                      <div class="flex gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4 fill-red-500" viewBox="0 0 24 24" fill="currentColor"><path d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM17.4571 9.45711L16.0429 8.04289L11 13.0858L8.20711 10.2929L6.79289 11.7071L11 15.9142L17.4571 9.45711Z"></path></svg>
+                        <p class="text-sm">削除すると以下の情報が全て失われます。</p>
+                      </div>
+
+                      <!-- 失われる情報一覧 -->
+                      <div class="py-3 pl-1 w-full border flex flex-col items-start bg-gray-100 text-sm">
+                        <p>・プロフィール情報</p>
+                        <p>・作成したカラーパレット</p>
+                        <p>・いいね</p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Dialog Footer -->
+                  <div class="flex items-center justify-center border-neutral-300 p-6 dark:border-neutral-700 gap-3">
+                    <button x-on:click="dangerModalIsOpen = false" type="button" class="w-full whitespace-nowrap rounded-lg border py-2 text-center text-base font-semibold tracking-wide transition focus-visible:outline-2 focus-visible:outline-offset-2 hover:opacity-75 hover:underline focus-visible:outline-current active:opacity-100 active:outline-offset-0">キャンセル</button>
+                    <%= link_to "削除する", registration_path(resource_name), class:"w-full whitespace-nowrap rounded-lg border border-red-500 bg-red-500 px-4 py-2 text-center text-base font-semibold tracking-wide text-white transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 active:opacity-100 active:outline-offset-0", data: { confirm: "本当にアカウントを削除してよろしいですか?", turbo_confirm: "本当にアカウントを削除してよろしいですか?", turbo_method: :delete } %>
+                  </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
       </div>
     </div>
+
+
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!-- 初期アカウント削除リンク。 -->
-<%#= link_to "アカウント削除", registration_path(resource_name), class:"text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400", data: { confirm: "本当にアカウントを削除してよろしいですか?", turbo_confirm: "本当にアカウントを削除してよろしいですか?", turbo_method: :delete } %>
-
-<%
-=begin
-
-=end
-%>

@@ -46,10 +46,10 @@
                   </div>
 
                   <!-- フォーム入力欄 -->
-                  <%= f.text_field :name, 'x-model': 'name', class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", maxlength: 15, size: 15, autocomplete: 'off' %>
+                  <%= f.text_field :name, 'x-model': 'name', class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", maxlength: 20, autocomplete: 'off' %>
 
                   <!-- 「◯文字/15文字以内」 -->
-                  <span class="mt-1 text-xs text-gray-500" x-text="`(${name.length}文字/15文字以内)`"></span>
+                  <span class="mt-1 text-xs text-gray-500" x-text="`(${name.length}文字/20文字以内)`"></span>
                 </div>
 
                 <!-- メールアドレス入力欄 -->
