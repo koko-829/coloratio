@@ -7,7 +7,7 @@
   <div class="flex items-center gap-3 px-4 py-3">
     <!-- ユーザーアイコン -->
     <div class="size-10 overflow-hidden rounded-full">
-      <%= image_tag "profile_0.svg", class:"size-full" %>
+      <%= image_tag "profile_#{current_user.profile_icon}.svg", class:"size-full" %>
     </div>
 
     <!-- ユーザーネームとマイページ遷移用 -->
