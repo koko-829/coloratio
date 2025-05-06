@@ -77,7 +77,7 @@ class PostsController < ApplicationController
     # noUiSlider用のratio変数を用意する。
     ratio = @post.ratio.split(",").map(&:to_i)
     @slider_range = create_slider_range(ratio)
-    if @post.user == current_user && @post.status == "draft"
+    if @post.user == current_user
       render :edit
     else
       redirect_to posts_path, alert: "編集権限のないパレットです。"
@@ -126,6 +126,15 @@ class PostsController < ApplicationController
       else
         redirect_to user_path(current_user), alert: "削除に失敗しました"
       end
+    end
+  end
+
+  def unpublished
+    @post = Post.find(params[:id])
+    if @post.update(status: "draft")
+      redirect_to user_path(current_user), notice: "下書きに戻しました"
+    else
+      redirect_to user_path(current_user), alert: "エラーが発生しました"
     end
   end
 

@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   resources :posts do
     # 同じユーザーが1つの投稿に何度もいいねすることはできないようにしたいので、resourceでネスト。
     resource :likes, only: %i[create destroy]
+    member do
+      post "unpublished"
+    end
   end
 
   # 静的ページ用ルーティング
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
       get "privacy_policy" # プライバシーポリシー
       get "contact" # お問い合わせ
       get "about_app" # アプリの使い方ページ
+      get "practice" # デザイン確認用ページ(開発用。全て終わったら削除する)
     end
   end
 

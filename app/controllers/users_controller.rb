@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user.id == current_user.id # 自分のアカウントだった場合
       published_posts = Post.where(user_id: @user.id, status: "published").latest
       draft_posts = Post.where(user_id: @user.id, status: "draft").latest
-      liked_posts = @user.liked_posts
+      liked_posts = @user.liked_posts.where(status: "published")
 
       # 各パレット数取得
       @published_count = published_posts.count
