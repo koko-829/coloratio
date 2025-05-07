@@ -16,7 +16,7 @@
 
 
           <!-- メアド＆SNSログイン -->
-          <div class="w-full flex-1 mt-8">
+          <div x-data="{consent: false}" class="w-full flex-1 mt-8">
 
             <!-- 一般的なメアド会員登録セクション -->
             <div x-data="signUpValidation" class="mx-auto max-w-xs">
@@ -123,28 +123,33 @@
                   <div x-show="errors.password" x-text="errors.password" class="text-red-500 text-xs"></div>
                 </div>
 
-                <!-- みなし同意テキスト用 -->
-                <div x-data="{privacyModalIsOpen: false, termsOfServiceModalIsOpen: false}">
-                  <p class="mt-8 mb-1 text-xs text-gray-400 text-left">
-                    アカウントを作成すると、
+                <!-- 利用規約・プライバシーポリシー同意チェックボックス -->
+
+
+                <div x-data="{privacyModalIsOpen: false, termsOfServiceModalIsOpen: false}" class="flex items-center gap-2 my-4">
+                  <div class="flex h-5 items-center">
+                    <input x-model="consent" type="checkbox" class="h-4 w-4 rounded border-gray-300 shadow-sm disabled:cursor-not-allowed disabled:text-gray-400" />
+                  </div>
+                  <p class="text-xs">
 
                     <!-- 利用規約テキスト -->
                     <span x-on:click="termsOfServiceModalIsOpen = true" class="cursor-pointer text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
                       利用規約
                     </span>
 
-                    および
+                    と
 
                     <!-- プライバシーポリシーテキスト -->
                     <span x-on:click="privacyModalIsOpen = true" class="cursor-pointer text-orange-400 hover:text-orange-600 border-b border-gray-400 border-dotted">
                       プライバシーポリシー
                     </span>
 
-                    に同意したとみなされます。
+                    に同意します
                   </p>
                   <%= render 'shared/terms_of_service_modal' %>
                   <%= render 'shared/privacy_policy_modal' %>
                 </div>
+
 
                 <!-- 「同意して登録」ボタン -->
                 <button
@@ -153,7 +158,7 @@
                   name="commit"
                   data-disable-with="Sign up"
                   class="tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
-                  :disabled="!status_submit"
+                  :disabled="!status_submit || consent === false"
                 >
                   <svg class="w-6 h-6 -ml-2" fill="none" stroke="currentColor" stroke-width="2"
                     stroke-linecap="round" stroke-linejoin="round">
