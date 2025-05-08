@@ -85,15 +85,23 @@
     <% end %>
 
 
-    <div class="flex flex-col lg:flex-row justify-center items-center gap-2 mt-10"> <%# 画面サイズ大のときは、「ベース・比率選択」を左に、「色選択」を右側に配置したい。 %>
-      <div class="flex flex-col gap-5"> <%# 左側部分。「ベース・比率選択」は縦に並べたい。 %>
-        <%= render "shared/edit_palette/palette_base" %> <%# ベース選択テンプレ %>
-        <%#= render "shared/edit_palette/color_ratio" %> <%# 配色比率テンプレ %>
-      </div>
-      <%= render "shared/edit_palette/color_selector" %> <%# 色選択テンプレ %>
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-2 mt-10">
+      <!-- ベース選択セクション -->
+      <%= render "shared/edit_palette/palette_base" %>
+      <!-- セット中の色反映セクション -->
+      <%= render "shared/edit_palette/setting_base" %>
+      <!-- 色選択テンプレ -->
+      <%= render "shared/edit_palette/color_selector" %>
     </div>
   </div>
 </div>
+
+
+
+<!-- カラー抽出用 -->
+
+
+
 
 <!-- Alpine.js用scriptパーシャル -->
 <%= render 'alpine_posts_script' %>

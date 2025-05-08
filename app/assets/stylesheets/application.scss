@@ -1,4 +1,6 @@
-@import 'range_slider';
+@use 'range_slider';
+// カラーピック用
+//@import 'color_pick_practice';
 
 .main-container {
   display: grid;
