@@ -1,7 +1,7 @@
 document.addEventListener("turbo:load", function() {
   const imagePicker = document.getElementById("image-picker");
   if (imagePicker) {
-    console.log('image-pickerのidが読み込まれました。');
+
     // Declare variables for various elements on the webpage
     let file; // The file to be processed
     let dropArea = document.getElementById("drop-area"); // The area where files can be dropped
@@ -25,9 +25,9 @@ document.addEventListener("turbo:load", function() {
     let colorFormat = "HEX"; // Default color format is HEX
 
     // Stores the colors
-    let colorsArr = [
-      { id: "Q6I991QFj2", colorCode: "#4f214d" },
-    ];
+    // let colorsArr = [
+    //   { id: "Q6I991QFj2", colorCode: "#4f214d" },
+    // ];
     // Initial setup function
     const initialCode = () => {
       // Prevent default behavior for drag and drop events
@@ -68,8 +68,8 @@ document.addEventListener("turbo:load", function() {
       // スマホとかタブレット用？指離した時にセットされる関数
       img.addEventListener("touchend", pickColor);
 
-      // Display initial color palette
-      displayColor();
+      // // Display initial color palette
+      // displayColor();
 
       // Handle color removal
       removeBtn.addEventListener("click", removeColors);
@@ -88,7 +88,7 @@ document.addEventListener("turbo:load", function() {
       });
     };
 
-    // Handle file dropped onto the drop area
+    // ファイル選択用
     const handleDroppedFile = (e) => {
       dropArea.style.borderStyle = "dashed";
       dropArea.style.opacity = "100%";
@@ -251,12 +251,8 @@ document.addEventListener("turbo:load", function() {
       // colorsArr.push(colorObj);
 
       // displayColor();
-
-      console.log(colorObj.colorCode);
-      // selected-iro-boxに色を反映させる用の処理を記載したい。
-      document.getElementById('selected-iro-box').style.background = colorObj.colorCode;
-      document.getElementById('selected-iro-mini-box').style.background = colorObj.colorCode;
-      document.getElementById('selected-iro').textContent = colorObj.colorCode;
+      // カラーホイールごと色を変更する。
+      colorPicker.color.hexString = `${colorObj.colorCode}`;
     };
 
     ///////////////////////////////////////////////////////////////////////

@@ -1,8 +1,7 @@
 document.addEventListener("turbo:load", function() {
   const paletteBase = document.getElementById("palette-base");
   if (paletteBase) {
-    console.log('color_select.jsの処理を実行します');
-    const colorPicker = new iro.ColorPicker("#picker", {
+    window.colorPicker = new iro.ColorPicker("#picker", {
       // Set the size of the color picker
       width: 250,
       // デフォルト色リストを格納したグローバル変数から
@@ -23,7 +22,7 @@ document.addEventListener("turbo:load", function() {
 
     // Iro.jsで選んだ色を実際にパレットにセットする用の定義
     function iroSetBase(selectedIro){
-      document.getElementById('selected-base').style.background = selectedIro;
+      document.getElementById('selected-base').style.fill = selectedIro;
       document.getElementById('selected-mini-base').style.background = selectedIro;
       document.getElementById('selected-color').textContent = selectedIro;
     }
