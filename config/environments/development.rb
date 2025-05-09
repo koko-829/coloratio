@@ -12,6 +12,7 @@ Rails.application.configure do
   config.eager_load = false
 
   # Show full error reports.
+  # メンテなんすモード確認のため503エラー出すときはfalseに変更してみる
   config.consider_all_requests_local = true
 
   # Enable server timing.

@@ -73,3 +73,4 @@ gem "rails_admin"
 gem "dockerfile-rails", ">= 1.7", group: :development
 gem "sassc-rails"
 gem "pagy", "~> 9.3"
+# gem "rack-maintenance"
