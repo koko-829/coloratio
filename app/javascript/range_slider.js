@@ -1,7 +1,6 @@
 document.addEventListener("turbo:load", function() {
   const paletteBase = document.getElementById("palette-base");
   if (paletteBase) {
-    console.log("paletteBaseが読み込まれました。range_slider.jsの処理を実行します");
     window.slider = document.getElementById('ratio-slider');
     // 色情報の配列を格納する変数を定義。
     const colorTagInfo = document.getElementById('color-tag-info');

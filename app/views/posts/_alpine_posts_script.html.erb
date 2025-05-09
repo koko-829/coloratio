@@ -18,11 +18,11 @@
   }
 
 
-  // 選択ボタンが押された時に色選択画面にベースの色を反映させるための関数。
+  // ベースが選択された時に色選択画面にベースの色を反映させるための関数。
   // Alpine.jsで呼び出すにはhtmlのscript内で書かないといけない？？
   function baseToSelector(basedNum){
     window.currentBaseNum = basedNum; // 他の処理でも選択中のベース番号を扱うための上書き処理。
-    document.getElementById('selected-base').style.background = window.colors[basedNum - 1];
+    document.getElementById('selected-base').style.fill = window.colors[basedNum - 1];
     document.getElementById('selected-mini-base').style.background = window.colors[basedNum - 1];
     document.getElementById('selected-color').textContent = window.colors[basedNum - 1];
   }

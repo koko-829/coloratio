@@ -1,0 +1,34 @@
+<div id="image-picker"></div><%# color_picker.js走らせる用 %>
+<div class="size-full">
+
+    <!-- 画像アップロードボタン -->
+    <div id="drop-area" class="flex items-center gap-x-2 ml-2 mt-2">
+      <!-- 画像インポート用(こっちは非表示) -->
+      <input class="hidden" id="browse-btn" name="browse-btn" type="file" />
+      <!-- labelを押すことでfileタイプのinputに繋げる -->
+      <label for="browse-btn" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" data-hs-file-upload-trigger="">
+        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="17 8 12 3 7 8"></polyline>
+          <line x1="12" x2="12" y1="3" y2="15"></line>
+        </svg>
+        画像を変更する
+      </label>
+    </div>
+
+    <!-- 画像表示セクション -->
+    <div class="h-[19rem] overflow-hidden my-2 border flex items-center justify-center">
+      <%= image_tag "elda_img.jpeg", id: "image", alt: "image" %>
+      <div id="magnifier-glass-container" class="absolute rounded-full cursor-none border-8 border-black box-content w-[100px] h-[100px] hidden m-[30px]">
+        <div id="magnifier-glass" class="w-full border-4 border-white flex justify-center items-center rounded-full pt-[1px] pl-[1px] overflow-hidden">
+          <div class="bg-transparent rounded-full border border-white w-[14px] h-[14px]"></div>
+        </div>
+      </div>
+      <!-- 画像描画用に必要やけど、実際にはスタイル別で指定したいため、非表示にする -->
+      <canvas class="hidden" id="canvas"></canvas>
+    </div>
+
+    <div class id="dropdown-btn"></div>
+    <div class="colors" id="colors"></div>
+</div>
+
