@@ -253,6 +253,7 @@ document.addEventListener("turbo:load", function() {
       // displayColor();
       // カラーホイールごと色を変更する。
       colorPicker.color.hexString = `${colorObj.colorCode}`;
+      console.log(window.colors);
     };
 
     ///////////////////////////////////////////////////////////////////////

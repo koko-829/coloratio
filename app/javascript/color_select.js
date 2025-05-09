@@ -28,29 +28,36 @@ document.addEventListener("turbo:load", function() {
     }
 
     // 選択画面の変更をベースにも反映する用の定義。
-    function selectorToBase(){
-      document.getElementById("svg-base").style.fill = colorPicker.color.hexString;
-      document.getElementById("square-base").style.background = colorPicker.color.hexString;
-      document.getElementById("based-hex").textContent = colorPicker.color.hexString;
+    function selectorToBase(selectedIro){
+      document.getElementById("svg-base").style.fill = selectedIro;
+      document.getElementById("square-base").style.background = selectedIro;
+      document.getElementById("based-hex").textContent = selectedIro;
     }
     // ページ更新時にIro.jsの初期色をプレビューに反映したい。
     selectedIroChange(colorPicker.color.hexString);
 
 
     // Iro.jsのカラーホイールで色が変化した時にプレビューに反映されるようにしたい。
-    colorPicker.on('color:change', function(color) {
+    colorPicker.on('color:change', function() {
       selectedIroChange(colorPicker.color.hexString);
     });
 
+    // ベースの色を変更するボタンを押した時の処理。
     // iro-set-buttonのボタン要素を取得。
     const iroSetButton = document.getElementById('iro-set-button');
     // ボタンを押した時にクリックイベントを補足して処理を実行。
     iroSetButton.addEventListener('click',() => {
-      iroSetBase(colorPicker.color.hexString); //ベースに現在のIroカラーをセットするための関数呼び出し。
-      selectorToBase();
-      window.colors[window.currentBaseNum - 1] = colorPicker.color.hexString;
-      window.changeConnectColors();
-      window.previewUpdate(); //プレビューの色を変更
+      const preSetColor = colorPicker.color.hexString
+      // 今から登録しようとしてる色が、既にパレットにある色とは違う時のみ、実際に変更する。
+      if (window.colors.includes(preSetColor)) {
+        console.log('既に同じ色がセットされています');
+      } else {
+        iroSetBase(preSetColor);
+        selectorToBase(preSetColor);
+        window.colors[window.currentBaseNum - 1] = preSetColor;
+        window.changeConnectColors();
+        window.previewUpdate(); //プレビューの色を変更
+      }
     });
   };
 });
