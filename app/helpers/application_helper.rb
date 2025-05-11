@@ -25,7 +25,8 @@ module ApplicationHelper
 
   def default_twitter_card
     {
-      card: "summary_large_image" # または summary
+      card: "summary_large_image", # または summary
+      image: image_url("ogp.png")
       # site: '@hogehoge'            # twitter ID(必要ないかも)
     }
   end
