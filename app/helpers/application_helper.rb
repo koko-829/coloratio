@@ -5,7 +5,7 @@ module ApplicationHelper
       site: "Coloratio",
       reverse: true,
       separator: "|",
-      canonical: "https://coloratio-app.com/",
+      canonical: request.original_url,
       og: default_og,
       twitter: default_twitter_card
     }
@@ -18,7 +18,7 @@ module ApplicationHelper
       title: :full_title,          # :full_title とすると、サイトに表示される <title> と全く同じものを表示できる
       # description: :description,   # 上に同じ
       description: "'好き'から見つけるぴったり配色。あなたの目に映る世界を色だけで表現してみるカラーパレットアプリ",
-      url: "https://coloratio-app.com/",
+      url: request.original_url,
       image: image_url("ogp.png")
     }
   end
