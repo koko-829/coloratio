@@ -1,0 +1,14 @@
+<!-- 開発中お知らせ表示用モーダルパーシャル -->
+<div x-cloak x-show="modalDevelop" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalDevelop" x-on:keydown.esc.window="modalDevelop = false" x-on:click.self="modalDevelop = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center" role="dialog" aria-modal="true">
+    <!-- Modal Dialog -->
+    <div x-show="modalDevelop" x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity" x-transition:enter-start="opacity-0 scale-50" x-transition:enter-end="opacity-100 scale-100" class="px-2 flex flex-col overflow-hidden bg-transparent">
+        <!-- 閉じるボタン表示用 -->
+        <div class="flex items-center justify-end bg-transparent">
+          <svg @click="modalDevelop = false" class="size-10 transition-all duration-300 ease-in-out hover:scale-110 active:scale-95 cursor-pointer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" stroke="currentColor" fill="none" stroke-width="1.4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </div>
+        <!-- 吹き出し表示欄 -->
+        <%= image_tag "kaihatsu_now.svg", class:"w-[24rem] lg:w-[30rem]" %>
+    </div>
+</div>

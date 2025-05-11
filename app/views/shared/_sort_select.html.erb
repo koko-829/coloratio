@@ -126,7 +126,7 @@
     @keydown.up="if(selectOpen){ selectableItemActivePrevious(); } else { selectOpen=true; } event.preventDefault();"
     @keydown.enter="selectedItem=selectableItemActive; selectOpen=false;"
     @keydown="selectKeydown($event);"
-    class="relative w-64 z-50">
+    class="relative w-64 z-10">
 
     <%# view部分 %>
     <button  x-ref="selectButton" @click="selectOpen=!selectOpen"

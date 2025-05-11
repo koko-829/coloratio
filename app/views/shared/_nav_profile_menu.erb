@@ -20,8 +20,9 @@
 
   </div>
 
-
+  <!-- プロフィール設定・アプリの使い方 -->
   <div>
+    <!-- プロフィール設定ボタン -->
     <%= link_to edit_user_registration_path, class:"flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
         <svg
@@ -50,44 +51,48 @@
 
         プロフィール設定
       </span>
-    <% end %> <%# プロフィール設定ボタン %>
-    <%= link_to about_app_static_path, class: "flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
-      <span class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 19C12.8284 19 13.5 19.6716 13.5 20.5C13.5 21.3284 12.8284 22 12 22C11.1716 22 10.5 21.3284 10.5 20.5C10.5 19.6716 11.1716 19 12 19ZM12 2C15.3137 2 18 4.68629 18 8C18 10.1646 17.2474 11.2907 15.3259 12.9231C13.3986 14.5604 13 15.2969 13 17H11C11 14.526 11.787 13.3052 14.031 11.3989C15.5479 10.1102 16 9.43374 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8V9H6V8C6 4.68629 8.68629 2 12 2Z"></path></svg>
-        <span>アプリの使い方</span>
-      </span>
-    <% end %> <%# アプリの使い方ボタン %>
-  </div> <%# プロフィール設定・アプリの使い方ボタン %>
+    <% end %>
+    <!-- アプリの使い方ボタン -->
+    <button @click="modalDevelop = true" type="button" class="flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5">
+
+      <%#= link_to about_app_static_path, class: "flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
+        <span class="flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 19C12.8284 19 13.5 19.6716 13.5 20.5C13.5 21.3284 12.8284 22 12 22C11.1716 22 10.5 21.3284 10.5 20.5C10.5 19.6716 11.1716 19 12 19ZM12 2C15.3137 2 18 4.68629 18 8C18 10.1646 17.2474 11.2907 15.3259 12.9231C13.3986 14.5604 13 15.2969 13 17H11C11 14.526 11.787 13.3052 14.031 11.3989C15.5479 10.1102 16 9.43374 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8V9H6V8C6 4.68629 8.68629 2 12 2Z"></path></svg>
+          <span>アプリの使い方</span>
+        </span>
+      <%# end %>
+    </button>
+  </div>
+
+  <!-- 各パレット一覧 -->
   <div>
-    <a
-      href="javascript:void(0)"
-      class="flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
-    >
+    <!-- 公開済み一覧 -->
+    <%= link_to user_path(current_user, published: true), class:"flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM9.71002 19.6674C8.74743 17.6259 8.15732 15.3742 8.02731 13H4.06189C4.458 16.1765 6.71639 18.7747 9.71002 19.6674ZM10.0307 13C10.1811 15.4388 10.8778 17.7297 12 19.752C13.1222 17.7297 13.8189 15.4388 13.9693 13H10.0307ZM19.9381 13H15.9727C15.8427 15.3742 15.2526 17.6259 14.29 19.6674C17.2836 18.7747 19.542 16.1765 19.9381 13ZM4.06189 11H8.02731C8.15732 8.62577 8.74743 6.37407 9.71002 4.33256C6.71639 5.22533 4.458 7.8235 4.06189 11ZM10.0307 11H13.9693C13.8189 8.56122 13.1222 6.27025 12 4.24799C10.8778 6.27025 10.1811 8.56122 10.0307 11ZM14.29 4.33256C15.2526 6.37407 15.8427 8.62577 15.9727 11H19.9381C19.542 7.8235 17.2836 5.22533 14.29 4.33256Z"></path></svg>
-        投稿済み一覧
+        公開済み一覧
       </span>
-    </a>
-    <a
-      href="#"
-      class="flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
-    >
+    <% end %>
+    <!-- 下書き一覧 -->
+    <%= link_to user_path(current_user, draft: true), class:"flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M20 2C20.5523 2 21 2.44772 21 3V6.757L19 8.757V4H5V20H19V17.242L21 15.242V21C21 21.5523 20.5523 22 20 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20ZM21.7782 8.80761L23.1924 10.2218L15.4142 18L13.9979 17.9979L14 16.5858L21.7782 8.80761ZM13 12V14H8V12H13ZM16 8V10H8V8H16Z"></path></svg>
         下書き一覧
       </span>
-    </a>
-    <a
-      href="#"
-      class="flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5"
-    >
+    <% end %>
+
+    <!-- いいねしたパレット一覧 -->
+    <%= link_to user_path(current_user, liked: true), class:"flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
-        いいねしたパレット
+        いいね一覧
       </span>
-    </a>
-  </div> <%# 投稿済み一覧と下書きといいねパレットボタン%>
-  <div> <%# ログアウトボタン %>
+    <% end %>
+
+  </div>
+
+  <%# ログアウトボタン %>
+  <div>
     <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトします。よろしいですか？" }, class:"flex w-full items-center justify-between text-red-600 px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
         <svg
