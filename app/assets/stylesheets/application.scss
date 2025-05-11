@@ -13,3 +13,7 @@
 .shadow-bottom {
   box-shadow: inset 0px -30px 30px -20px rgba(0, 0, 0, 0.3);
 }
+
+.picker-cursor {
+  cursor: url('images/picker.svg'), auto;
+}
