@@ -5,7 +5,7 @@ ja:
     attributes:
       # 各モデルのカラム名を記載
       user:
-        name: 名前
+        name: ユーザーネーム
         email: メールアドレス
         password: パスワード
       post:
@@ -14,7 +14,7 @@ ja:
       comment:
         comment: コメント内容
       contact:
-        name: 名前
+        name: ユーザーネーム
         email: メールアドレス
         content: お問い合わせ内容
     errors:
@@ -145,7 +145,7 @@ ja:
       other_than: は%{count}以外の値にしてください
       present: は入力しないでください
       required: を入力してください
-      taken: はすでに存在します
+      taken: は既に使用されています
       too_long: は%{count}文字以内で入力してください
       too_short: は%{count}文字以上で入力してください
       wrong_length: は%{count}文字で入力してください

@@ -5,7 +5,7 @@
     <div class="mb-2 text-xl font-bold">
       プロフィール詳細 / 変更
     </div>
-    <div class="py-10 px-5 lg:px-10 bg-white shadow-2xl border rounded-2xl flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
+    <div class="relative py-10 px-5 lg:px-10 bg-white shadow-2xl border rounded-2xl flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
 
       <div class="flex flex-col justify-center items-center p-6"> <%# 左側欄 %>
 
@@ -18,7 +18,9 @@
       </div>
 
       <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
-        <div class="mx-auto max-w-xs"> <%# メールで登録 %>
+        <div class="mx-auto max-w-xs">
+          <!-- エラー表示用 -->
+          <%= render "users/shared/name_error_messages", resource: resource %>
           <!-- ユーザーネーム変更欄 -->
           <%= render 'users/registrations/user_name_setting' %>
           <div class="mt-3"> <%# メアド %>
