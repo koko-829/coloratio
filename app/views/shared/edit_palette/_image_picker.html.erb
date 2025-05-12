@@ -1,27 +1,39 @@
 <div id="image-picker"></div><%# color_picker.js走らせる用 %>
 <div class="size-full">
 
-    <!-- 画像アップロードボタン -->
-    <div id="drop-area" class="flex items-center gap-x-2 ml-2 mt-2">
-      <!-- 画像インポート用(こっちは非表示) -->
-      <input class="hidden" id="browse-btn" name="browse-btn" type="file" />
-      <!-- labelを押すことでfileタイプのinputに繋げる -->
-      <label for="browse-btn" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" data-hs-file-upload-trigger="">
-        <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="17 8 12 3 7 8"></polyline>
-          <line x1="12" x2="12" y1="3" y2="15"></line>
-        </svg>
-        画像を変更する
-      </label>
+    <div class="flex items-center mt-2 gap-2">
+      <!-- 画像アップロードボタン -->
+      <div id="drop-area" class="flex items-center gap-x-2 ml-2">
+        <!-- 画像インポート用(こっちは非表示) -->
+        <input class="hidden" id="browse-btn" name="browse-btn" type="file" />
+        <!-- labelを押すことでfileタイプのinputに繋げる -->
+        <label for="browse-btn" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" data-hs-file-upload-trigger="">
+          <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" x2="12" y1="3" y2="15"></line>
+          </svg>
+          画像を変更する
+        </label>
+      </div>
+      <!-- 使い方ボタン -->
+      <div x-data="{modalColorPickerHelp: false}">
+        <div @click="modalColorPickerHelp = true">
+          <span class="py-1 px-2 inline-flex items-center gap-x-1 text-xs bg-gray-100 text-gray-800 rounded-full dark:bg-neutral-500/20 dark:text-neutral-400 transition-all cursor-pointer duration-300 ease-in-out hover:scale-105 active:scale-100 ">
+          <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM11 15H13V17H11V15ZM13 13.3551V14H11V12.5C11 11.9477 11.4477 11.5 12 11.5C12.8284 11.5 13.5 10.8284 13.5 10C13.5 9.17157 12.8284 8.5 12 8.5C11.2723 8.5 10.6656 9.01823 10.5288 9.70577L8.56731 9.31346C8.88637 7.70919 10.302 6.5 12 6.5C13.933 6.5 15.5 8.067 15.5 10C15.5 11.5855 14.4457 12.9248 13 13.3551Z"></path></svg>
+            使い方
+          </span>
+        </div>
+        <%= render "shared/help_color_picker" %>
+      </div>
     </div>
 
     <!-- 画像表示セクション -->
-    <div class="h-[19rem] overflow-hidden my-2 border flex items-center justify-center">
-      <%= image_tag "elda_img.jpeg", id: "image", alt: "image", class: "picker-cursor" %>
+    <div class="h-[19rem] my-1 flex items-center justify-center">
+      <%= image_tag "image-picker-default.jpg", id: "image", alt: "image", class: "object-contain max-h-full max-w-full border-2 shadow-lg" %>
       <div id="magnifier-glass-container" class="absolute rounded-full cursor-none border-8 border-black box-content w-[100px] h-[100px] hidden m-[30px]">
         <div id="magnifier-glass" class="w-full border-4 border-white flex justify-center items-center rounded-full pt-[1px] pl-[1px] overflow-hidden">
-          <div class="bg-transparent rounded-full border border-white w-[14px] h-[14px]"></div>
+          <div class="bg-transparent rounded-full border border-white w-[14px] h-[14px]"></div> <%# 一番真ん中のポインター %>
         </div>
       </div>
       <!-- 画像描画用に必要やけど、実際にはスタイル別で指定したいため、非表示にする -->
