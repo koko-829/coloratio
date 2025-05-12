@@ -1,21 +1,14 @@
-<div class="transform scale-[0.9] md:scale-[0.8] lg:scale-[0.7] flex w-[26rem] h-[29rem] flex-col gap-2 rounded-xl border border-solid bg-gray-50 text-gray-700 shadow-2xl">
+<div class="transform scale-[0.9] md:scale-[0.8] lg:scale-[0.7] flex w-[26rem] h-[29rem] flex-col rounded-xl border border-solid bg-gray-50 text-gray-700 shadow-2xl">
   <div class="w-[24rem] h-1/2 flex m-auto text-white shadow-2xl rounded-md border-2 border-solid">
     <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
       <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
     <% end %>
   </div>
-  <div class="px-6 mt-3">
+  <div class="px-6">
     <div class="flex items-center justify-between"> <%# タイトルといいね用 %>
       <h5 class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
         <%= post.title %>
-      </h5> <%# いいねボタン %>
-
-      <div class="flex flex-row items-end"> <%# いいねボタン %>
-        <button x-on:click="modalIsOpen = true" type="button" class="hover:scale-110 transition-all duration-500 ease-out active:translate-y-1">
-          <svg xmlns="http://www.w3.org/2000/svg" class="size-10" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
-        </button>
-        <div class="select-none"><%= post.likes.length %></div>
-      </div>
+      </h5>
     </div>
     <div class="flex items-center gap-1"> <%# 作成者 %>
       <div class="size-5 overflow-hidden rounded-full">
@@ -26,12 +19,6 @@
       </p>
     </div>
 
-    <div class="flex items-center gap-2 mt-2"> <%# 状態タグと公開日時用 %>
-      <div class="bg-gray-100 text-gray-800 text-xs font-medium flex gap-1 items-center rounded-sm dark:bg-gray-700 dark:text-gray-400">
-        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20ZM13 12H17V14H11V7H13V12Z"></path></svg>
-        <p><%= post.updated_at.strftime("%Y-%m-%d") %><p>
-      </div> <%# 作成日時用 %>
-    </div>
   </div>
   <div class="px-6 my-3">
     <div class="flex items-center justify-end"><%# 詳細ページ矢印用 %>

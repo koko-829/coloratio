@@ -1,13 +1,10 @@
 <div class= "min-h-fit text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="m-10">
-    <div class="max-w-fit mb-10"> <%# 戻るボタン設置 %>
-      <%= render 'shared/back_button' %>
-    </div>
-    <div class="flex flex-col gap-5 mt-5 items-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
-      <div class="flex flex-col lg:flex-row my-20 xl:gap-10 translate md:scale-110 lg:scale-125"> <%# 上部分のプロフィールとステータス(画面サイズが小さい時だけ縦並び) %>
+    <div class="flex flex-col gap-5 items-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
+      <div class="flex flex-col my-20 items-center justify-center"> <%# 上部分のプロフィールとステータス(画面サイズが小さい時だけ縦並び) %>
 
         <div class="flex flex-col justify-center items-center p-6 pb-0"> <%# 左側欄 %>
-          <div class="size-32 md:size-56 overflow-hidden rounded-full">
+          <div class="size-32 overflow-hidden rounded-full">
             <%= image_tag "profile_#{@user.profile_icon}.svg", class:"size-full" %>
           </div>
         </div>
