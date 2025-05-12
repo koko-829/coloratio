@@ -59,7 +59,7 @@
 
       // 各バリデーションエラー削除用関数。
       validatePasswordRemove() {
-        if (this.errors.password === "※パスワードは必須です" && this.password) {
+        if (this.errors.password === "※パスワードを設定してください" && this.password) {
           delete this.errors.password;
         } else if (this.errors.password === "※6文字以上で設定してください" && this.password.length >= 6) {
           delete this.errors.password;
