@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :likes, source: :post
   has_many :user_colors
   has_many :colors, through: :user_colors
-  validates :profile_icon, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validates :profile_icon, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 8 }
   validates :name, uniqueness: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
