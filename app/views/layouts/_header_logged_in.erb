@@ -2,7 +2,10 @@
     <div class="container px-6 py-4 mx-auto">
         <div class="lg:flex justify-between">
             <div class="flex justify-between items-center">
-                <%= link_to "Coloratio", root_path, class: "text-2xl" %>
+                <!-- アプリロゴ部分 -->
+                <%= link_to root_path, class: "text-2xl" do %>
+                  <%= image_tag "coloratio-logo.svg", class:"w-40" %>
+                <% end %>
                 <!-- Mobile menu button -->
                 <div class="flex lg:hidden">
                     <button x-cloak @click="isOpen = !isOpen" type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">

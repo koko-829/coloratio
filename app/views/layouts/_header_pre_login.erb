@@ -1,7 +1,9 @@
 <nav class="relative bg-white border-t-2 shadow dark:bg-gray-800">
   <div class="container px-6 py-4 mx-auto flex justify-between ">
     <div class="flex items-center justify-between"> <%# ロゴボタン %>
-        <%= link_to "Coloratio", root_path, class: "text-2xl" %>
+      <%= link_to root_path, class: "text-2xl" do %>
+        <%= image_tag "coloratio-logo.svg", class:"w-40" %>
+      <% end %>
     </div>
     <div class="flex flex-row"> <%# ログイン・新規登録ボタン %>
 
