@@ -13,7 +13,7 @@
 */
 
 .pagy {
-  @apply flex space-x-1 font-semibold text-sm text-gray-500;
+  @apply flex gap-1 font-semibold text-sm text-gray-500;
   a:not(.gap) {
     @apply block rounded-lg px-3 py-1 bg-gray-200;
     &:hover {
