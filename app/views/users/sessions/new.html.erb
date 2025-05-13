@@ -12,119 +12,120 @@
     </div>
 
     <!-- 右側フォーム本体枠 -->
-    <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="mt-10 flex flex-col items-center">
-          <!-- アプリロゴ -->
-          <%= image_tag "coloratio-logo.svg", class:"w-24 mb-4" %>
-          <!-- 「ログイン」大文字 -->
-          <h1 class="text-2xl xl:text-3xl font-bold">ログイン</h1>
+    <div class="lg:w-1/2 xl:w-5/12 p-6">
+      <div class="mt-10 flex flex-col items-center">
+        <!-- アプリロゴ -->
+        <%= image_tag "coloratio-logo.svg", class:"w-24 mb-4" %>
+        <!-- 「ログイン」大文字 -->
+        <h1 class="text-2xl xl:text-3xl font-bold">ログイン</h1>
 
-          <!-- メアド＆SNSログイン -->
-          <div class="w-full flex-1 mt-8">
+        <!-- メアド＆SNSログイン -->
+        <div class="w-full flex-1 mt-8 mx-auto max-w-xs">
 
-            <!-- 一般的なメアドログインセクション -->
-            <div x-data="loginValidation" class="mx-auto max-w-xs">
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                <!-- メアド入力欄 -->
-                <div class="flex flex-col gap-1">
-                  <%= f.label :email, "メールアドレス", class: "font-bold" %>
-                  <%= f.text_field :email,
-                    "x-model": "email",
-                    "x-on:blur": "validateEmailBlur();",
-                    "x-on:change": "validateEmailChange();",
-                    "x-on:input": "validateEmailInput(); validateSubmit();",
-                    autocomplete: "email",
-                    class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white", 
-                    placeholder: "メールアドレスを入力してください"
+          <!-- 一般的なメアドログインセクション -->
+          <div x-data="loginValidation" class="">
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+              <!-- メアド入力欄 -->
+              <div class="flex flex-col gap-1">
+                <%= f.label :email, "メールアドレス", class: "font-bold" %>
+                <%= f.text_field :email,
+                  "x-model": "email",
+                  "x-on:blur": "validateEmailBlur();",
+                  "x-on:change": "validateEmailChange();",
+                  "x-on:input": "validateEmailInput(); validateSubmit();",
+                  autocomplete: "email",
+                  class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white",
+                  placeholder: "メールアドレスを入力してください"
+                %>
+                <div x-show="errors.email" x-text="errors.email" class="text-red-600 text-xs"></div> <%# メールのエラー表示 %>
+              </div>
+
+              <!-- パスワード入力欄 -->
+              <div class="flex flex-col gap-1 my-5">
+                <%= f.label :password, "パスワード", class: "font-bold" %>
+                <!-- 入力フォーム -->
+                <div x-data="{ show: false }" class="relative flex items-center">
+                  <%= f.text_field :password,
+                    autocomplete: "current-password",
+                    class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white",
+                    placeholder: "パスワードを入力してください",
+                    maxlength: 128,
+                    ":type": "show ? 'text' : 'password'",
+                    "x-model": "password",
+                    "x-on:blur": "validatePassword();",
+                    "x-on:input": "validatePassword(); validateSubmit();"
                   %>
-                  <div x-show="errors.email" x-text="errors.email" class="text-red-600"></div> <%# メールのエラー表示 %>
+                  <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
+                      <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                      </svg>
+                      <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                      </svg>
+                  </button>
                 </div>
+                <div x-show="errors.password" x-text="errors.password" class="text-red-500"></div>
+              </div>
 
-                <!-- パスワード入力欄 -->
-                <div class="flex flex-col gap-1 my-5">
-                  <%= f.label :password, "パスワード", class: "font-bold" %>
-                  <div x-data="{ show: false }" class="relative flex items-center"> <%# パスワード入力欄 %>
-
-                    <%= f.text_field :password,
-                      autocomplete: "current-password",
-                      class: "w-full px-4 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white",
-                      placeholder: "パスワードを入力してください",
-                      ":type": "show ? 'text' : 'password'",
-                      "x-model": "password",
-                      "x-on:blur": "validatePassword();",
-                      "x-on:input": "validatePassword(); validateSubmit();"
-                    %>
-                    <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
-                        <svg x-show="!show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
-                        </svg>
-                        <svg x-show="show" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                        </svg>
-                    </button>
-                  </div>
-                  <div x-show="errors.password" x-text="errors.password" class="text-red-500"></div>
+              <!-- ログイン保存チェックボタン -->
+              <% if devise_mapping.rememberable? %>
+                <div class="flex gap-1 mx-2 text-left"> <%# ログイン情報を保存する %>
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :remember_me, "ログイン情報を保存する", class: "text-xs" %>
                 </div>
-
-                <!-- ログイン保存チェックボタン -->
-                <% if devise_mapping.rememberable? %>
-                  <div class="flex gap-1 mx-2 text-left"> <%# ログイン情報を保存する %>
-                    <%= f.check_box :remember_me %>
-                    <%= f.label :remember_me, "ログイン情報を保存する", class: "text-xs" %>
-                  </div>
-                <% end %>
-
-
-                <!-- ログインボタン -->
-                <button
-                  @blur="validateSubmit"
-                  type="submit"
-                  name="commit"
-                  data-disable-with="Log in"
-                  class="mt-2 tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
-                  :disabled="!status_submit"
-                >
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 -ml-2" viewBox="0 0 24 24" fill="currentColor"> <%# ログインボタンアイコン %>
-                    <path d="M4 15H6V20H18V4H6V9H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V15ZM10 11V8L15 12L10 16V13H2V11H10Z"/>
-                  </svg>
-                  <span class="ml-3">
-                    ログイン
-                  </span>
-                </button>
               <% end %>
-              <!-- パスワードをお忘れですか？ -->
-              <div class="mt-6 text-center">
-                <button @click="modalDevelop = true" type="button" class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">
-                  パスワードをお忘れですか?
-                </button>
-                <%#= link_to "パスワードをお忘れですか?", new_user_password_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+
+
+              <!-- ログインボタン -->
+              <button
+                @blur="validateSubmit"
+                type="submit"
+                name="commit"
+                data-disable-with="Log in"
+                class="mt-2 tracking-wide font-semibold bg-orange-400 text-gray-100 w-full py-4 rounded-lg hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none"
+                :disabled="!status_submit"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 -ml-2" viewBox="0 0 24 24" fill="currentColor"> <%# ログインボタンアイコン %>
+                  <path d="M4 15H6V20H18V4H6V9H4V3C4 2.44772 4.44772 2 5 2H19C19.5523 2 20 2.44772 20 3V21C20 21.5523 19.5523 22 19 22H5C4.44772 22 4 21.5523 4 21V15ZM10 11V8L15 12L10 16V13H2V11H10Z"/>
+                </svg>
+                <span class="ml-3">
+                  ログイン
+                </span>
+              </button>
+            <% end %>
+            <!-- パスワードをお忘れですか？ -->
+            <div class="mt-6 text-center">
+              <button @click="modalDevelop = true" type="button" class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">
+                パスワードをお忘れですか?
+              </button>
+              <%#= link_to "パスワードをお忘れですか?", new_user_password_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+            </div>
+
+            <!-- まだアカウントをお持ちでない方はこちら -->
+            <div class="my-1 text-center">
+              <%= link_to "まだアカウントをお持ちでない方はこちら", new_user_registration_path, data: { turbo: false }, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+            </div>
+          </div>
+
+          <!-- 「または」 -->
+          <div class="my-12 border-b text-center">
+              <div
+                  class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
+                  または
               </div>
+          </div>
 
-              <!-- まだアカウントをお持ちでない方はこちら -->
-              <div class="my-1 text-center">
-                <%= link_to "まだアカウントをお持ちでない方はこちら", new_user_registration_path, data: { turbo: false }, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
-              </div>
-            </div>
-
-            <!-- 「または」 -->
-            <div class="my-12 border-b text-center">
-                <div
-                    class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2">
-                    または
-                </div>
-            </div>
-
-            <!-- SNSログインセクション -->
-            <div class="flex flex-col items-center">
-              <%= render "/users/sns_login" %>
-            </div>
-
+          <!-- SNSログインセクション -->
+          <div class="flex flex-col items-center">
+            <%= render "/users/sns_login" %>
           </div>
 
         </div>
-      <% end %>
+
+      </div>
+
     </div>
 
   </div>

@@ -74,3 +74,5 @@ gem "dockerfile-rails", ">= 1.7", group: :development
 gem "sassc-rails"
 gem "pagy", "~> 9.3"
 gem "meta-tags"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"

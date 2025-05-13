@@ -5,6 +5,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # updateメソッド時に与えるストロングパラメータの設定用。
   before_action :configure_account_update_params, only: [ :update ]
 
+  # 新規登録時にUIDを設定
+  def build_resource(hash = {})
+    hash[:uid] = User.create_unique_string
+    super
+  end
+
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -52,7 +59,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # password無しで詳細を変更するための記載。
   def update_resource(resource, params)
-    resource.update_without_password(params)
+    resource.update_without_password(params.except("current_password"))
   end
 
   # If you have extra params to permit, append them to the sanitizer.
