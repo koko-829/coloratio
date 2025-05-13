@@ -15,7 +15,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: provider.to_s.capitalize) if is_navigational_format?
     else
       session["devise.#{provider}_data"] = request.env["omniauth.auth"].except(:extra)
-      # flash[:alert] = @user.errors.full_messages.to_sentence if @user.errors.any? #googleログイン失敗した時のエラーメッセージ用？
+      set_flash_message(:alert, :failure, kind: provider.to_s.capitalize, reason: "既に他の方法で登録されているメールアドレスです") # flash[:alert]でt.devise.omniauth_callbacks.failureを呼び出す。
       redirect_to new_user_registration_url
     end
   end
