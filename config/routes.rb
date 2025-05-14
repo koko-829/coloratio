@@ -42,6 +42,10 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # カスタムエラーページ用のルート
+  get "/404", to: "errors#not_found", as: :not_found
+  get "/500", to: "errors#internal_server_error", as: :internal_server_error
+
+  # すべての未知のルートを404エラーページへリダイレクト
+  match "*path", to: "errors#not_found", via: :all
 end

@@ -1,26 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coloratio</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-C7R1KN04E8"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-C7R1KN04E8');
-    </script>
-
-    <%= yield :head %>
 
     <link rel="manifest" href="/manifest.json">
-    <!-- favicon用の記載 -->
     <link rel="icon" href="/favicon.ico" sizes="32x32">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -36,18 +21,7 @@
     <!-- meta_tagsの呼び出し -->
     <%= display_meta_tags(default_meta_tags) %>
   </head>
-
-  <body>
-    <div x-data="{modalDevelop: false}" class="main-container">
-      <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %> <%# ログインの有無で表示するヘッダーを変更する %>
-
-
-      <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
-      <%= render "shared/development_modal" %>
-      <%= yield %>
-
-
-      <%= render 'layouts/footer' %>
-    </div>
+  <body class="h-screen w-screen">
+    <%= yield %>
   </body>
 </html>
