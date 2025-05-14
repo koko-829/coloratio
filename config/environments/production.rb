@@ -107,7 +107,7 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [ :id ]
 
   # カスタムエラーページの表示用
-  # config.exceptions_app = self.routes
+  config.exceptions_app = self.routes
 
   # Enable DNS rebinding protection and other `Host` header attacks.
   # config.hosts = [

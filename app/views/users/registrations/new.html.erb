@@ -182,7 +182,7 @@
 
           <%# 既にアカウントをお持ちの方はこちら %>
           <div class="mt-6 my-1 text-center">
-            <%= link_to "既にアカウントをお持ちの方はこちら", new_user_session_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+            <%= link_to "既にアカウントをお持ちの方はこちら", new_user_session_path, data: { turbo: false }, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
           </div>
 
           <!-- 「または」 -->
