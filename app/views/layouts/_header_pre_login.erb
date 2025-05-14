@@ -1,24 +1,25 @@
 <nav class="relative bg-white border-t-2 shadow dark:bg-gray-800">
-  <div class="container px-6 py-4 mx-auto flex justify-between ">
+  <div class="container px-6 py-4 mx-auto flex justify-between min-h-20">
     <div class="flex items-center justify-between"> <%# ロゴボタン %>
-      <%= link_to root_path, class: "text-2xl" do %>
-        <%= image_tag "coloratio-logo.svg", class:"w-40" %>
+      <%= link_to root_path do %>
+        <%= image_tag "coloratio-logo.svg", class:"lg:w-40 w-32" %>
       <% end %>
     </div>
-    <div class="flex flex-row"> <%# ログイン・新規登録ボタン %>
-
-      <%= link_to new_user_session_path, data: { turbo: false }, class: "group relative mr-4 inline-block text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
+    <div class="flex flex-row gap-4"> <%# ログイン・新規登録ボタン %>
+      <!-- ログインボタン -->
+      <%= link_to new_user_session_path, data: { turbo: false }, class: "group relative inline-block text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
         <span class="absolute inset-0 border border-current"></span>
         <span
-          class="block border border-current bg-white px-6 py-3 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+          class="block border border-current bg-white p-3 lg:px-6 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           ログイン
         </span>
       <% end %>
 
+      <!-- 会員登録ボタン -->
       <%= link_to new_user_registration_path, data: { turbo: false }, class: "group relative inline-block text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
         <span class="absolute inset-0 border border-black"></span>
         <span
-          class="block border rounded-sm border-black bg-amber-200 px-6 py-3 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+          class="block border rounded-sm border-black bg-amber-200 p-3 lg:px-6 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           会員登録
         </span>
       <% end %>

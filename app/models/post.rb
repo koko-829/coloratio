@@ -5,7 +5,7 @@ class Post < ApplicationRecord
   has_many :color_posts, dependent: :destroy
   has_many :colors, through: :color_posts
   has_many :color_suggestions
-  has_many :tag_posts
+  has_many :tag_posts, dependent: :destroy
   has_many :tags, through: :tag_posts
   enum status: { draft: 0, published: 1 }
   validates :title, length: { maximum: 32 }
