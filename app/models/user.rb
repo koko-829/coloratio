@@ -17,7 +17,14 @@ class User < ApplicationRecord
   # googleログイン時にユーザーネームとemailとpasswordを確認して、もしまだ存在してなかった場合は新しくユーザーを作成する用のメソッド
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
-      user.name = auth.info.name
+      proposed_name = auth.info.name
+
+      if User.exists?(name: proposed_name)
+        # 既存の名前がある場合は、デフォルト名をユーザーIDを使って設定
+        user.name = "default-name-#{User.maximum(:id).to_i + 1}"
+      else
+        user.name = proposed_name
+      end
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
     end
