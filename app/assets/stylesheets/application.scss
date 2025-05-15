@@ -1,6 +1,6 @@
 @use 'range_slider';
+@use 'tagify';
 @use 'maintenance';
-
 
 .main-container {
   display: grid;
@@ -9,11 +9,6 @@
   min-height: 100vh;
 }
 
-
 .shadow-bottom {
   box-shadow: inset 0px -30px 30px -20px rgba(0, 0, 0, 0.3);
-}
-
-.picker-cursor {
-  cursor: url('images/picker.svg'), auto;
 }

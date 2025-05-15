@@ -51,7 +51,7 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.color_count = params[:post][:ratio].split(",").length
     # tagを登録する用の処理
-    input_tags = tag_params[:tag].split # 空白区切りで入力された情報を配列にして変数に格納。
+    input_tags = tag_params[:tag].split(",")
     @post.create_tags(input_tags) # create_tagsをtag.rbに記載。tagsテーブルのデータ作成と中間テーブルへの登録を行うためのメソッド。
     input_colors = color_params[:color].split(",")
     @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
@@ -96,7 +96,7 @@ class PostsController < ApplicationController
       input_colors = color_params[:color].split(",")
       @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
       # tag関連の更新も行っておく。
-      input_tags = tag_params[:tag].split
+      input_tags = tag_params[:tag].split(",")
       # update_tagを呼び出してtagの更新を行う。
       @post.update_tags(input_tags)
       # フォームの入力内容を関連するカラムにセットする。
