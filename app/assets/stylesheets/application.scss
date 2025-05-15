@@ -12,19 +12,3 @@
 .shadow-bottom {
   box-shadow: inset 0px -30px 30px -20px rgba(0, 0, 0, 0.3);
 }
-
-.mobile-sizing {
-  display: block; // デフォルトでブロック表示
-
-  @media (min-width: 768px) and (min-height: 420px) { // mdブレイクポイント（768px以上）
-    display: none; // mdサイズ以上では非表示
-  }
-}
-
-.pc-sizing {
-  display: none;
-
-  @media (min-width: 768px) and (min-height: 420px) { // mdブレイクポイント（768px以上）
-    display: block; // mdサイズ以上でブロック表示
-  }
-}
