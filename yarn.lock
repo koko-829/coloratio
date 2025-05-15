@@ -150,6 +150,11 @@
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.201.tgz#bfb3da01b3e2462f5a18f372c52dedd7de76037f"
   integrity sha512-wsTdWoZ5EfG5k3t7ORdyQF0ZmDEgN4aVPCanHAiNEwCROqibSZMXXmCbH7IDJUVri4FOeAVwwbPINI7HVHPKBw==
 
+"@yaireo/tagify@^4.35.1":
+  version "4.35.1"
+  resolved "https://registry.yarnpkg.com/@yaireo/tagify/-/tagify-4.35.1.tgz#fd94e67f7ee1f175bb89ab7579d16081c727cea7"
+  integrity sha512-PF6nwp1lHMVS2IVpqZTxx53fQyEBUDjdDQsi7gD9Vx/EQ398gRH8LByEL8lawws9iJHB90on74VWG3pvwznrEg==
+
 esbuild@^0.25.1:
   version "0.25.1"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.25.1.tgz#a16b8d070b6ad4871935277bda6ccfe852e3fa2f"

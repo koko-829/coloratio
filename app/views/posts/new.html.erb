@@ -58,20 +58,30 @@
             </div>
 
             <div class="pointer-events-none mt-3"> <%# 概要欄(任意) %>
-              <p class="font-bold">概要欄(任意)</p>
+              <div class="flex gap-1 mb-1">
+                <p class="font-bold">概要欄</p>
+                <span class='bg-emerald-50 text-emerald-600 text-xs font-medium mr-2 px-1.5 rounded py-1'>任意</span>
+              </div>
               <div class="flex gap-1 items-center justify-center">
                 <textarea disabled rows="3" placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"></textarea>
               </div>
             </div>
 
-            <div class="my-3"> <%# タグ(任意) %>
-              <p class="font-bold">タグ</p>
+            <%# タグ(任意) %>
+            <div class="my-3">
+              <div class="flex gap-1 mb-1">
+                <%= f.label :tag, "タグ", class:"font-bold" %>
+                <span class='bg-emerald-50 text-emerald-600 text-xs font-medium mr-2 px-1.5 rounded py-1'>任意</span>
+              </div>
               <div class="flex gap-1 items-center justify-center">
-                <input disabled placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"/>
+                <%= f.text_field :tag,
+                placeholder:"※15文字以内で5つまで登録できます。",
+                class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                %>
               </div>
             </div>
 
-            <%= link_to "※変更を保存せず終了する", root_path, data: { turbo_method: :get, turbo_confirm: "直近に保存した内容からの変更を反映せずに終了し、トップページに戻ります。よろしいですか?"}, class:"text-xs text-center text-blue-500 hover:text-blue-600 active:text-blue-500 underline" %>
+            <%= link_to "変更を保存せず終了する", root_path, data: { turbo_method: :get, turbo_confirm: "直近に保存した内容からの変更を反映せずに終了し、トップページに戻ります。よろしいですか?"}, class:"text-xs text-center text-blue-500 hover:text-blue-600 active:text-blue-500 underline" %>
 
             <div class="mt-5 flex gap-2 justify-end">
               <%= f.button "下書き保存", type: 'button', onclick: "statusDraft(); confirmAndSubmit(this);", id:"draft_button", data: { turbo_confirm: 'パレットを下書き保存します'},  class:"py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" %>

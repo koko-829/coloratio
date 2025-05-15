@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@hotwired/stimulus": "^3.2.2",
-    "@hotwired/turbo-rails": "^8.0.13"
+    "@hotwired/turbo-rails": "^8.0.13",
+    "@yaireo/tagify": "^4.35.1"
   }
 }
