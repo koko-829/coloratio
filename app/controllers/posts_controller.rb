@@ -50,8 +50,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.color_count = params[:post][:ratio].split(",").length
+    # tagを登録する用の処理
+    input_tags = tag_params[:tag].split # 空白区切りで入力された情報を配列にして変数に格納。
+    @post.create_tags(input_tags) # create_tagsをtag.rbに記載。tagsテーブルのデータ作成と中間テーブルへの登録を行うためのメソッド。
     input_colors = color_params[:color].split(",")
-    # input_colors = params[:post][:color].split(',') # colorの入力値を配列の形でinput_colorsに格納する。
     @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
     if @post.save
 
@@ -93,6 +95,10 @@ class PostsController < ApplicationController
       # 新しい色を登録する
       input_colors = color_params[:color].split(",")
       @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
+      # tag関連の更新も行っておく。
+      input_tags = tag_params[:tag].split
+      # update_tagを呼び出してtagの更新を行う。
+      @post.update_tags(input_tags)
       # フォームの入力内容を関連するカラムにセットする。
       @post.assign_attributes(post_params)
       # color_countも新しい値をセットしておく。
@@ -147,6 +153,10 @@ class PostsController < ApplicationController
 
   def color_params # color関連のストロングパラメータ
     params.require(:post).permit(:color)
+  end
+
+  def tag_params # tag用のストロングパラメータ
+    params.require(:post).permit(:tag)
   end
 
   # edit時にnoUiSlider用の比率をjsに渡すための@slider_range定義用メソッド
