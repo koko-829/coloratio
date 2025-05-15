@@ -9,6 +9,7 @@ class Post < ApplicationRecord
   has_many :tags, through: :tag_posts
   enum status: { draft: 0, published: 1 }
   validates :title, length: { maximum: 32 }
+  validates :description, length: { maximum: 140 }
 
   scope :published, -> { where(status: "published") } # 投稿済みのみを絞り込む用。
   scope :latest, -> { order(created_at: :desc) } # 公開が新しい順

@@ -32,10 +32,17 @@
         <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
           <div x-data="{status : 'draft'}" class="mx-auto max-w-xs">
             <%= render "shared/error_messages", resource: f.object %>
-            <div class="mt-3"> <%# タイトル %>
+            <%# タイトル %>
+            <div x-data="{title: '<%= @post.title %>'}" class="mt-3">
               <%= f.label :title, "タイトル", class:"font-bold" %>
               <div class="flex gap-1 items-center justify-center">
-                <%= f.text_field :title, maxlength: "32", placeholder:"パレットを入力。※32字以内", class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+                <%= f.text_field :title, maxlength: "32", 'x-model': 'title', placeholder:"パレットのタイトルを入力してください。", class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+              </div>
+              <!-- 文字数注釈 -->
+              <div class="text-xs text-gray-500">
+                <span>(</span>
+                <span x-show="title" x-text="`${title.length}文字 /`"></span>
+                32文字以内 )
               </div>
             </div>
 
@@ -58,14 +65,27 @@
             </div>
 
             <%# 概要欄(任意) %>
-            <div class="pointer-events-none mt-3">
-              <div class="flex gap-1 mb-1">
-                <p class="font-bold">概要欄</p>
+            <div x-data="{description: '<%= @post.description %>'}" class="my-3">
+              <div class="flex gap-1 mb-1 items-center">
+                <%= f.label :description, "概要欄", class:"font-bold" %>
                 <span class='bg-emerald-50 text-emerald-600 text-xs font-medium mr-2 px-1.5 rounded py-1'>任意</span>
               </div>
               <div class="flex gap-1 items-center justify-center">
-                <textarea disabled rows="3" placeholder="※本リリースにて開発予定です。" class="w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"></textarea>
+                <%= f.text_area :description,
+                rows: 2,
+                'x-model': 'description',
+                maxlength: 140,
+                placeholder:"パレットについての説明を登録できます。",
+                class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white"
+                %>
               </div>
+              <!-- 文字数注釈 -->
+              <div class="text-xs text-gray-500">
+                <span>(</span>
+                <span x-show="description" x-text="`${description.length}文字 /`"></span>
+                140文字以内 )
+              </div>
+
             </div>
 
             <%# タグ(任意) %>

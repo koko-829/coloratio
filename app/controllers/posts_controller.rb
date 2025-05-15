@@ -148,7 +148,7 @@ class PostsController < ApplicationController
   # paramsとは別にuser_idもこの時点で定義してパラメーターとして追加しておきたいからmergeを使用。
   # これでPost.newの時にuser_idも一緒に登録してくれる。
   def post_params # post関連のストロングパラメータ
-    params.require(:post).permit(:title, :ratio, :status).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :description, :ratio, :status).merge(user_id: current_user.id)
   end
 
   def color_params # color関連のストロングパラメータ
