@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id]) # findにしてた場合、idが見つからなかったらエラーになってしまう。
-
     if @user.nil?
       redirect_to root_path, alert: "ユーザーが存在しません。"
       return
