@@ -1,6 +1,12 @@
 @use 'range_slider';
 @use 'tagify';
 @use 'maintenance';
+@use 'loading';
+@use 'practice';
+
+[x-cloak] {
+  display: none !important;
+}
 
 .main-container {
   display: grid;
