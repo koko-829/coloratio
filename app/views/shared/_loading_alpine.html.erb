@@ -8,20 +8,24 @@
 
   // turboクリック時
   document.addEventListener("turbo:click", () => {
-    console.log('turbo:click');
+    // console.log('turbo:click');
     Alpine.store('loading').loadingModal = true;
   });
 
 
   // turbo通信で読み込みが終わった後の処理
   document.addEventListener("turbo:load", () => {
-    Alpine.store('loading').loadingModal = false; // ローディングを非表示
+    Alpine.store('loading').loadingModal = false;
+    // console.log('turbo:load');
   });
 
   // フォーム送信開始時
-  document.addEventListener("turbo:submit-start", () => {
-    Alpine.store('loading').loadingModal = true;
-  });
+  //これを設定してるとturbo-flame系のものまでonになってしまう。@clickで手動で設定していった方が良いかもしれない。
+  // document.addEventListener("turbo:submit-start", () => {
+  //   console.log('turbo:submit-start');
+  //   Alpine.store('loading').loadingModal = true;
+
+  // });
 
   // フォーム送信完了時
   document.addEventListener("turbo:submit-end", () => {
