@@ -52,8 +52,8 @@
 
     </div>
     <!-- パソコンサイズ時 -->
-    <div class="hidden md:block"> <%# pc-sizingクラスをscssで指定 %>
-      <div x-data="{modalDevelop: false, modalLoading: false}" class="main-container">
+    <div class="hidden md:block">
+      <div x-data="{modalDevelop: false}" class="main-container">
         <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %>
 
         <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
@@ -66,4 +66,6 @@
     </div>
 
   </body>
+  <%# loading表示する用のscript %>
+  <%= render 'shared/loading_alpine' %>
 </html>

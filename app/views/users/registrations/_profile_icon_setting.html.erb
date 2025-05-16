@@ -31,7 +31,7 @@
 
         <div class="flex gap-3 border-t border-neutral-300 bg-neutral-50/60 p-4 dark:border-neutral-700 dark:bg-neutral-950/20 flex-row items-center justify-center">
           <button @click="modalIsOpen = false" type="button" class="tracking-wide font-medium shadow-lg text-sm py-2 px-7 rounded-3xl transition-all text-neutral-600 border-2 duration-300 ease-in-out flex items-center justify-center hover:scale-105 active:scale-95">キャンセル</button>
-          <%= f.submit  "変更する", ':disabled':"select_profile ===  now_profile", '@click':"modalIsOpen = false", class:"tracking-wide shadow-lg border-2 text-sm font-semibold bg-orange-400 text-gray-100 py-2 px-8 rounded-3xl hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none hover:scale-105 active:scale-95" %>
+          <%= f.submit  "変更する", ':disabled':"select_profile ===  now_profile", '@click':"modalIsOpen = false, $store.loading.loadingModal = true", class:"tracking-wide shadow-lg border-2 text-sm font-semibold bg-orange-400 text-gray-100 py-2 px-8 rounded-3xl hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none hover:scale-105 active:scale-95" %>
         </div>
       <% end %>
     </div>
