@@ -6,11 +6,6 @@
     });
   });
 
-  // turboキャッシュ保存前
-  // document.addEventListener("turbo:before-cache", () => {
-  //   Alpine.store('loading').loadingModal = true;
-  // });
-
   // turboクリック時
   document.addEventListener("turbo:click", () => {
     console.log('turbo:click');
@@ -22,4 +17,17 @@
   document.addEventListener("turbo:load", () => {
     Alpine.store('loading').loadingModal = false; // ローディングを非表示
   });
+
+  // フォーム送信開始時
+  document.addEventListener("turbo:submit-start", () => {
+    Alpine.store('loading').loadingModal = true;
+  });
+
+  // フォーム送信完了時
+  document.addEventListener("turbo:submit-end", () => {
+    Alpine.store('loading').loadingModal = false;
+  });
+
+  // フォーム送信完了時
+
 </script>
