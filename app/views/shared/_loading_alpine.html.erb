@@ -6,11 +6,17 @@
     });
   });
 
-  // Turboイベントリスナー
-  document.addEventListener("turbo:before-cache", () => {
-    Alpine.store('loading').loadingModal = true; // 1秒後にローディングを表示
+  // turboキャッシュ保存前
+  // document.addEventListener("turbo:before-cache", () => {
+  //   Alpine.store('loading').loadingModal = true;
+  // });
 
+  // turboクリック時
+  document.addEventListener("turbo:click", () => {
+    console.log('turbo:click');
+    Alpine.store('loading').loadingModal = true;
   });
+
 
   // turbo通信で読み込みが終わった後の処理
   document.addEventListener("turbo:load", () => {
