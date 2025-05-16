@@ -1,0 +1,19 @@
+<script>
+
+  document.addEventListener('alpine:init', () => {
+    Alpine.store('loading', {
+      loadingModal: false,
+    });
+  });
+
+  // Turboイベントリスナー
+  document.addEventListener("turbo:before-cache", () => {
+    Alpine.store('loading').loadingModal = true; // 1秒後にローディングを表示
+
+  });
+
+  // turbo通信で読み込みが終わった後の処理
+  document.addEventListener("turbo:load", () => {
+    Alpine.store('loading').loadingModal = false; // ローディングを非表示
+  });
+</script>

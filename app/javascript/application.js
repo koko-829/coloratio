@@ -6,4 +6,3 @@ import "./range_slider"
 import "./color_select"
 import "./image_picker"
 import "./form/login_form"
-
