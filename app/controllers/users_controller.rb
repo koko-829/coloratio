@@ -18,16 +18,16 @@ class UsersController < ApplicationController
 
       # 各パレット表示用
       if params[:published]
-        @pagy, @my_published_posts = pagy(published_posts, limit: 4)
+        @pagy, @posts = pagy(published_posts, limit: 4)
         @selected_tab = "published"
       elsif params[:draft]
-        @pagy, @draft_posts = pagy(draft_posts, limit: 4)
+        @pagy, @posts = pagy(draft_posts, limit: 4)
         @selected_tab = "draft"
       elsif params[:liked]
-        @pagy, @liked_posts = pagy(liked_posts, limit: 4)
+        @pagy, @posts = pagy(liked_posts, limit: 4)
         @selected_tab = "liked"
       else
-        @pagy, @my_published_posts = pagy(published_posts, limit: 4)
+        @pagy, @posts = pagy(published_posts, limit: 4)
         @selected_tab = "published"
       end
 

@@ -2,16 +2,14 @@
 <div class="flex flex-col gap-10 my-5">
   <div class="flex flex-col">
     <div class="text-xl font-extrabold ml-3">下書きパレット</div>
-    <% if @draft_posts.present?  %> <%# 下書きパレット確認用 %>
+    <% if @posts.present? %> <%# 下書きパレット確認用 %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
-        <% @draft_posts.each do |post|  %>
+        <% @posts.each do |post|  %>
           <%= render "shared/post_card/draft_palette", post: post %>
         <% end %>
       </div>
 
-      <div class="flex items-center justify-center translate">
-        <%== pagy_nav(@pagy) %>
-      </div>
+
 
     <% else %>
       <div class="flex-grow grid place-items-center mb-3 rounded-lg">
