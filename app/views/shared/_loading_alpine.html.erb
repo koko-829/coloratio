@@ -39,16 +39,15 @@
   // });
 
   // Turbo Frameのレンダリング前
-  document.addEventListener("turbo:before-frame-render", () => {
-    //console.log('これ');
-    Alpine.store('loading').loadingModal = true;
-  });
+  // document.addEventListener("turbo:before-frame-render", () => {
+  //   //console.log('これ');
+  //   Alpine.store('loading').loadingModal = true;
+  // });
 
   // Turbo Frameのロード後(frame完全変更後)
-  document.addEventListener("turbo:frame-load", () => {
-    // console.log('turbo:frame-load');
-    Alpine.store('loading').loadingModal = false;
-  });
-
+  // document.addEventListener("turbo:frame-load", () => {
+  //   // console.log('turbo:frame-load');
+  //   Alpine.store('loading').loadingModal = false;
+  // });
 
 </script>
