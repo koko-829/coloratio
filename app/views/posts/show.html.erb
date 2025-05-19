@@ -26,7 +26,7 @@
                   <div class="size-8 overflow-hidden rounded-full">
                     <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
                   </div>
-                  <%= link_to user_path(post.user_id), class:"block font-sans text-lg antialiased font-light leading-relaxed hover:underline text-black" do %>
+                  <%= link_to user_path(post.user_id), class:"block text-lg antialiased font-light leading-relaxed hover:underline text-black" do %>
                     <%= post.user.name %>
                   <% end %>
                 </div>

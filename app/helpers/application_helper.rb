@@ -11,6 +11,10 @@ module ApplicationHelper
     }
   end
 
+  def my_post?(post)
+    post.user_id == current_user.id
+  end
+
   private
 
   def default_og

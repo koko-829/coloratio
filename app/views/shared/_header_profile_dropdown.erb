@@ -1,6 +1,6 @@
 
 <!-- ====== Account Dropdowns Section Start -->
-<section class="bg-gray-2 dark:bg-dark hidden lg:block">
+<section class="dark:bg-dark hidden lg:block">
   <div class="container">
     <!-- Account Dropdown Style One -->
     <div x-data="{showDropdown: false}" class="flex">
@@ -10,20 +10,14 @@
       >
         <button
           @click="showDropdown = !showDropdown"
-          class="mb-2 inline-flex h-12 items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-base font-medium text-dark dark:border-dark-3 dark:bg-dark-2 dark:text-white"
+          class="mb-2 inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-medium text-dark dark:border-dark-3 dark:bg-dark-2 dark:text-white"
         > <%# プロフィールアイコンボタン %>
           <div class="relative size-12 overflow-hidden rounded-full">
             <%= image_tag "profile_#{current_user.profile_icon}.svg", class:"size-full" %>
           </div>
 
           <span :class="showDropdown ? '-scale-y-100' : ''" class="duration-100"> <%# トグルアイコン%>
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
+            <svg class="size-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
                 d="M10 14.25C9.8125 14.25 9.65625 14.1875 9.5 14.0625L2.3125 7C2.03125 6.71875 2.03125 6.28125 2.3125 6C2.59375 5.71875 3.03125 5.71875 3.3125 6L10 12.5312L16.6875 5.9375C16.9688 5.65625 17.4062 5.65625 17.6875 5.9375C17.9688 6.21875 17.9688 6.65625 17.6875 6.9375L10.5 14C10.3437 14.1562 10.1875 14.25 10 14.25Z"
                 fill="currentColor"
@@ -33,8 +27,8 @@
         </button>
         <div
           :class="showDropdown ? 'block' : 'hidden'"
-          class="absolute right-0 top-full w-[240px] divide-y divide-stroke border border-stroke overflow-hidden rounded-lg bg-white dark:divide-dark-3 dark:bg-dark-2"
-        > <%# ハンバーガーメニュー中身%>
+          class="absolute right-0 top-full w-[240px] shadow-xl border-2 bg-[#f8f7f1] divide-y divide-stroke border-stroke overflow-hidden rounded-lg dark:divide-dark-3 dark:bg-dark-2"
+        >
 
           <!-- プロフィールアイコンとユーザーネームセクション -->
           <div class="flex items-center gap-3 px-4 py-3">
@@ -83,14 +77,12 @@
               </span>
             <% end %> <%# プロフィール設定用 %>
 
-            <%#= link_to about_app_static_path, class: "flex w-full items-center justify-between px-4 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
             <button @click="modalDevelop = true" type="button" class="flex w-full items-center justify-between px-4 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5">
               <span class="flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 19C12.8284 19 13.5 19.6716 13.5 20.5C13.5 21.3284 12.8284 22 12 22C11.1716 22 10.5 21.3284 10.5 20.5C10.5 19.6716 11.1716 19 12 19ZM12 2C15.3137 2 18 4.68629 18 8C18 10.1646 17.2474 11.2907 15.3259 12.9231C13.3986 14.5604 13 15.2969 13 17H11C11 14.526 11.787 13.3052 14.031 11.3989C15.5479 10.1102 16 9.43374 16 8C16 5.79086 14.2091 4 12 4C9.79086 4 8 5.79086 8 8V9H6V8C6 4.68629 8.68629 2 12 2Z"></path></svg>
                 <span>アプリの使い方</span>
               </span>
             </button>
-            <%# end %>
           </div>
           <div>
             <!-- 公開済み一覧 -->

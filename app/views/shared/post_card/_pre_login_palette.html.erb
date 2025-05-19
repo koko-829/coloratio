@@ -6,7 +6,7 @@
   </div>
   <div class="px-6">
     <div class="flex items-center justify-between"> <%# タイトルといいね用 %>
-      <h5 class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+      <h5 class="block text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
         <%= post.title %>
       </h5>
     </div>
@@ -14,7 +14,7 @@
       <div class="size-5 overflow-hidden rounded-full">
         <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
       </div>
-      <p x-on:click="modalIsOpen = true" class="block cursor-pointer font-sans text-base antialiased font-light leading-relaxed hover:underline text-gray-700">
+      <p x-on:click="modalIsOpen = true" class="block cursor-pointer text-base antialiased font-light leading-relaxed hover:underline text-gray-700">
         <%= post.user.name %>
       </p>
     </div>

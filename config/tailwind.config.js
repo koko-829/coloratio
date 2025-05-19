@@ -10,8 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
-      },
+        body: ["Noto Sans JP", "sans-serif"],
+      }
     },
   },
   plugins: [

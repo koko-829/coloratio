@@ -1,22 +1,22 @@
 <!-- 新規登録画面！！source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
-<div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center"> <%# フォーム画面の土台枠外span %>
+<div class="bg-gray-100 text-gray-900 flex justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="relative max-w-screen-xl m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
 
     <!-- 左側フォーム本体枠 -->
-    <div class="lg:w-1/2 xl:w-5/12 p-6">
+    <div class="lg:w-1/2 p-6">
       <div class="mt-10 flex flex-col items-center">
         <!-- アプリロゴ -->
         <%= image_tag "coloratio-logo.svg", class:"w-24 mb-4" %>
 
         <!-- 「会員登録」大文字 -->
-        <h1 class="text-2xl xl:text-3xl font-bold">会員登録</h1>
+        <h1 class="text-3xl font-bold">会員登録</h1>
 
 
         <!-- メアド＆SNSログイン -->
         <div x-data="{consent: false, name_error: ''}" class="w-full flex-1 mt-8 mx-auto max-w-xs">
 
           <!-- 一般的なメアド会員登録セクション -->
-          <div x-data="signUpValidation" class="">
+          <div x-data="signUpValidation">
             <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
               <!-- エラー表示用 -->

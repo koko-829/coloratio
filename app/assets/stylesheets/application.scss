@@ -3,6 +3,12 @@
 @use 'maintenance';
 @use 'loading';
 @use 'practice';
+// フォント指定
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 [x-cloak] {
   display: none !important;

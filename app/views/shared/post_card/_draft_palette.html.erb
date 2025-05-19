@@ -7,7 +7,7 @@
   </div>
   <div class="px-6 mt-3">
     <div class="flex items-center justify-between"> <%# タイトルとゴミ箱ボタン用 %>
-        <h5 class="block font-sans text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
+        <h5 class="block text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
           <%= post.title %>
         </h5>
         <%= link_to post_path(post), data: { turbo_method: :delete, turbo_confirm: "下書きを削除します。よろしいですか？"},  class:"mr-3" do %>
@@ -18,7 +18,7 @@
       <div class="size-5 overflow-hidden rounded-full">
         <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
       </div>
-      <%= link_to user_path(post.user_id), class:"block font-sans text-base antialiased font-light leading-relaxed hover:underline text-gray-700" do %>
+      <%= link_to user_path(post.user_id), class:"block text-base antialiased font-light leading-relaxed hover:underline text-gray-700" do %>
         <%= post.user.name %>
       <% end %>
       <div class="ml-1 size-2 rounded-full bg-green-400"></div> <%# 自作のパレット識別用 %>
@@ -37,7 +37,7 @@
 
   </div>
   <div class="px-6 my-3">
-<%= link_to edit_post_path(post), class:"block w-full select-none rounded-lg bg-gray-900 py-3.5 px-7 text-center align-middle font-sans text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" do %>
+<%= link_to edit_post_path(post), class:"block w-full select-none rounded-lg bg-gray-900 py-3.5 px-7 text-center align-middle text-sm font-bold uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" do %>
       <div class="flex gap-1 items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="currentColor"><path d="M16.7574 2.99678L14.7574 4.99678H5V18.9968H19V9.23943L21 7.23943V19.9968C21 20.5491 20.5523 20.9968 20 20.9968H4C3.44772 20.9968 3 20.5491 3 19.9968V3.99678C3 3.4445 3.44772 2.99678 4 2.99678H16.7574ZM20.4853 2.09729L21.8995 3.5115L12.7071 12.7039L11.2954 12.7064L11.2929 11.2897L20.4853 2.09729Z"></path></svg>
         <p>編集する</p>

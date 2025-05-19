@@ -138,7 +138,7 @@ class PostsController < ApplicationController
   def unpublished
     @post = Post.find(params[:id])
     if @post.update(status: "draft")
-      redirect_to user_path(current_user), notice: "下書きに戻しました"
+      redirect_to user_path(current_user, draft: true), notice: "下書きに戻しました"
     else
       redirect_to user_path(current_user), alert: "エラーが発生しました"
     end
