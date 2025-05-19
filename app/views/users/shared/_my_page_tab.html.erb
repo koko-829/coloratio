@@ -38,10 +38,11 @@
         <!-- いいねしたパレット表示用 -->
         <%= render "users/shared/liked" %>
       </div>
+
+      <!-- ページネーション枠 -->
       <% if @posts.present? %>
         <div class="flex items-center justify-center translate">
           <%== pagy_nav(@pagy, anchor_string: "data-turbo-action='advance'") %>
-          <%#== pagy_nav(@pagy), data: { turbo_action: :advance } %>
         </div>
       <% end %>
 
