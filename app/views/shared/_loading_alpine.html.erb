@@ -8,8 +8,8 @@
 
   // turbo-driveの遷移前
   document.addEventListener("turbo:before-visit", () => {
-    console.log('turbo:before-visit');
-    // Alpine.store('loading').loadingModal = true;
+    // console.log('turbo:before-visit');
+    Alpine.store('loading').loadingModal = true;
   });
 
   // turbo通信で読み込みが終わった後の処理(turbo_framesは関係ないっぽい)
@@ -32,13 +32,19 @@
     Alpine.store('loading').loadingModal = false;
   });
 
-  // Turbo Frameのレンダリング後
-  document.addEventListener("turbo:frame-render", () => {
-    // console.log('turbo:frame-render');
+  // // Turbo Frameのレンダリング後
+  // document.addEventListener("turbo:frame-render", () => {
+  //   // console.log('turbo:frame-render');
+  //   Alpine.store('loading').loadingModal = true;
+  // });
+
+  // Turbo Frameのレンダリング前
+  document.addEventListener("turbo:before-frame-render", () => {
+    //console.log('これ');
     Alpine.store('loading').loadingModal = true;
   });
 
-  // Turbo Frameのロード後
+  // Turbo Frameのロード後(frame完全変更後)
   document.addEventListener("turbo:frame-load", () => {
     // console.log('turbo:frame-load');
     Alpine.store('loading').loadingModal = false;
