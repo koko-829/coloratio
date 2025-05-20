@@ -1,14 +1,14 @@
-<div class= "min-h-fit text-gray-900 flex items-center justify-center">
-  <div class="m-10">
-    <div class="text-2xl ml-5 font-bold">投稿一覧 </div>
-    <%= turbo_frame_tag "posts-list" do %>
+<%= turbo_frame_tag "posts-list", autoscroll: true, data: { autoscroll_block: "start" } do %>
+  <div class= "min-h-fit text-gray-900 flex items-center justify-center">
+    <div class="m-10">
+      <div class="text-2xl ml-5 font-bold">投稿一覧 </div>
 
       <%# 並び替え部分 %>
       <div class="my-5">
         <%= render "shared/sort_select" %>
       </div>
 
-    <!-- 一覧画面用 -->
+      <!-- 一覧画面用 -->
       <div class="flex flex-col gap-10 my-5">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
           <% @posts.each do |post|  %>
@@ -19,6 +19,6 @@
       <div class="flex items-center justify-center translate">
         <%== pagy_nav(@pagy) %>
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+<% end %>
