@@ -8,14 +8,14 @@
 
   // turbo-driveの遷移前
   document.addEventListener("turbo:before-visit", () => {
-    // console.log('turbo:before-visit');
+    console.log('turbo:before-visit');
     Alpine.store('loading').loadingModal = true;
   });
 
   // turbo通信で読み込みが終わった後の処理(turbo_framesは関係ないっぽい)
   document.addEventListener("turbo:load", () => {
     Alpine.store('loading').loadingModal = false;
-    // console.log('turbo:load');
+    console.log('turbo:load');
   });
 
   // フォーム送信開始時
@@ -28,7 +28,7 @@
 
   // フォーム送信完了時
   document.addEventListener("turbo:submit-end", () => {
-    // console.log('turbo:submit-end');
+    console.log('turbo:submit-end');
     Alpine.store('loading').loadingModal = false;
   });
 
