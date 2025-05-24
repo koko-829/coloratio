@@ -1,5 +1,5 @@
 <div class= "min-h-fit text-gray-900 flex items-center justify-center">
-  <div class="m-10">
+  <div class="mx-10">
 
     <%= search_form_for(
       @search,
@@ -137,7 +137,7 @@
 
     <%= turbo_frame_tag "posts-list" do %>
       <!-- 一覧画面用 -->
-      <div class="flex flex-col gap-10 my-5">
+      <div class="flex flex-col gap-10 my-10">
       <!-- 「投稿一覧」セクション -->
       <div class="w-[90vw] mx-auto">
 
@@ -184,3 +184,10 @@
 
   </div>
 </div>
+
+<script>
+  // turbo-renderの遷移前(turboフレームがレンダリングされる前に自動スクロールを発生させる)
+  document.addEventListener("turbo:frame-render", function() {
+    document.body.scrollIntoView();
+  });
+</script>

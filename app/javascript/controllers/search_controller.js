@@ -11,6 +11,6 @@ export default class extends Controller {
     // 連続でinputされるとTimeoutはクリアされるため、最後の処理だけしか実行されない
     this.timeout = setTimeout(() => {
       this.element.requestSubmit()
-    }, 300)
+    }, 200)
   }
 }

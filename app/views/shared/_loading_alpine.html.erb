@@ -28,7 +28,7 @@
 
   // フォーム送信完了時
   document.addEventListener("turbo:submit-end", () => {
-    console.log('turbo:submit-end');
+    // console.log('turbo:submit-end');
     Alpine.store('loading').loadingModal = false;
   });
 
