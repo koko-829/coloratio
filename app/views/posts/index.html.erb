@@ -19,7 +19,7 @@
           <%= f.search_field :title_or_tags_name_or_colors_hex_code_cont,
             class:"w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-lg pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow",
             autocomplete: "off",
-            placeholder:"キーワード検索",
+            placeholder:"キーワード検索(タイトル・タグ・HEXコード)",
             'x-model': 'search_word',
             '@change': 'search_word = search_title.trim();'
           %>
