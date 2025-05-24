@@ -8,19 +8,21 @@ class PostsController < ApplicationController
       redirect_to top_index_path
       return
     end
-    if params[:latest]
-      @pagy, @posts = pagy(Post.published.latest)
-      @sort_status = 0 # alpineのソートに渡す用
-    elsif params[:old]
-      @pagy, @posts = pagy(Post.published.old)
-      @sort_status = 1
-    elsif params[:most_liked]
-      @pagy, @posts = pagy(Post.published.most_liked)
-      @sort_status = 2
+    if params[:q].present?
+      # 検索フォームからアクセスされてる場合
+      @search = Post.published.ransack(params[:q])
+      if params[:q][:sorts] === "most_liked"
+        @pagy, @posts = pagy(@search.result.most_liked)
+      else
+        @pagy, @posts = pagy(@search.result(distinct: true))
+      end
     else
-      @pagy, @posts = pagy(Post.published.latest)
-      @sort_status = 0
+      params[:q] = { color_count_eq: "", sorts: "created_at desc" }
+      @search = Post.published.ransack(params[:q])
+      @pagy, @posts = pagy(@search.result(distinct: true))
+      @search_status = false
     end
+    @result_count = @search.result(distinct: true).count
   end
 
 

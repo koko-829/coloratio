@@ -25,6 +25,15 @@ class Post < ApplicationRecord
     end
   end
 
+  # ransackの検索用。
+  def self.ransackable_attributes(auth_object = nil)
+    [ "title", "color_count", "created_at" ]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    [ "tags", "tag_posts", "color_posts", "colors" ]
+  end
+
   # tagsの更新のためのメソッド
   def update_tags(input_tags)
     registered_tags = tags.pluck(:name) # すでに紐付けれらているタグを配列化する
