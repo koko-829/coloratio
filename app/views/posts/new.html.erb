@@ -7,9 +7,6 @@
   <div class="mx-20 my-5">
 
     <div class="mb-1 text-xl font-bold">パレット作成 </div>
-    <div>
-      <p><%= @existed_tags %></p>
-    </div>
 
     <%= form_with model: @post, local: true do |f| %>
       <div class="px-2  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
@@ -127,7 +124,6 @@
         </div>
       </div>
     <% end %>
-
 
     <div class="flex flex-col lg:flex-row justify-center items-center gap-2 mt-10">
       <!-- ベース選択セクション -->

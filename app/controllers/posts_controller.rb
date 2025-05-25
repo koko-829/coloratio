@@ -81,6 +81,7 @@ class PostsController < ApplicationController
     # noUiSlider用のratio変数を用意する。
     ratio = @post.ratio.split(",").map(&:to_i)
     @slider_range = create_slider_range(ratio)
+    @existed_tags = Tag.joins(:posts).where(posts: { status: "published" }).distinct.pluck(:name)
     if @post.user == current_user
       render :edit
     else
