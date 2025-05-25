@@ -10,4 +10,7 @@ class StaticsController < ApplicationController
 
   def about_app
   end
+
+  def practice
+  end
 end

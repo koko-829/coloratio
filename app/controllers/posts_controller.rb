@@ -44,6 +44,7 @@ class PostsController < ApplicationController
       [ "#494544", "#c41a30", "#bac8c6" ]
     ].sample
     @post = Post.new
+    @existed_tags = Tag.pluck(:name)
   end
 
   def create
