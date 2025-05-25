@@ -16,6 +16,8 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none; // スクロールバーを非表示にする
+  overflow-x: hidden; // 横軸のスクロールを不可に(レスポンシブ対応必須)
 }
 
 .main-container {
