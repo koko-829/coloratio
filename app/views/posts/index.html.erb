@@ -1,41 +1,38 @@
-<%= turbo_frame_tag "posts-list" do %>
-  <div class= "min-h-fit text-gray-900 flex items-center justify-center">
-    <div class="m-10">
+<div class= "min-h-fit text-gray-900 flex items-center justify-center">
+  <div class="mx-10">
 
-      <!-- params確認用 -->
-      <div class="hidden">
-        <%= params[:q] %>
-      </div>
 
-      <%= search_form_for @search do |f| %>
-        <!-- フリーワード検索窓 -->
-        <div class="w-[90vw] mx-auto my-6">
-
-          <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>"}' class="relative flex items-center">
+      <!-- フリーワード検索窓 -->
+      <div class="w-[90vw] mx-auto my-10 border-2 p-4 rounded-lg shadow-md">
+        <%= search_form_for(
+          @search,
+          html: {
+            data: {
+              turbo_frame: "posts-list",
+              controller: "search",
+              action: "input->search#submit"
+            }
+          }) do |f| %>
+          <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>"}' class="relative w-full flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
               <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
             </svg>
             <%= f.search_field :title_or_tags_name_or_colors_hex_code_cont,
               class:"w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-lg pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow",
               autocomplete: "off",
-              placeholder:"キーワード検索",
+              placeholder:"キーワード検索(タイトル・タグ・HEXコード)",
               'x-model': 'search_word',
               '@change': 'search_word = search_title.trim();'
             %>
           </div>
 
-          <!-- 【隠しフォーム】並び替え機能(自作ボタンに置き換えるため非表示) -->
+          <!-- 【隠しフォーム】並び替え・配色数での絞り込み機能(自作ボタンに置き換えるため非表示) -->
           <div class="hidden">
-            <%= f.label :sorts, "並び替え" %>
             <%= f.select :sorts,
                 { '新しい順': 'created_at desc', '古い順': 'created_at asc', '人気順': 'most_liked' },
                 { selected: params[:q][:sorts] },
                 { onchange: 'this.form.requestSubmit()' }
             %>
-          </div>
-          <!-- 【隠しフォーム】配色数での絞り込み(自作にするため非表示) -->
-          <div class="hidden">
-            <%#= f.label :color_count, "配色数" %>
             <%= f.select :color_count_eq,
                 [['2色', 2], ['3色', 3], ['4色', 4], ['5色', 5]],
                 {include_blank: '全て'},
@@ -43,29 +40,10 @@
             %>
           </div>
 
-        </div>
-
-        <!-- 「投稿一覧」と「並び替え」セクション -->
-        <% if params[:q][:title_or_tags_name_or_colors_hex_code_cont].present? %>
-          <div class="w-[90vw] mx-auto">
-        <% else %>
-          <div class="w-[90vw] mx-auto flex justify-between items-start">
-        <% end %>
-          <!-- 「投稿一覧」見出し -->
-          <div class="flex items-end gap-1 text-3xl font-extrabold">
-            <div class=" text-orange-500">|</div>
-            <% if params[:q][:title_or_tags_name_or_colors_hex_code_cont].present? %>
-              <div class="text-[#897e70]">「<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>」の検索結果</div>
-            <% else %>
-              <div class="text-[#897e70]">投稿一覧</div>
-            <% end %>
-            <div class="text-gray-500 text-base">(<%= @result_count %>件)</div>
-          </div>
-
           <!-- 並び替え・配色数ボタン -->
-          <div class="flex flex-col gap-2 text-sm items-end">
+          <div class="flex flex-col lg:flex-row gap-2 text-sm my-3">
             <!-- 並び替えボタン -->
-            <div x-data='{ sort: "<%= params[:q][:sorts] %>" }' class="flex items-center gap-1 my-1">
+            <div x-data='{ sort: "<%= params[:q][:sorts] %>" }' class="min-w-96 flex items-center border-2 p-4 rounded-md gap-1 my-1">
               <div class="flex items-center gap-1">
               <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4V16H23L19 21L15 16H18V4H20ZM12 18V20H3V18H12ZM14 11V13H3V11H14ZM14 4V6H3V4H14Z"></path></svg>
               並び替え：
@@ -100,7 +78,7 @@
             </div>
 
             <!-- 配色数絞り込み -->
-            <div x-data='{ color_count: "<%= params[:q][:color_count_eq] %>" }' class="flex items-center gap-1 my-1">
+            <div x-data='{ color_count: "<%= params[:q][:color_count_eq] %>" }' class="min-w-96 flex items-center border-2 p-4 rounded-md gap-1 my-1">
               <div class="flex items-center gap-1">
               <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4ZM16 19H20V5H16V19ZM14 5H10V19H14V5ZM4 5V19H8V5H4Z"></path></svg>
               配色数：
@@ -153,11 +131,29 @@
 
             </div>
           </div>
-        </div>
-      <% end %>
 
+        <% end %>
+      </div>
+
+
+    <%= turbo_frame_tag "posts-list" do %>
       <!-- 一覧画面用 -->
-      <div class="flex flex-col gap-10 my-5">
+      <div class="flex flex-col gap-10 my-10">
+      <!-- 「投稿一覧」セクション -->
+      <div class="w-[90vw] mx-auto">
+
+        <!-- 「投稿一覧」見出し -->
+        <div class="flex items-end gap-1 text-3xl font-extrabold">
+          <div class=" text-orange-500">|</div>
+          <% if params[:q][:title_or_tags_name_or_colors_hex_code_cont].present? %>
+            <div class="text-[#897e70]">「<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>」の検索結果</div>
+          <% else %>
+            <div class="text-[#897e70]">投稿一覧</div>
+          <% end %>
+          <div class="text-gray-500 text-base">(<%= @result_count %>件)</div>
+        </div>
+
+      </div>
         <!-- パレット一覧本体(検索結果が1件以上あるかどうかで表示を分離) -->
         <% if @result_count > 0 %>
           <!-- ページ見出し欄(投稿一覧) -->
@@ -185,8 +181,14 @@
           </div>
         <% end %>
       </div>
+    <% end %>
 
-    </div>
   </div>
+</div>
 
-<% end %>
+<script>
+  // turbo-renderの遷移前(turboフレームがレンダリングされる前に自動スクロールを発生させる)
+  document.addEventListener("turbo:before-frame-render", function() {
+    document.body.scrollIntoView();
+  });
+</script>

@@ -2,6 +2,7 @@
 <% @colors = @palette_colors.map(&:hex_code) %>
 <div id="color-tag-info" data-json=<%= @colors.to_json %>></div>
 <div id="ratio-tag-info" data-json=<%= @slider_range.to_json %>></div>
+<div id="tags_info" data-json="<%= @existed_tags.to_json %>" ></div>
 <div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 bg-gray-100 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
   <div class="mx-20 my-5">
 
