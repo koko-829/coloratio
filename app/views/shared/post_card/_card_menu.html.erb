@@ -18,9 +18,11 @@
               @keydown.escape.window="modalOpen = false"
               :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
 
-              <button @click="menuBarOpen=false, modalOpen=true" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-                  <span>下書きに戻す</span>
-              </button>
+              <% if post.status == "published" %>
+                <button @click="menuBarOpen=false, modalOpen=true" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
+                    <span>下書きに戻す</span>
+                </button>
+              <% end %>
 
               <template x-teleport="body">
                   <div x-show="modalOpen" class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen" x-cloak>
@@ -58,7 +60,7 @@
           <!-- 編集ボタン -->
           <%= link_to edit_post_path(post), data: { turbo_frame: "_top" } do %>
             <button @click="menuBarOpen=false" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-              <span>編集</span>
+              <span>編集する</span>
             </button>
           <% end %>
 
@@ -70,7 +72,7 @@
               :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
 
               <button @click="menuBarOpen=false, modalOpen=true" class="text-red-500 relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-red-600 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-                  <span>削除</span>
+                  <span>削除する</span>
               </button>
 
               <template x-teleport="body">
