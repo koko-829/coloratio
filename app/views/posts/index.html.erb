@@ -1,189 +1,182 @@
-<div class= "min-h-fit text-gray-900 flex items-center justify-center">
-  <div class="mx-10">
+<div class= "min-h-fit max-w-screen-xl text-gray-900 w-[90vw] mx-auto">
 
-
-      <!-- フリーワード検索窓 -->
-      <div class="w-[90vw] mx-auto my-10 border-2 p-4 rounded-lg shadow-md">
-        <%= search_form_for(
-          @search,
-          html: {
-            data: {
-              turbo_frame: "posts-list",
-              controller: "search",
-              action: "input->search#submit"
-            }
-          }) do |f| %>
-          <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>"}' class="relative w-full flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
-              <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
-            </svg>
-            <%= f.search_field :title_or_tags_name_or_colors_hex_code_cont,
-              class:"w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-lg pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow",
-              autocomplete: "off",
-              placeholder:"キーワード検索(タイトル・タグ・HEXコード)",
-              'x-model': 'search_word',
-              '@change': 'search_word = search_title.trim();'
-            %>
-          </div>
-
-          <!-- 【隠しフォーム】並び替え・配色数での絞り込み機能(自作ボタンに置き換えるため非表示) -->
-          <div class="hidden">
-            <%= f.select :sorts,
-                { '新しい順': 'created_at desc', '古い順': 'created_at asc', '人気順': 'most_liked' },
-                { selected: params[:q][:sorts] },
-                { onchange: 'this.form.requestSubmit()' }
-            %>
-            <%= f.select :color_count_eq,
-                [['2色', 2], ['3色', 3], ['4色', 4], ['5色', 5]],
-                {include_blank: '全て'},
-                { onchange: 'this.form.requestSubmit()'}
-            %>
-          </div>
-
-          <!-- 並び替え・配色数ボタン -->
-          <div class="flex flex-col lg:flex-row gap-2 text-sm my-3">
-            <!-- 並び替えボタン -->
-            <div x-data='{ sort: "<%= params[:q][:sorts] %>" }' class="min-w-96 flex items-center border-2 p-4 rounded-md gap-1 my-1">
-              <div class="flex items-center gap-1">
-              <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4V16H23L19 21L15 16H18V4H20ZM12 18V20H3V18H12ZM14 11V13H3V11H14ZM14 4V6H3V4H14Z"></path></svg>
-              並び替え：
-              </div>
-              <button type='submit'
-                name="q[sorts]"
-                value="created_at desc"
-                @click="sort = 'created_at desc'"
-                :class="sort === 'created_at desc' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                新しい順
-              </button>
-
-              <button type='submit'
-                name="q[sorts]"
-                value="created_at asc"
-                @click="sort = 'created_at asc'"
-                :class="sort === 'created_at asc' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                古い順
-              </button>
-
-              <button type='submit'
-                name="q[sorts]"
-                value="most_liked"
-                @click="sort = 'most_liked'"
-                :class="sort === 'most_liked' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                人気順
-              </button>
-
-            </div>
-
-            <!-- 配色数絞り込み -->
-            <div x-data='{ color_count: "<%= params[:q][:color_count_eq] %>" }' class="min-w-96 flex items-center border-2 p-4 rounded-md gap-1 my-1">
-              <div class="flex items-center gap-1">
-              <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4ZM16 19H20V5H16V19ZM14 5H10V19H14V5ZM4 5V19H8V5H4Z"></path></svg>
-              配色数：
-              </div>
-              <button type='submit'
-                name="q[color_count_eq]"
-                value=""
-                @click="color_count = ''"
-                :class="color_count === '' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                全て
-              </button>
-
-              <button type='submit'
-                name="q[color_count_eq]"
-                value="2"
-                @click="color_count = '2'"
-                :class="color_count === '2' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                2色
-              </button>
-
-              <button type='submit'
-                name="q[color_count_eq]"
-                value="3"
-                @click="color_count = '3'"
-                :class="color_count === '3' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                3色
-              </button>
-
-              <button type='submit'
-                name="q[color_count_eq]"
-                value="4"
-                @click="color_count = '4'"
-                :class="color_count === '4' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                4色
-              </button>
-
-              <button type='submit'
-                name="q[color_count_eq]"
-                value="5"
-                @click="color_count = '5'"
-                :class="color_count === '5' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-                class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
-                5色
-              </button>
-
-
-            </div>
-          </div>
-
-        <% end %>
+  <!-- フリーワード検索窓 -->
+  <div x-data='{ sort: "<%= params[:q][:sorts] %>", color_count: "<%= params[:q][:color_count_eq] %>" }' class="my-10 border-2 p-4 rounded-lg shadow-md">
+    <%= search_form_for(
+      @search,
+      html: {
+        data: {
+          turbo_frame: "posts-list",
+          controller: "search",
+          action: "input->search#submit"
+        }
+      }) do |f| %>
+      <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>"}' class="relative w-full flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
+          <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
+        </svg>
+        <%= f.search_field :title_or_tags_name_or_colors_hex_code_cont,
+          class:"w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-lg pl-10 pr-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow",
+          autocomplete: "off",
+          placeholder:"キーワード検索(タイトル・タグ・HEXコード)",
+          'x-model': 'search_word',
+          '@change': 'search_word = search_title.trim();'
+        %>
       </div>
 
+      <!-- 【隠しフォーム】並び替え・配色数での絞り込み機能(自作ボタンに置き換えるため非表示) -->
+      <div class="hidden">
+        <%= f.select :sorts,
+            { '新しい順': 'created_at desc', '古い順': 'created_at asc', '人気順': 'most_liked' },
+            { selected: params[:q][:sorts] },
+            'x-model': 'sort'
+        %>
+        <%= f.select :color_count_eq,
+            [['2色', 2], ['3色', 3], ['4色', 4], ['5色', 5]],
+            {include_blank: '全て'},
+            'x-model': 'color_count'
+        %>
+      </div>
 
-    <%= turbo_frame_tag "posts-list" do %>
-      <!-- 一覧画面用 -->
-      <div class="flex flex-col gap-10 my-10">
-      <!-- 「投稿一覧」セクション -->
-      <div class="w-[90vw] mx-auto">
+      <!-- 並び替え・配色数ボタン -->
+      <div class="flex flex-col lg:flex-row gap-2 text-sm my-3">
+        <!-- 並び替えボタン -->
+        <div class="min-w-96 flex items-center border-2 p-4 rounded-md gap-1 my-1">
+          <div class="flex items-center gap-1">
+          <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4V16H23L19 21L15 16H18V4H20ZM12 18V20H3V18H12ZM14 11V13H3V11H14ZM14 4V6H3V4H14Z"></path></svg>
+          並び替え：
+          </div>
+          <button type='submit'
+            name="q[sorts]"
+            value="created_at desc"
+            @click="sort = 'created_at desc'"
+            :class="sort === 'created_at desc' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            新しい順
+          </button>
 
-        <!-- 「投稿一覧」見出し -->
-        <div class="flex items-end gap-1 text-3xl font-extrabold">
-          <div class=" text-orange-500">|</div>
-          <% if params[:q][:title_or_tags_name_or_colors_hex_code_cont].present? %>
-            <div class="text-[#897e70]">「<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>」の検索結果</div>
-          <% else %>
-            <div class="text-[#897e70]">投稿一覧</div>
-          <% end %>
-          <div class="text-gray-500 text-base">(<%= @result_count %>件)</div>
+          <button type='submit'
+            name="q[sorts]"
+            value="created_at asc"
+            @click="sort = 'created_at asc'"
+            :class="sort === 'created_at asc' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            古い順
+          </button>
+
+          <button type='submit'
+            name="q[sorts]"
+            value="most_liked"
+            @click="sort = 'most_liked'"
+            :class="sort === 'most_liked' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            人気順
+          </button>
+
         </div>
 
-      </div>
-        <!-- パレット一覧本体(検索結果が1件以上あるかどうかで表示を分離) -->
-        <% if @result_count > 0 %>
-          <!-- ページ見出し欄(投稿一覧) -->
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
-            <% @posts.each do |post|  %>
-              <%= render "shared/post_card/published_palette", post: post %>
-            <% end %>
+        <!-- 配色数絞り込み -->
+        <div class="min-w-96 flex items-center border-2 p-4 rounded-md gap-1 my-1">
+          <div class="flex items-center gap-1">
+          <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4ZM16 19H20V5H16V19ZM14 5H10V19H14V5ZM4 5V19H8V5H4Z"></path></svg>
+          配色数：
           </div>
-          <div class="flex items-center justify-center translate">
-            <%== pagy_nav(@pagy) %>
-          </div>
-        <% else %> <%# 検索結果が0だった場合%>
-          <div class="w-[90vw]">
-            <div class="flex flex-col items-center justify-center w-full min-h-64">
-              <div class="relative w-60">
-                <div class="circle bg-[#fedd6b]"></div>
-                <div class="circle bg-[#003f57]"></div>
-                <div class="circle bg-[#ad0003]"></div>
-                <div class="loading-shadow"></div>
-                <div class="loading-shadow"></div>
-                <div class="loading-shadow"></div>
-                <div class="absolute text-sm top-[80px] left-[5%]">パレットが見つかりませんでした。</div>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
+          <button type='submit'
+            name="q[color_count_eq]"
+            value=""
+            @click="color_count = ''"
+            :class="color_count === '' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            全て
+          </button>
 
+          <button type='submit'
+            name="q[color_count_eq]"
+            value="2"
+            @click="color_count = '2'"
+            :class="color_count === '2' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            2色
+          </button>
+
+          <button type='submit'
+            name="q[color_count_eq]"
+            value="3"
+            @click="color_count = '3'"
+            :class="color_count === '3' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            3色
+          </button>
+
+          <button type='submit'
+            name="q[color_count_eq]"
+            value="4"
+            @click="color_count = '4'"
+            :class="color_count === '4' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            4色
+          </button>
+
+          <button type='submit'
+            name="q[color_count_eq]"
+            value="5"
+            @click="color_count = '5'"
+            :class="color_count === '5' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
+            class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+            5色
+          </button>
+
+
+        </div>
+      </div>
+
+    <% end %>
   </div>
+
+  <!-- 一覧画面セクション -->
+  <%= turbo_frame_tag "posts-list" do %>
+    <div class="flex flex-col gap-10 my-10">
+      <div><%= params[:q] %></div>
+
+      <!-- 「投稿一覧」見出し -->
+      <div class="flex items-end gap-1 text-3xl font-extrabold">
+        <div class=" text-orange-500">|</div>
+        <% if params[:q][:title_or_tags_name_or_colors_hex_code_cont].present? %>
+          <div class="text-[#897e70]">「<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>」の検索結果</div>
+        <% else %>
+          <div class="text-[#897e70]">投稿一覧</div>
+        <% end %>
+        <div class="text-gray-500 text-base">(<%= @result_count %>件)</div>
+      </div>
+
+
+      <!-- パレット一覧本体(検索結果が1件以上あるかどうかで表示を分離) -->
+      <% if @result_count > 0 %>
+        <!-- ページ見出し欄(投稿一覧) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center place-items-center">
+          <% @posts.each do |post|  %>
+            <%#= render "shared/post_card/published_palette", post: post %>
+            <%= render "shared/post_card/change", post: post %>
+          <% end %>
+        </div>
+        <div class="flex items-center justify-center translate">
+          <%== pagy_nav(@pagy) %>
+        </div>
+      <% else %> <%# 検索結果が0だった場合%>
+        <div class="flex flex-col items-center justify-center w-full min-h-64">
+          <div class="relative w-60">
+            <div class="circle bg-[#fedd6b]"></div>
+            <div class="circle bg-[#003f57]"></div>
+            <div class="circle bg-[#ad0003]"></div>
+            <div class="loading-shadow"></div>
+            <div class="loading-shadow"></div>
+            <div class="loading-shadow"></div>
+            <div class="absolute text-sm top-[80px] left-[5%]">パレットが見つかりませんでした。</div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 
 <script>
