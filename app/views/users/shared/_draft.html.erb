@@ -5,7 +5,7 @@
     <% if @posts.present? %> <%# 下書きパレット確認用 %>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center place-items-center">
         <% @posts.each do |post|  %>
-          <%= render "shared/post_card/change", post: post %>
+          <%= render "shared/post_card/draft_palette", post: post %>
         <% end %>
       </div>
 

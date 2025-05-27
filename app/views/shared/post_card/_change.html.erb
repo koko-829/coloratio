@@ -2,27 +2,15 @@
 
   <div class="group animate-slide-top w-full p-1">
     <!-- パレット表示部分 -->
-    <%= link_to edit_post_path(post), data: { turbo_frame: "_top" } do %>
-      <div class="relative transform hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
-        <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
-          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
-        <% end %>
-        <!-- 「下書き」タグ -->
-        <span class="inline-flex absolute right-2 top-2 whitespace-nowrap items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500"> <%# https://preline.co/docs/badge.html %>
-          <span class="size-1.5 inline-block rounded-full bg-red-800 dark:bg-red-500"></span>
-          下書き
-        </span>
-
-      </div>
-    <% end %>
-    <div class="flex flex-row-reverse justify-between items-start mt-1 gap-1">
-      <div class="flex items-start mr-4 peer">
-        <%= render 'shared/post_card/card_menu', post: post %>
-      </div>
-
-      <!-- タイトル -->
-      <div class="text-base peer-hover:underline text-gray-600 ml-2 truncate">
-        <%= post.title %>
-      </div>
+    <div @click="modalIsOpen = true" class="relative transform hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
+      <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
+        <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
+      <% end %>
     </div>
+
+    <!-- タイトル -->
+    <div @click="modalIsOpen = true" class="text-base group-hover:underline cursor-pointer text-gray-600 ml-2 mt-3 truncate">
+      <%= post.title %>
+    </div>
+
   </div>

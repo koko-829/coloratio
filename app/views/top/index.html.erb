@@ -1,5 +1,5 @@
-<div x-data="{modalIsOpen: false}" class="relative min-h-fit shadow-bottom text-[#897e70] flex items-center justify-center">
-  <div class="mx-10 my-14">
+<div x-data="{modalIsOpen: false}" class="relative min-h-fit shadow-bottom text-[#897e70]">
+  <div class="w-[90vw] mx-auto my-10 max-w-screen-xl">
 
 
     <!-- Hero -->
@@ -89,7 +89,7 @@
     <!-- End feature section -->
 
     <div class="flex flex-col gap-10 mt-5">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center place-items-center">
         <% @posts.each do |post|  %> <%# @postsはすでにpublishedのものだけ入ってる状態 %>
           <%= render "shared/post_card/pre_login_palette", post: post %>
         <% end %>

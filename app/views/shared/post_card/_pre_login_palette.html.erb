@@ -1,30 +1,16 @@
-<div class="transform scale-[0.9] md:scale-[0.8] lg:scale-[0.7] flex w-[26rem] h-[29rem] flex-col rounded-xl border border-solid bg-gray-50 text-gray-700 shadow-2xl">
-  <div class="w-[24rem] h-1/2 flex m-auto text-white shadow-2xl rounded-md border-2 border-solid">
-    <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
-      <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
-    <% end %>
-  </div>
-  <div class="px-6">
-    <div class="flex items-center justify-between"> <%# タイトルといいね用 %>
-      <h5 class="block text-2xl antialiased font-medium leading-snug tracking-normal text-blue-gray-900">
-        <%= post.title %>
-      </h5>
+<%# 公開済みパレット用カードコンポーネント %>
+
+  <div class="group animate-slide-top w-full p-1">
+    <!-- パレット表示部分 -->
+    <div @click="modalIsOpen = true" class="relative transform hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
+      <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
+        <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
+      <% end %>
     </div>
-    <div class="flex items-center gap-1"> <%# 作成者 %>
-      <div class="size-5 overflow-hidden rounded-full">
-        <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
-      </div>
-      <p x-on:click="modalIsOpen = true" class="block cursor-pointer text-base antialiased font-light leading-relaxed hover:underline text-gray-700">
-        <%= post.user.name %>
-      </p>
+
+    <!-- タイトル -->
+    <div @click="modalIsOpen = true" class="text-base group-hover:underline cursor-pointer text-gray-600 ml-2 mt-3 truncate">
+      <%= post.title %>
     </div>
 
   </div>
-  <div class="px-6 my-3">
-    <div class="flex items-center justify-end"><%# 詳細ページ矢印用 %>
-      <div x-on:click="modalIsOpen = true">
-        <svg xmlns="http://www.w3.org/2000/svg" class="opacity-80 transition-all duration-500 ease-out hover:scale-125 hover:opacity-100 size-10 mr-4" viewBox="0 0 24 24" fill="currentColor"><path d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"></path></svg>
-      </div>
-    </div>
-  </div>
-</div>
