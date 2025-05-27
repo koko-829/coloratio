@@ -1,7 +1,7 @@
 <div class= "min-h-fit max-w-screen-xl text-gray-900 w-[90vw] mx-auto">
 
   <!-- フリーワード検索窓 -->
-  <div x-data='{ sort: "<%= params[:q][:sorts] %>", color_count: "<%= params[:q][:color_count_eq] %>" }' class="my-10 border-2 p-4 rounded-lg shadow-md">
+  <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>", sort: "<%= params[:q][:sorts] %>", color_count: "<%= params[:q][:color_count_eq] %>" }' class="my-10 border-2 p-4 rounded-lg shadow-md">
     <%= search_form_for(
       @search,
       html: {
@@ -11,7 +11,7 @@
           action: "input->search#submit"
         }
       }) do |f| %>
-      <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>"}' class="relative w-full flex items-center">
+      <div class="relative w-full flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="absolute w-5 h-5 top-2.5 left-2.5 text-slate-600">
           <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />
         </svg>
@@ -136,8 +136,6 @@
   <!-- 一覧画面セクション -->
   <%= turbo_frame_tag "posts-list" do %>
     <div class="flex flex-col gap-10 my-10">
-      <div><%= params[:q] %></div>
-
       <!-- 「投稿一覧」見出し -->
       <div class="flex items-end gap-1 text-3xl font-extrabold">
         <div class=" text-orange-500">|</div>
@@ -182,6 +180,6 @@
 <script>
   // turbo-renderの遷移前(turboフレームがレンダリングされる前に自動スクロールを発生させる)
   document.addEventListener("turbo:before-frame-render", function() {
-    document.body.scrollIntoView();
+    document.body.scrollIntoView({ behavior: "instant" });
   });
 </script>
