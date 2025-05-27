@@ -17,12 +17,10 @@
       </div>
     <% end %>
     <div class="flex justify-between items-start mt-1 gap-1">
-      <div class="flex flex-col gap-1">
-        <!-- タイトル -->
+      <!-- タイトル -->
+      <div class="text-base group-hover:underline text-gray-600 ml-2 truncate">
         <%= link_to post_path(post), data: { turbo_frame: "_top" } do %>
-          <div class="text-base group-hover:underline text-gray-600 ml-2 truncate">
-            <%= post.title %>
-          </div>
+          <%= post.title %>
         <% end %>
       </div>
 
