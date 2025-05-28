@@ -20,8 +20,10 @@
     <div class="flex justify-between items-start mt-1 gap-1">
       <!-- タイトル -->
       <div class="text-base group-hover:underline text-gray-600 ml-2 truncate">
-        <%= link_to post_path(post), data: { turbo_frame: "_top" } do %>
-          <%= post.title %>
+        <%= link_to post_path(post), data: { turbo_stream: true } do %>
+          <div @click="modalPalette = 'palette-modal-<%= post.id %>'">
+            <%= post.title %>
+          </div>
         <% end %>
       </div>
 

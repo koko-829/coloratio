@@ -1,8 +1,8 @@
 <%= turbo_stream.replace "palette-modal-#{@post.id}" do %>
   <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
-  <div :id="modalPalette">
+  <div :id="modalPalette" class="modal-palette h-full hidden-scrollbar overflow-y-auto overscroll-y-contain" style="display: none;">
     <!-- パレットヘッダー部分 -->
-    <div class="overflow-hidden aspect-[5/2] flex">
+    <div class="overflow-hidden aspect-[4/1] flex">
       <% post.color_count.times do |i| %>
         <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
       <% end %>

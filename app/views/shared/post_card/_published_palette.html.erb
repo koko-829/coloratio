@@ -2,8 +2,8 @@
 
   <div class="group animate-slide-top w-full p-1">
     <!-- パレット表示部分 -->
-    <%= link_to post_path(post), data: { turbo_frame: "_top" } do %>
-      <div class="relative transform group-hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
+    <%= link_to post_path(post), data: { turbo_stream: true } do %>
+      <div @click="modalPalette = 'palette-modal-<%= post.id %>'" class="relative transform group-hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
         <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
           <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
         <% end %>
@@ -16,11 +16,14 @@
         <% end %>
       </div>
     <% end %>
+
     <div class="flex justify-between items-start mt-1 gap-1">
       <!-- タイトル -->
       <div class="text-base group-hover:underline text-gray-600 ml-2 truncate">
-        <%= link_to post_path(post), data: { turbo_frame: "_top" } do %>
-          <%= post.title %>
+        <%= link_to post_path(post), data: { turbo_stream: true } do %>
+          <div @click="modalPalette = 'palette-modal-<%= post.id %>'">
+            <%= post.title %>
+          </div>
         <% end %>
       </div>
 
