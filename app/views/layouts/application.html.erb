@@ -39,31 +39,17 @@
 
   <body class="font-body bg-[#f8f7f1]">
     <%= render 'shared/top_scroll' %><!-- 画面上部までスクロールボタン -->
-    <!-- スマホサイズ時に表示する用(md:指定やと絶妙に表示されてしまうアプリがあるため、) -->
-    <div class="block md:hidden h-screen w-screen">
 
-      <div class="h-full w-full flex flex-col justify-center items-center gap-4">
+    <div x-data="{modalDevelop: false, modalPalette: false}" class="main-container">
+      <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %>
 
-        <%= image_tag "coloratio-logo.svg", class:"w-[16rem]" %>
+      <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
+      <%= render "shared/development_modal" %>
+      <%= render "shared/loading_modal" %>
+      <%= render "shared/palette_modal" %>
+      <%= yield %>
 
-        <%= image_tag 'not-mobile.svg', class:"w-full max-w-[52rem]", id:"fukidashi" %>
-
-
-      </div>
-
-    </div>
-    <!-- パソコンサイズ時 -->
-    <div class="hidden md:block">
-      <div x-data="{modalDevelop: false}" class="main-container">
-        <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %>
-
-        <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
-        <%= render "shared/development_modal" %>
-        <%= render "shared/loading_modal" %>
-        <%= yield %>
-
-        <%= render 'layouts/footer' %>
-      </div>
+      <%= render 'layouts/footer' %>
     </div>
 
   </body>

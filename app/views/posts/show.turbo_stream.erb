@@ -1,0 +1,34 @@
+<%= turbo_stream.replace "palette-modal-#{@post.id}" do %>
+  <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
+  <div :id="modalPalette">
+    <!-- パレットヘッダー部分 -->
+    <div class="overflow-hidden aspect-[5/2] flex">
+      <% post.color_count.times do |i| %>
+        <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
+      <% end %>
+    </div>
+
+
+
+    <!-- 上端パレット部分より下 -->
+    <div class="p-4">
+
+      <!-- カラーコピー枠 -->
+      <div class="my-5 w-[70%] mx-auto grid grid-cols-5 place-content-center place-items-center gap-6">
+        <% post.color_count.times do |i| %>
+          <div class="w-full" style="color: <%= colors[i].hex_code %>;">
+            <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
+          </div>
+        <% end %>
+      </div>
+
+      <!-- 仮置き開発中モーダル -->
+      <div class="flex flex-col items-center justify-center my-10">
+        <%= image_tag "kaihatsu_now.svg", class:"w-full" %>
+        <%= image_tag "kaihatsu_now.svg", class:"w-[70%]" %>
+        <%= image_tag "kaihatsu_now.svg", class:"w-[50%]" %>
+      </div>
+    </div>
+
+  </div>
+<% end %>
