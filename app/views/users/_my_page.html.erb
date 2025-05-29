@@ -1,52 +1,53 @@
-<div class="py-10 min-h-fit max-w-screen-xl text-gray-900 w-[90vw] mx-auto">
+<div class="py-5 min-h-fit max-w-screen-xl text-gray-900 w-[90vw] mx-auto">
 
-    <div class="my-5 flex flex-col lg:flex-row justify-center">
+  <div class="text-2xl font-extrabold ml-3">マイページ</div>
+  <div class="my-5 flex flex-col lg:flex-row justify-center">
 
-      <div class="flex flex-col justify-center items-center p-6 pb-0"> <%# 左側欄 %>
-        <!-- プロフィールアイコン -->
-        <div class="size-32 overflow-hidden rounded-full">
-          <%= image_tag "profile_#{current_user.profile_icon}.svg", class:"size-full" %>
-        </div>
-
-        <%= link_to edit_user_registration_path, class:"flex mt-2 items-center" do %><%# プロフィール設定遷移 %>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-pointer size-6 opacity-70 hover:opacity-100 transition-opacity" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
-          <div class="text-sm underline text-gray-500 hover:text-extrabold hover:text-black active:text-gray-500">プロフィール設定</div>
-        <% end %>
+    <div class="flex flex-col justify-center items-center p-6 pb-0"> <%# 左側欄 %>
+      <!-- プロフィールアイコン -->
+      <div class="size-32 overflow-hidden rounded-full">
+        <%= image_tag "profile_#{current_user.profile_icon}.svg", class:"size-full" %>
       </div>
 
-      <div class="p-6 flex flex-col items-center lg:items-start"> <%# 名前とステータス %>
-        <div class="text-2xl font-extrabold mb-3 lg:ml-3"> <%# ユーザーネーム %>
-          <%= @user.name %>
-        </div>
-        <div class="w-96 h-40 flex items-center justify-center gap-2">
-          <div class="w-28 h-36 border border-stroke flex rounded-md flex-col gap-1 items-center">
-            <div class="w-24 h-1/2 m-1 border flex items-center justify-center border-stroke bg-blue-100 rounded-md">
-              <svg class="fill-blue-400 size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM9.71002 19.6674C8.74743 17.6259 8.15732 15.3742 8.02731 13H4.06189C4.458 16.1765 6.71639 18.7747 9.71002 19.6674ZM10.0307 13C10.1811 15.4388 10.8778 17.7297 12 19.752C13.1222 17.7297 13.8189 15.4388 13.9693 13H10.0307ZM19.9381 13H15.9727C15.8427 15.3742 15.2526 17.6259 14.29 19.6674C17.2836 18.7747 19.542 16.1765 19.9381 13ZM4.06189 11H8.02731C8.15732 8.62577 8.74743 6.37407 9.71002 4.33256C6.71639 5.22533 4.458 7.8235 4.06189 11ZM10.0307 11H13.9693C13.8189 8.56122 13.1222 6.27025 12 4.24799C10.8778 6.27025 10.1811 8.56122 10.0307 11ZM14.29 4.33256C15.2526 6.37407 15.8427 8.62577 15.9727 11H19.9381C19.542 7.8235 17.2836 5.22533 14.29 4.33256Z"></path></svg>
-            </div>
-            <div class="text-xs">公開パレット</div>
-            <div><%= @published_count %></div>
-          </div><%# 公開パレット %>
-          <div class="w-28 h-36 border border-stroke flex rounded-md flex-col gap-1 items-center">
-            <div class="w-24 h-1/2 m-1 border border-stroke flex items-center justify-center bg-yellow-100 rounded-md">
-              <svg class="size-8 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C17.5222 2 22 5.97778 22 10.8889C22 13.9556 19.5111 16.4444 16.4444 16.4444H14.4778C13.5556 16.4444 12.8111 17.1889 12.8111 18.1111C12.8111 18.5333 12.9778 18.9222 13.2333 19.2111C13.5 19.5111 13.6667 19.9 13.6667 20.3333C13.6667 21.2556 12.9 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2ZM7.5 12C8.32843 12 9 11.3284 9 10.5C9 9.67157 8.32843 9 7.5 9C6.67157 9 6 9.67157 6 10.5C6 11.3284 6.67157 12 7.5 12ZM16.5 12C17.3284 12 18 11.3284 18 10.5C18 9.67157 17.3284 9 16.5 9C15.6716 9 15 9.67157 15 10.5C15 11.3284 15.6716 12 16.5 12ZM12 9C12.8284 9 13.5 8.32843 13.5 7.5C13.5 6.67157 12.8284 6 12 6C11.1716 6 10.5 6.67157 10.5 7.5C10.5 8.32843 11.1716 9 12 9Z"></path></svg>
-            </div>
-            <div class="text-xs">下書き</div>
-            <div><%= @draft_count %></div>
-          </div> <%# 下書き %>
-          <div class="w-28 h-36 border border-stroke flex rounded-md flex-col gap-1 items-center">
-            <div class="w-24 h-1/2 m-1 flex items-center justify-center border border-stroke bg-red-100 rounded-md">
-              <svg class="fill-red-400 size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
-            </div>
-            <div class="text-xs">いいねした数</div>
-            <div><%= @liked_count %></div>
-          </div> <%# いいね数 %>
-        </div>
-      </div>
+      <%= link_to edit_user_registration_path, class:"flex mt-2 items-center" do %><%# プロフィール設定遷移 %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cursor-pointer size-6 opacity-70 hover:opacity-100 transition-opacity" fill="currentColor"><path d="M5 18.89H6.41421L15.7279 9.57627L14.3137 8.16206L5 17.4758V18.89ZM21 20.89H3V16.6473L16.435 3.21231C16.8256 2.82179 17.4587 2.82179 17.8492 3.21231L20.6777 6.04074C21.0682 6.43126 21.0682 7.06443 20.6777 7.45495L9.24264 18.89H21V20.89ZM15.7279 6.74785L17.1421 8.16206L18.5563 6.74785L17.1421 5.33363L15.7279 6.74785Z"></path></svg> <%# https://remixicon.com/icon/edit-2-line %>
+        <div class="text-sm underline text-gray-500 hover:text-extrabold hover:text-black active:text-gray-500">プロフィール設定</div>
+      <% end %>
     </div>
 
-    <!-- タブセクション -->
-    <div class="mx-auto">
-      <%= render "users/shared/my_page_tab" %>
+    <div class="p-6 flex flex-col items-center lg:items-start"> <%# 名前とステータス %>
+      <div class="text-2xl font-extrabold mb-3 lg:ml-3"> <%# ユーザーネーム %>
+        <%= @user.name %>
+      </div>
+      <div class="w-96 h-40 flex items-center justify-center gap-2">
+        <div class="w-28 h-36 border border-stroke flex rounded-md flex-col gap-1 items-center">
+          <div class="w-24 h-1/2 m-1 border flex items-center justify-center border-stroke bg-blue-100 rounded-md">
+            <svg class="fill-blue-400 size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM9.71002 19.6674C8.74743 17.6259 8.15732 15.3742 8.02731 13H4.06189C4.458 16.1765 6.71639 18.7747 9.71002 19.6674ZM10.0307 13C10.1811 15.4388 10.8778 17.7297 12 19.752C13.1222 17.7297 13.8189 15.4388 13.9693 13H10.0307ZM19.9381 13H15.9727C15.8427 15.3742 15.2526 17.6259 14.29 19.6674C17.2836 18.7747 19.542 16.1765 19.9381 13ZM4.06189 11H8.02731C8.15732 8.62577 8.74743 6.37407 9.71002 4.33256C6.71639 5.22533 4.458 7.8235 4.06189 11ZM10.0307 11H13.9693C13.8189 8.56122 13.1222 6.27025 12 4.24799C10.8778 6.27025 10.1811 8.56122 10.0307 11ZM14.29 4.33256C15.2526 6.37407 15.8427 8.62577 15.9727 11H19.9381C19.542 7.8235 17.2836 5.22533 14.29 4.33256Z"></path></svg>
+          </div>
+          <div class="text-xs">公開パレット</div>
+          <div><%= @published_count %></div>
+        </div><%# 公開パレット %>
+        <div class="w-28 h-36 border border-stroke flex rounded-md flex-col gap-1 items-center">
+          <div class="w-24 h-1/2 m-1 border border-stroke flex items-center justify-center bg-yellow-100 rounded-md">
+            <svg class="size-8 fill-yellow-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C17.5222 2 22 5.97778 22 10.8889C22 13.9556 19.5111 16.4444 16.4444 16.4444H14.4778C13.5556 16.4444 12.8111 17.1889 12.8111 18.1111C12.8111 18.5333 12.9778 18.9222 13.2333 19.2111C13.5 19.5111 13.6667 19.9 13.6667 20.3333C13.6667 21.2556 12.9 22 12 22C6.47778 22 2 17.5222 2 12C2 6.47778 6.47778 2 12 2ZM7.5 12C8.32843 12 9 11.3284 9 10.5C9 9.67157 8.32843 9 7.5 9C6.67157 9 6 9.67157 6 10.5C6 11.3284 6.67157 12 7.5 12ZM16.5 12C17.3284 12 18 11.3284 18 10.5C18 9.67157 17.3284 9 16.5 9C15.6716 9 15 9.67157 15 10.5C15 11.3284 15.6716 12 16.5 12ZM12 9C12.8284 9 13.5 8.32843 13.5 7.5C13.5 6.67157 12.8284 6 12 6C11.1716 6 10.5 6.67157 10.5 7.5C10.5 8.32843 11.1716 9 12 9Z"></path></svg>
+          </div>
+          <div class="text-xs">下書き</div>
+          <div><%= @draft_count %></div>
+        </div> <%# 下書き %>
+        <div class="w-28 h-36 border border-stroke flex rounded-md flex-col gap-1 items-center">
+          <div class="w-24 h-1/2 m-1 flex items-center justify-center border border-stroke bg-red-100 rounded-md">
+            <svg class="fill-red-400 size-8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
+          </div>
+          <div class="text-xs">いいねした数</div>
+          <div><%= @liked_count %></div>
+        </div> <%# いいね数 %>
+      </div>
     </div>
+  </div>
+
+  <!-- タブセクション -->
+  <div class="mx-auto">
+    <%= render "users/shared/my_page_tab" %>
+  </div>
 
 </div>

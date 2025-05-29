@@ -25,9 +25,6 @@ class PostsController < ApplicationController
     @result_count = @search.result(distinct: true).count
   end
 
-
-
-
   def new
     @default_palette = [
       [ "#303967", "#e60012", "#ffe200" ],
@@ -65,7 +62,7 @@ class PostsController < ApplicationController
       end
 
       if @post.status == "draft"
-        redirect_to user_path(current_user), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
+        redirect_to user_path(current_user, draft: true), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
       else
         redirect_to post_path(@post), notice: "パレットを公開しました。"
       end
@@ -111,7 +108,7 @@ class PostsController < ApplicationController
       # 全てのセットが終わってから、最後にまとめてsaveメソッド使うことでデータに反映させる。
       if @post.save
         if @post.status == "draft"
-          redirect_to user_path(current_user), notice: "下書き情報を更新しました。" # 作成が成功したら詳細ページへ移動する。
+          redirect_to user_path(current_user, draft: true), notice: "下書き情報を更新しました。" # 作成が成功したら詳細ページへ移動する。
         else
           redirect_to post_path(@post), notice: "パレットを公開しました。"
         end
