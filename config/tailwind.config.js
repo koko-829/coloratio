@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        body: ["Noto Sans JP", "sans-serif"],
+        body: ["Zen Maru Gothic", "Noto Sans JP", "sans-serif"],
       },
       animation: {
         'slide-top': 'slide-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
