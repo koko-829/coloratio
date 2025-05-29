@@ -1,5 +1,5 @@
 <!-- 投稿詳細画面モーダルパーシャル -->
-<div x-cloak x-show="modalPalette" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalPalette" x-on:keydown.esc.window="modalPalette = false" x-on:click.self="modalPalette = false" class="fixed inset-0 z-30 flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center" role="dialog" aria-modal="true">
+<div x-cloak x-show="modalPalette" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalPalette" x-on:keydown.esc.window="modalPalette = false" x-on:click.self="modalPalette = false" class="fixed inset-0 z-[999] flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center" role="dialog" aria-modal="true">
   <!-- Modal -->
   <div x-show="modalPalette"
     x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
@@ -22,8 +22,10 @@
 
             <!-- スケルトンローディング -->
             <div class="animate-pulse">
+              <span class="sr-only">Loading...</span>
               <div class="h-20 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
 
+              <!-- 絵の具スケルトン -->
               <div class="my-10 w-[90%] mx-auto grid grid-cols-5 place-content-center place-items-center gap-6">
                 <% 5.times do |i| %>
                   <div class="w-full" style="color: #e5e7eb;">
@@ -32,19 +34,26 @@
                 <% end %>
               </div>
 
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-              <span class="sr-only">Loading...</span>
+              <!-- テキストスケルトン -->
+              <% 5.times do |i| %>
+                <div class="my-8">
+                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+                </div>
+              <% end %>
+
+              <!-- スクエアスケルトン -->
+              <div class="my-10 w-[90%] mx-auto grid grid-cols-2 place-content-center place-items-center gap-10">
+                <% 6.times do |i| %>
+                  <div class="w-full aspect-square bg-gray-200">
+                  </div>
+                <% end %>
+              </div>
 
             </div>
-
-
 
             <!-- スケルトンローディング(end) -->
 
@@ -52,7 +61,7 @@
         </div>
 
         <!-- turbo_stream用の補足ID(この部分を丸ごと入れ替える) -->
-        <div :id="modalPalette" class="modal-palette h-full hidden-scrollbar overflow-y-auto overscroll-y-contain" style="display: none;"> <%# idをmodalPaletteの値によって動的に定義(Alpine) %>
+        <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain"> <%# idをmodalPaletteの値によって動的に定義(Alpine) %>
         </div>
 
 
