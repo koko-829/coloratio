@@ -4,25 +4,28 @@ class PostsController < ApplicationController
   end
 
   def index
-    unless user_signed_in?
-      redirect_to top_index_path
-      return
-    end
-    if params[:q].present?
-      # 検索フォームからアクセスされてる場合
-      @search = Post.published.ransack(params[:q])
-      if params[:q][:sorts] === "most_liked"
-        @pagy, @posts = pagy(@search.result.most_liked)
+    # ログインしていた場合の処理
+    if user_signed_in?
+      # 検索状態かどうかで条件分岐
+      if params[:q].present?
+        # 検索フォームからアクセスされてる場合
+        @search = Post.published.ransack(params[:q])
+        if params[:q][:sorts] === "most_liked"
+          @pagy, @posts = pagy(@search.result.most_liked)
+        else
+          @pagy, @posts = pagy(@search.result(distinct: true))
+        end
       else
+        params[:q] = { color_count_eq: "", sorts: "created_at desc" }
+        @search = Post.published.ransack(params[:q])
         @pagy, @posts = pagy(@search.result(distinct: true))
+        @search_status = false
       end
+      @result_count = @search.result(distinct: true).count
+    # ログイン前状態の処理
     else
-      params[:q] = { color_count_eq: "", sorts: "created_at desc" }
-      @search = Post.published.ransack(params[:q])
-      @pagy, @posts = pagy(@search.result(distinct: true))
-      @search_status = false
+      @posts = Post.joins(:user).where(users: { name: "Coloratio" }).published.latest.limit(10)
     end
-    @result_count = @search.result(distinct: true).count
   end
 
   def new
