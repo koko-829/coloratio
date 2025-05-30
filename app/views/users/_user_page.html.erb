@@ -21,7 +21,7 @@
       <% if @published_posts.present?  %> <%# 公開済みパレット用 %>
         <div class="flex flex-col"> <%# 公開済みパレット %>
           <div class="text-xl font-extrabold ml-3">公開パレット</div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 place-content-center place-items-center">
+          <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 place-content-center place-items-center">
             <% @published_posts.each do |post|  %>
               <%= render "shared/post_card/published_palette", post: post %>
             <% end %>

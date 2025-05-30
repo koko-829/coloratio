@@ -37,7 +37,7 @@
     <%= turbo_frame_tag "my-page-posts" do %>
 
       <% if @posts.present?  %>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 place-content-center place-items-center">
+        <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 place-content-center place-items-center">
           <% @posts.each do |post|  %>
             <% if post.status == "draft" %>
               <!-- 下書きパレット部分 -->

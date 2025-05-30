@@ -1,7 +1,7 @@
-<%# スマホ画面用プロフィールメニュー表示コンポーネント %>
-<div
-  class="lg:hidden top-full border-t-2 border-stroke mx-3 mt-2 overflow-hidden dark:divide-dark-3 dark:bg-dark-2"
-> <%# ハンバーガーメニュー中身%>
+<!-- 画面サイズ小さい時に表示されるメニュー -->
+
+<%# ハンバーガーメニュー中身%>
+<div class="lg:hidden top-full border-t-2 border-stroke mx-3 mt-2 overflow-hidden dark:divide-dark-3 dark:bg-dark-2">
 
   <!-- プロフィールアイコンとユーザーネームセクション -->
   <div class="flex items-center gap-3 px-4 py-3">
@@ -65,7 +65,7 @@
   </div>
 
   <!-- 各パレット一覧 -->
-  <div>
+
     <!-- 公開済み一覧 -->
     <%= link_to user_path(current_user, published: true), class:"flex w-full items-center justify-between px-6 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
       <span class="flex items-center gap-2">
@@ -88,8 +88,6 @@
         いいね一覧
       </span>
     <% end %>
-
-  </div>
 
   <%# ログアウトボタン %>
   <div>
