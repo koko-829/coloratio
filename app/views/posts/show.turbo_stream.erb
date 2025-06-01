@@ -2,7 +2,7 @@
   <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
   <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain">
     <!-- デザイン例カルーセル部分 -->
-    <div class="relative w-full aspect-[5/3]">
+    <div class="relative w-full aspect-[5/3] flex items-center">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
       <div class="absolute w-4 sm:w-6 right-0 bottom-14 flex flex-col gap-1">
         <% post.color_count.times do |i| %>
@@ -10,8 +10,8 @@
         <% end %>
       </div>
       <!-- カルーセル本体 -->
-      <div class="w-[90%] aspect-[5/3] mx-auto my-5 border-2 border-gray-500">
-        <%# デザイン例のカルーセル中身 %>
+      <div class="w-[90%] mx-auto">
+        <%= render "shared/svg/color_ratio_svg", colors: colors %>
       </div>
     </div>
 
@@ -30,16 +30,21 @@
       </div>
       <!-- ユーザーと絵の具セクション -->
       <div class="flex justify-between items-center mt-2 mb-10">
-        <!-- ユーザー名 -->
-        <div class="flex items-center gap-1 ml-4">
-          <div class="size-6 overflow-hidden rounded-full">
-            <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
+        <!-- ユーザー名といいね欄 -->
+        <div class="flex gap-1 items-center">
+          <!-- ユーザー名 -->
+          <div class="flex items-center gap-1 ml-4 rounded-lg p-1">
+            <div class="size-6 overflow-hidden rounded-full">
+              <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
+            </div>
+            <%#= link_to user_path(post.user_id), 'data-turbo-prefetch':"false", 'turbo_frame':"_top", class:"block text-sm antialiased font-light leading-relaxed hover:underline text-slate-600" do %>
+            <div class="max-w-24 sm:max-w-40 truncate block underline cursor-pointer text-sm antialiased leading-relaxed text-slate-500" %>
+              <%= post.user.name %>
+            </div>
+            <%# end %>
           </div>
-          <%#= link_to user_path(post.user_id), 'data-turbo-prefetch':"false", 'turbo_frame':"_top", class:"block text-sm antialiased font-light leading-relaxed hover:underline text-slate-600" do %>
-          <div class="block cursor-pointer text-sm antialiased font-light leading-relaxed hover:underline text-slate-600" %>
-            <%= post.user.name %>
-          </div>
-          <%# end %>
+          <!-- 作成日時 -->
+          <div class="text-xs font-light"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
         </div>
         <!-- 絵の具セクション -->
         <div class="flex justify-end gap-2 mr-4">
