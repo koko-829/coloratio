@@ -28,23 +28,21 @@
           <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
         <% end %>
       </div>
-      <!-- ユーザーと絵の具セクション -->
-      <div class="flex justify-between items-center mt-2 mb-10">
-        <!-- ユーザー名といいね欄 -->
+      <!-- ユーザーと作成日時と絵の具セクション -->
+      <div class="flex justify-between items-center mt-2 mb-2">
+        <!-- ユーザー名と作成日時欄 -->
         <div class="flex gap-1 items-center">
           <!-- ユーザー名 -->
           <div class="flex items-center gap-1 ml-4 rounded-lg p-1">
             <div class="size-6 overflow-hidden rounded-full">
               <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
             </div>
-            <%#= link_to user_path(post.user_id), 'data-turbo-prefetch':"false", 'turbo_frame':"_top", class:"block text-sm antialiased font-light leading-relaxed hover:underline text-slate-600" do %>
             <div class="max-w-24 sm:max-w-40 truncate block underline cursor-pointer text-sm antialiased leading-relaxed text-slate-500" %>
               <%= post.user.name %>
             </div>
-            <%# end %>
           </div>
           <!-- 作成日時 -->
-          <div class="text-xs font-light"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
+          <div class="text-[0.6rem] font-light"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
         </div>
         <!-- 絵の具セクション -->
         <div class="flex justify-end gap-2 mr-4">
@@ -55,6 +53,21 @@
           <% end %>
         </div>
       </div>
+      <!-- タグリスト -->
+      <% if @tags.present? %> <%# tagが登録されてる場合のみ表示する %>
+        <div class="max-w-[90%] md:max-w-[70%]">
+          <div class="flex gap-1 ml-6 flex-wrap">
+            <% @tags.each do |i| %>
+              <div class="inline-flex flex-nowrap items-center bg-gray-100 border border-gray-200 rounded-3xl p-0.5 pr-2 gap-1">
+                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>
+                <div class="whitespace-nowrap text-[0.5rem] font-medium text-gray-800">
+                  <%= i %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
       <!-- 筆記体とグラデーションとcolor&ratio -->
       <div class="flex gap-4 my-4">
         <!-- 筆記体coloratioセクション -->

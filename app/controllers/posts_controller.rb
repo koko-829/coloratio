@@ -125,6 +125,7 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @tags = @post.tags.pluck(:name)
     respond_to do |format|
       format.turbo_stream
       format.html
