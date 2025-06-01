@@ -1,32 +1,115 @@
 <%= turbo_stream.replace "palette-modal-#{@post.id}" do %>
   <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
   <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain">
-    <!-- パレットヘッダー部分 -->
-    <div class="overflow-hidden aspect-[4/1] flex">
-      <% post.color_count.times do |i| %>
-        <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
-      <% end %>
+    <!-- デザイン例カルーセル部分 -->
+    <div class="relative w-full aspect-[5/3]">
+      <!-- カルーセル部分の横にある長方形カラー部分 -->
+      <div class="absolute w-4 sm:w-6 right-0 bottom-14 flex flex-col gap-1">
+        <% post.color_count.times do |i| %>
+          <div class="w-full aspect-[5/3] border border-r-0 border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
+        <% end %>
+      </div>
+      <!-- カルーセル本体 -->
+      <div class="w-[90%] aspect-[5/3] mx-auto my-5 border-2 border-gray-500">
+        <%# デザイン例のカルーセル中身 %>
+      </div>
     </div>
+
+    <div class="w-[80%] mx-auto">
+      <!-- パレットタイトル -->
+      <div class="flex items-end gap-1 text-xl font-extrabold">
+        <div class=" text-orange-500">|</div>
+          <div class="text-[#897e70] truncate"><%= post.title %></div>
+      </div>
+
+      <!-- カラーパレットセクション -->
+      <div class="shadow-xl mt-5 overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
+        <% post.color_count.times do |i| %>
+          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
+        <% end %>
+      </div>
+      <!-- ユーザーと絵の具セクション -->
+      <div class="flex justify-between items-center mt-2 mb-10">
+        <!-- ユーザー名 -->
+        <div class="flex items-center gap-1 ml-4">
+          <div class="size-6 overflow-hidden rounded-full">
+            <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
+          </div>
+          <%#= link_to user_path(post.user_id), 'data-turbo-prefetch':"false", 'turbo_frame':"_top", class:"block text-sm antialiased font-light leading-relaxed hover:underline text-slate-600" do %>
+          <div class="block cursor-pointer text-sm antialiased font-light leading-relaxed hover:underline text-slate-600" %>
+            <%= post.user.name %>
+          </div>
+          <%# end %>
+        </div>
+        <!-- 絵の具セクション -->
+        <div class="flex justify-end gap-2 mr-4">
+          <% post.color_count.times do |i| %>
+            <div class="w-4" style="color: <%= colors[i].hex_code %>;">
+              <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <!-- 筆記体とグラデーションとcolor&ratio -->
+      <div class="flex gap-4 my-4">
+        <!-- 筆記体coloratioセクション -->
+        <div class="text-xl md:text-2xl font-playwrite">
+          <% post.color_count.times do |i| %>
+            <div class="" style="color: <%= colors[i].hex_code %>; -webkit-text-stroke: 0.3px gray;">Coloratio</div>
+          <% end %>
+        </div>
+        <!-- グラデーションセクション -->
+        <div class="flex flex-col gap-3 md:gap-2 mt-2">
+          <% post.color_count.times do |i| %>
+            <!-- グラデーションをつける(最後の要素の2色目はcolors[0]を参照する) -->
+            <div class="h-4 md:h-6 w-28 md:w-32 shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
+          <% end %>
+        </div>
+        <!-- Color&Ratioフォントセクション -->
+        <div class="w-full my-auto overflow-hidden border-slate-500 border rounded-2xl shadow-2xl">
+          <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
+          <%= render "shared/svg/color_ratio_svg", colors: colors %>
+        </div>
+      </div>
+      <!-- 円グラフセクション -->
+      <div class="mt-5 w-64 p-4 border rounded-xl shadow-xl border-slate-300 flex justify-center items-center gap-2">
+        <!-- サークルセクション -->
+        <div class="size-36 rounded-full relative overflow-hidden shadow-lg">
+          <% if post.color_count == 2 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% 100%);" class="size-full"></div>
+          <% elsif post.color_count == 3 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+          <% elsif post.color_count == 4 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+          <% elsif post.color_count == 5 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% <%= ratio[0,4].map(&:to_i).sum %>%, <%= colors[4].hex_code %> <%= ratio[0,4].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+          <% end %>
+          <%# ドーナツ型にするための空洞用div %>
+          <div class="absolute size-16 bg-[#f8f7f1] border rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+        <!-- 比率リストセクション -->
+        <div class="h-36 flex flex-col justify-end gap-1">
+          <% post.color_count.times do |i| %>
+            <div class="flex gap-1 items-center">
+              <div class="size-5 rounded-full border shadow-lg" style="background-color: <%= colors[i].hex_code %>;"></div>
+              <div class="text-xs text-[#897e70] font-extrabold"><%= ratio[i] %>%</div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+
+    </div>
+
 
 
 
     <!-- 上端パレット部分より下 -->
     <div class="p-4">
 
-      <!-- カラーコピー枠 -->
-      <div class="my-5 w-[70%] mx-auto grid grid-cols-5 place-content-center place-items-center gap-6">
-        <% post.color_count.times do |i| %>
-          <div class="w-full" style="color: <%= colors[i].hex_code %>;">
-            <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
-          </div>
-        <% end %>
-      </div>
-
       <!-- 仮置き開発中モーダル -->
       <div class="flex flex-col items-center justify-center my-10">
         <%= image_tag "kaihatsu_now.svg", class:"w-full" %>
-        <%= image_tag "kaihatsu_now.svg", class:"w-[70%]" %>
-        <%= image_tag "kaihatsu_now.svg", class:"w-[50%]" %>
       </div>
     </div>
 

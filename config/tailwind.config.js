@@ -14,6 +14,8 @@ module.exports = {
       },
       fontFamily: {
         body: ["Noto Sans JP", "Zen Maru Gothic", "sans-serif"],
+        zenmaru: ["Zen Maru Gothic"],
+        playwrite: ["Playwrite TZ"],
       },
       animation: {
         'slide-top': 'slide-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
