@@ -19,6 +19,8 @@
           <!-- パレットヘッダー部分 -->
           <div class="animate-pulse overflow-hidden aspect-[4/1] flex">
             <div class="w-full bg-gray-200"></div>
+            <!-- モーダル表示時に一番最初のボタン部分が表示されるため、スケルトン表示用に擬似ボタンの設置(これ設置していないと、スケルトン部分より下の要素が表示されるためスケルトンがうまく表示されない) -->
+            <button type="button" class="pointer-events-none w-full bg-gray-200"></button>
           </div>
 
           <!-- 上端パレット部分より下 -->
@@ -67,7 +69,6 @@
         <!-- turbo_stream用の補足ID(この部分を丸ごと入れ替える) -->
         <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain"> <%# idをmodalPaletteの値によって動的に定義(Alpine) %>
         </div>
-
 
     </div>
   </div>
