@@ -4,7 +4,7 @@
     <!-- デザイン例カルーセル部分 -->
     <div class="relative w-full aspect-[5/3] flex items-center">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
-      <div class="absolute w-4 sm:w-6 right-0 bottom-14 flex flex-col gap-1">
+      <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
         <% post.color_count.times do |i| %>
           <div class="w-full aspect-[5/3] border border-r-0 border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
         <% end %>
@@ -20,39 +20,40 @@
       <div class="flex gap-2 items-end">
 
         <!-- パレットタイトル -->
-        <div class="flex min-w-[90%] max-w-[90%] items-center gap-1 border-l-4 pl-2 border-orange-500 text-xl md:text-2xl font-extrabold">
+        <div class="flex w-full items-center gap-1 border-l-4 pl-2 border-orange-500 text-xl md:text-2xl font-extrabold">
           <div class="text-[#897e70] break-all"><%= post.title %></div>
-        </div>
-
-        <!-- いいね欄 -->
-        <div class="flex min-w-[10%] max-w-[10%] items-end">
-          <%# すでにいいねしていた時 %>
-          <% if post.liked_by?(current_user) %>
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 fill-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
-          <%# いいねしてない時 %>
-          <% else %>
-            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
-          <% end %>
-          <!-- いいね数表示 -->
-          <div class="select-none text-sm"><%= post.likes.count %></div>
         </div>
 
       </div>
 
       <!-- ユーザー名と作成日時欄 -->
-      <div class="w-full flex gap-1 items-center my-2 md:my-4">
-        <!-- アイコン -->
-        <div class="size-8 overflow-hidden rounded-full">
-          <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
-        </div>
-        <!-- ユーザー名と作成日(縦並び) -->
-        <div class="flex flex-col">
-          <!-- ユーザー名 -->
-          <div class="max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs md:text-sm antialiased text-slate-500">
-            <%= post.user.name %>
+      <div class="w-full flex my-2 md:my-4">
+        <div class="min-w-[90%] max-w-[90%] flex gap-1 items-center">
+          <!-- アイコン -->
+          <div class="size-6 md:size-8 overflow-hidden rounded-full">
+            <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
           </div>
-          <!-- 作成日時 -->
-          <div class="text-[0.6rem] font-light text-nowrap mt-0.5"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
+          <!-- ユーザー名と作成日(縦並び) -->
+          <div class="flex flex-col">
+            <!-- ユーザー名 -->
+            <div class="max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500">
+              <%= post.user.name %>
+            </div>
+            <!-- 作成日時 -->
+            <div class="text-[0.6rem] font-light text-nowrap mt-0.5"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
+          </div>
+        </div>
+        <!-- いいね欄 -->
+        <div class="flex min-w-[10%] max-w-[10%] items-end">
+          <%# すでにいいねしていた時 %>
+          <% if post.liked_by?(current_user) %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 md:size-8 fill-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
+          <%# いいねしてない時 %>
+          <% else %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 md:size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
+          <% end %>
+          <!-- いいね数表示 -->
+          <div class="select-none text-sm"><%= post.likes.count %></div>
         </div>
       </div>
 
@@ -79,19 +80,19 @@
         </div>
       <% end %>
 
-      <!-- カラーパレットセクション -->
-      <div class="shadow-xl mt-5 overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
+      <!-- 絵の具セクション -->
+      <div class="flex justify-end gap-2 mr-4 mb-0.5">
         <% post.color_count.times do |i| %>
-          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
+          <div class="w-3 md:w-4" style="color: <%= colors[i].hex_code %>;">
+            <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
+          </div>
         <% end %>
       </div>
 
-      <!-- 絵の具セクション -->
-      <div class="flex justify-end gap-2 mr-4 my-1">
+      <!-- カラーパレットセクション -->
+      <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
         <% post.color_count.times do |i| %>
-          <div class="w-4" style="color: <%= colors[i].hex_code %>;">
-            <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
-          </div>
+          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
         <% end %>
       </div>
 
