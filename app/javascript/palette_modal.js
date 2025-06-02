@@ -17,6 +17,6 @@ document.addEventListener("turbo:before-stream-render", function() {
     // console.log('b');
     setTimeout(function() {
       skelton.style.display = "none"; // スケルトンを非表示
-    }, 300);
+    }, 500);
   }
 });
