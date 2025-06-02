@@ -16,6 +16,26 @@
     </div>
 
     <div class="w-[80%] mx-auto">
+
+      <!-- カラーパレットセクション -->
+      <div class="my-3">
+        <!-- パレット本体 -->
+        <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
+          <% post.color_count.times do |i| %>
+            <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
+          <% end %>
+        </div>
+
+        <!-- 絵の具セクション -->
+        <div class="flex justify-end gap-2 mr-4 mt-0.5 md:mt-1">
+          <% post.color_count.times do |i| %>
+            <div class="w-3 md:w-4" style="color: <%= colors[i].hex_code %>;">
+              <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
+            </div>
+          <% end %>
+        </div>
+      </div>
+
       <!-- タイトル -->
       <div class="flex gap-2 items-end">
 
@@ -37,10 +57,9 @@
           <!-- ユーザー名と作成日(縦並び) -->
           <div class="flex flex-col">
             <!-- ユーザー名 -->
-              <!-- モーダルの開閉不具合解消したらlink_toに変更する -->
-              <%= link_to user_path(post.user_id), '@click':"modalPalette = false", class:"max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500" do %>
-                <%= post.user.name %>
-              <% end %>
+            <%= link_to user_path(post.user_id), '@click':"modalPalette = false", class:"max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500" do %>
+              <%= post.user.name %>
+            <% end %>
 
             <!-- 作成日時 -->
             <div class="text-[0.6rem] font-light text-nowrap mt-0.5"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
@@ -84,22 +103,6 @@
           </div>
         </div>
       <% end %>
-
-      <!-- 絵の具セクション -->
-      <div class="flex justify-end gap-2 mr-4 mb-0.5">
-        <% post.color_count.times do |i| %>
-          <div class="w-3 md:w-4" style="color: <%= colors[i].hex_code %>;">
-            <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
-          </div>
-        <% end %>
-      </div>
-
-      <!-- カラーパレットセクション -->
-      <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
-        <% post.color_count.times do |i| %>
-          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
-        <% end %>
-      </div>
 
       <!-- コードコピー欄 -->
       <div x-data="{colorCount: <%= post.color_count %>}" class="w-full my-6">
