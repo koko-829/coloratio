@@ -1,6 +1,6 @@
 <!-- 投稿詳細画面モーダルパーシャル -->
 <div x-cloak x-show="modalPalette" x-transition.opacity.duration.200ms x-trap.inert.noscroll="modalPalette" x-on:keydown.esc.window="modalPalette = false" x-on:click.self="modalPalette = false" class="fixed inset-0 z-[999] flex justify-center bg-black/20 p-4 pb-8 backdrop-blur-md items-center" role="dialog" aria-modal="true">
-  <!-- Modal -->
+
   <div x-show="modalPalette"
     x-transition:enter="transition ease-out duration-200 delay-100 motion-reduce:transition-opacity"
     x-transition:enter-start="opacity-0 translate-y-8"
@@ -11,64 +11,137 @@
     <div @click="modalPalette = false" class="bg-gray-300 opacity-50 hover:opacity-80 active:opacity-30 transition-all duration-300 absolute right-2 top-2 size-6 rounded-full z-[1000] flex items-center justify-center">
       <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>
     </div>
-    <!-- モーダル中身セクション(turbo_streamで丸ごと置き換えるのでskelton-loadingを設置しておく) -->
-    <div class="w-full rounded-2xl"> <%# hidden-scrollbarはカスタムクラス(スクロールバーを非表示にする用) %>
 
-        <!-- スケルトンローディングのセクション(stream読み込み後に表示を外したい。) -->
-        <div id="palette-skelton">
-          <!-- パレットヘッダー部分 -->
-          <div class="animate-pulse overflow-hidden aspect-[4/1] flex">
-            <!-- モーダル表示時に一番最初のボタン部分が表示されるため、スケルトン表示用に擬似ボタンの設置(これ設置していないと、スケルトン部分より下の要素が表示されるためスケルトンがうまく表示されない) -->
-            <button type="button" class="pointer-events-none outline-none w-full bg-gray-200"></button>
+    <!-- モーダル中身セクション -->
+    <div class="w-full">
+
+      <!-- スケルトンローディングのセクション(stream読み込み後に表示を外したい。) -->
+      <div id="palette-skelton" class="animate-pulse">
+
+        <div class="relative w-full aspect-[5/3] flex items-center">
+          <!-- カルーセル部分の横にある長方形カラー部分 -->
+          <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
+            <% 5.times do |i| %>
+              <div class="w-full aspect-[5/3] bg-gray-200"></div>
+            <% end %>
+          </div>
+          <!-- モーダル表示時に一番最初のボタン部分が表示されるため、スケルトン表示用に擬似ボタンの設置(これ設置していないと、スケルトン部分より下の要素が表示されるためスケルトンがうまく表示されない) -->
+          <button type="button" class="w-[90%] bg-gray-200 aspect-[7/4] mx-auto"></button>
+        </div>
+
+        <div class="w-[80%] mx-auto">
+          <!-- パレット本体 -->
+          <div class="my-3 overflow-hidden aspect-[6/1] bg-gray-200 flex rounded-xl"></div>
+
+          <!-- 絵の具セクション -->
+          <div class="flex justify-end gap-2 mr-4 mt-0.5">
+            <div class="bg-gray-200 h-4 w-14"></div>
           </div>
 
-          <!-- 上端パレット部分より下 -->
-          <div class="p-4">
+          <span class="sr-only">Loading...</span>
 
-            <!-- スケルトンローディング -->
-            <div class="animate-pulse">
-              <span class="sr-only">Loading...</span>
-              <div class="h-20 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+          <div class="">
+            <!-- パレットタイトル -->
+            <div class="h-10 w-48 bg-gray-200"></div>
 
-              <!-- 絵の具スケルトン -->
-              <div class="my-10 w-[90%] mx-auto grid grid-cols-5 place-content-center place-items-center gap-6">
-                <% 5.times do |i| %>
-                  <div class="w-full" style="color: #e5e7eb;">
-                    <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
+            <!-- ユーザー名と作成日時欄&いいね欄 -->
+            <div class="w-full flex my-2 md:my-4">
+              <!-- ユーザーセクション -->
+              <div class="min-w-[90%] max-w-[90%] flex gap-1 items-center">
+                <!-- アイコン -->
+                <div class="size-6 md:size-8 overflow-hidden bg-gray-200 rounded-full"></div>
+                <!-- ユーザー名と作成日(縦並び) -->
+                <div class="flex flex-col">
+                  <!-- ユーザー名 -->
+                  <div class="h-3 w-20 bg-gray-200"></div>
+                  <!-- 作成日時 -->
+                  <div class="h-2 w-12 mt-0.5 bg-gray-200"></div>
+                </div>
+              </div>
+              <!-- いいね欄 -->
+              <div class="flex min-w-[10%] max-w-[10%] items-end gap-0.5">
+                <div class="size-8 bg-gray-200"></div>
+                <!-- いいね数表示 -->
+                <div class="size-4 bg-gray-200"></div>
+              </div>
+            </div>
+
+            <div class="h-4 w-64 bg-gray-200"></div>
+            <!-- タグリスト -->
+            <div class="max-w-[90%] my-2">
+              <div class="flex gap-1 ml-1 flex-wrap">
+                <% 3.times do |i| %>
+                  <div class="bg-gray-200 h-6 w-14 rounded-3xl">
                   </div>
                 <% end %>
               </div>
+            </div>
 
-              <!-- テキストスケルトン -->
-              <% 5.times do |i| %>
-                <div class="my-8">
-                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
-                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
-                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
-                  <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
-                </div>
-              <% end %>
-
-              <!-- スクエアスケルトン -->
-              <div class="my-10 w-[90%] mx-auto grid grid-cols-2 place-content-center place-items-center gap-10">
-                <% 6.times do |i| %>
-                  <div class="w-full aspect-square bg-gray-200">
+            <!-- コードコピー欄 -->
+            <div class="w-full my-6">
+              <div class="w-full flex flex-wrap items-center justify-center">
+                <% 5.times do |i| %>
+                  <div class="w-1/3 my-1 flex justify-center items-center">
+                    <div class="w-[95%]">
+                      <div class="w-full aspect-[5/3] rounded-2xl bg-gray-200"></div>
+                    </div>
                   </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- 筆記体とグラデーションとcolor&ratio -->
+            <div class="flex gap-4 my-4">
+
+              <div class="flex flex-col gap-3 md:gap-2 mt-2">
+                <% 5.times do |i| %>
+                  <div class="h-4 md:h-6 w-28 md:w-32 bg-gray-200"></div>
+                <% end %>
+              </div>
+
+              <div class="flex flex-col gap-3 md:gap-2 mt-2">
+                <% 5.times do |i| %>
+                  <div class="h-4 md:h-6 w-28 md:w-32 bg-gray-200"></div>
                 <% end %>
               </div>
 
             </div>
 
-            <!-- スケルトンローディング(end) -->
+            <!-- 円グラフセクション -->
+            <div class="mu-5 w-64 h-48 bg-gray-200"></div>
 
           </div>
+
+          <!-- 初期スケルトン -->
+          <div class="my-2">
+            <div class="h-20 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+
+            <!-- テキストスケルトン -->
+            <div class="my-8">
+              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+              <div class="h-6 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+            </div>
+
+            <!-- スクエアスケルトン -->
+            <div class="my-10 w-[90%] mx-auto grid grid-cols-2 place-content-center place-items-center gap-10">
+              <div class="w-full aspect-square bg-gray-200"></div>
+              <div class="w-full aspect-square bg-gray-200"></div>
+            </div>
+
+          </div>
+
         </div>
 
-        <!-- turbo_stream用の補足ID(この部分を丸ごと入れ替える) -->
-        <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain"> <%# idをmodalPaletteの値によって動的に定義(Alpine) %>
-        </div>
+      </div>
+
+      <!-- turbo_stream用の補足ID(この部分を丸ごと入れ替える) -->
+      <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain"> <%# idをmodalPaletteの値によって動的に定義(Alpine) %>
+      </div>
 
     </div>
+
   </div>
 </div>
