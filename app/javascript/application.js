@@ -8,3 +8,5 @@ import "./form/login_form"
 import "./tagify"
 import "./top_scroll"
 import "./palette_modal"
+import "./swiper"
+

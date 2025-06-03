@@ -10,8 +10,22 @@
         <% end %>
       </div>
       <!-- カルーセル本体 -->
-      <div class="w-[90%] mx-auto">
-        <%= render "shared/svg/color_ratio_svg", colors: colors %>
+      <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
+        <%#= render "shared/svg/color_ratio_svg", colors: colors %>
+        <div class="swiper-wrapper overflow-hidden">
+          <div class="swiper-slide h-full">
+            <div class="slide-img flex h-full items-center justify-center">
+              <%= render "shared/svg/color_ratio_svg", colors: colors %>
+            </div>
+          </div>
+          <% 1.times do |i| %>
+            <div class="swiper-slide h-full">
+              <div class="slide-img flex h-full items-center justify-center">
+                <div>準備中</div>
+              </div>
+            </div>
+          <% end %>
+        </div>
       </div>
     </div>
 
