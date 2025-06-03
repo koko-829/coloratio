@@ -13,18 +13,13 @@
       <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
         <%#= render "shared/svg/color_ratio_svg", colors: colors %>
         <div class="swiper-wrapper overflow-hidden">
-          <% 1.times do |i| %>
+          <% 2.times do |i| %>
             <div class="swiper-slide h-full">
               <div class="slide-img flex h-full items-center justify-center">
-                <div>準備中</div>
+                <%= image_tag "kaihatsu_now.svg", class:"w-full" %>
               </div>
             </div>
           <% end %>
-          <div class="swiper-slide h-full">
-            <div class="slide-img flex h-full items-center justify-center">
-              <%= render "shared/svg/color_ratio_svg", colors: colors %>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -137,6 +132,21 @@
             </div>
           <% end %>
         </div>
+      </div>
+
+      <!-- ミニアイコンデザインセクション -->
+      <div class="max-w-[90%] grid grid-cols-3 gap-4 my-8 mx-auto">
+        <% 3.times do |i| %>
+          <div class="w-full aspect-square">
+            <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: colors %>
+          </div>
+        <% end %>
+        <% 0.times do |i| %>
+          <div class="w-full aspect-square">
+            <%= render "shared/svg/icons/colors_#{post.color_count}/mini_icon_#{i}_svg", colors: colors %>
+          </div>
+        <% end %>
+
       </div>
 
       <!-- 筆記体とグラデーションとcolor&ratio -->

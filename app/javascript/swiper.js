@@ -15,7 +15,7 @@ document.addEventListener("turbo:before-stream-render", function() {
         crossFade: true
       },
       autoplay: {
-        delay: 2000,
+        delay: 4000,
         disableOnInteraction: false,
       },
       speed: 2000
