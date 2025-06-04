@@ -136,8 +136,44 @@
         </div>
       </div>
 
+      <!-- color&ratioと円グラフ -->
+      <div class="grid grid-cols-2">
+        <!-- 円グラフセクション -->
+        <div class="w-full mx-auto px-2 py-4 rounded-xl flex justify-center items-center gap-2">
+          <!-- サークルセクション -->
+          <div class="w-[70%] aspect-square rounded-full relative overflow-hidden shadow-lg">
+            <% if post.color_count == 2 %>
+              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% 100%);" class="size-full"></div>
+            <% elsif post.color_count == 3 %>
+              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+            <% elsif post.color_count == 4 %>
+              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+            <% elsif post.color_count == 5 %>
+              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% <%= ratio[0,4].map(&:to_i).sum %>%, <%= colors[4].hex_code %> <%= ratio[0,4].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+            <% end %>
+            <%# ドーナツ型にするための空洞用div %>
+            <div class="absolute w-[50%] aspect-square bg-[#f8f7f1] border rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+          </div>
+          <!-- 比率リストセクション -->
+          <div class="h-full flex flex-col justify-end gap-0.5 sm:gap-1">
+            <% post.color_count.times do |i| %>
+              <div class="flex gap-0.5 sm:gap-1 items-center">
+                <div class="size-3 sm:size-4 md:size-5 rounded-full border shadow-lg" style="background-color: <%= colors[i].hex_code %>;"></div>
+                <div class="text-[0.5rem] sm:text-xs text-[#897e70] font-extrabold"><%= ratio[i] %>%</div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Color&Ratioフォントセクション -->
+        <div class="w-[95%] m-auto overflow-hidden rounded-3xl shadow-2xl">
+          <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
+          <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
+        </div>
+      </div>
+
       <!-- ミニアイコンデザインセクション -->
-      <div class="max-w-[90%] grid grid-cols-3 gap-4 my-8 mx-auto">
+      <div class="max-w-[90%] grid grid-cols-3 gap-4 my-2 md:my-4 mx-auto">
         <% 3.times do |i| %>
           <div class="w-full aspect-square">
             <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: @sorted_colors %>
@@ -151,50 +187,19 @@
 
       </div>
 
-      <!-- 筆記体とグラデーションとcolor&ratio -->
-      <div class="flex gap-4 my-4">
+      <!-- 筆記体とグラデーション -->
+      <div class="grid grid-cols-2 my-4 md:my-6 gap-2">
         <!-- 筆記体coloratioセクション -->
-        <div class="text-xl md:text-2xl font-playwrite">
+        <div class="w-full flex flex-col justify-center items-center text-xl md:text-2xl font-playwrite">
           <% post.color_count.times do |i| %>
             <div class="" style="color: <%= colors[i].hex_code %>; -webkit-text-stroke: 0.3px gray;">Coloratio</div>
           <% end %>
         </div>
         <!-- グラデーションセクション -->
-        <div class="flex flex-col gap-3 md:gap-2 mt-2">
+        <div class="w-full flex flex-col justify-center items-center gap-3 md:gap-2">
           <% post.color_count.times do |i| %>
             <!-- グラデーションをつける(最後の要素の2色目はcolors[0]を参照する) -->
-            <div class="h-4 md:h-6 w-28 md:w-32 shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
-          <% end %>
-        </div>
-        <!-- Color&Ratioフォントセクション -->
-        <div class="w-full my-auto overflow-hidden border-slate-500 border rounded-2xl shadow-2xl">
-          <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
-          <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
-        </div>
-      </div>
-      <!-- 円グラフセクション -->
-      <div class="mt-5 w-64 p-4 border rounded-xl shadow-xl border-slate-300 flex justify-center items-center gap-2">
-        <!-- サークルセクション -->
-        <div class="size-36 rounded-full relative overflow-hidden shadow-lg">
-          <% if post.color_count == 2 %>
-            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% 100%);" class="size-full"></div>
-          <% elsif post.color_count == 3 %>
-            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-          <% elsif post.color_count == 4 %>
-            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-          <% elsif post.color_count == 5 %>
-            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% <%= ratio[0,4].map(&:to_i).sum %>%, <%= colors[4].hex_code %> <%= ratio[0,4].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-          <% end %>
-          <%# ドーナツ型にするための空洞用div %>
-          <div class="absolute size-16 bg-[#f8f7f1] border rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-        </div>
-        <!-- 比率リストセクション -->
-        <div class="h-36 flex flex-col justify-end gap-1">
-          <% post.color_count.times do |i| %>
-            <div class="flex gap-1 items-center">
-              <div class="size-5 rounded-full border shadow-lg" style="background-color: <%= colors[i].hex_code %>;"></div>
-              <div class="text-xs text-[#897e70] font-extrabold"><%= ratio[i] %>%</div>
-            </div>
+            <div class="h-4 md:h-6 w-[70%] shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
           <% end %>
         </div>
       </div>
