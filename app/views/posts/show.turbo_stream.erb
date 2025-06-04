@@ -1,6 +1,8 @@
 <%= turbo_stream.replace "palette-modal-#{@post.id}" do %>
   <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
+
   <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain">
+
     <!-- デザイン例カルーセル部分 -->
     <div class="relative w-full aspect-[5/3] flex items-center">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
@@ -24,7 +26,8 @@
       </div>
     </div>
 
-    <div class="w-[80%] mx-auto">
+    <!-- カルーセルより下 -->
+    <div class="w-[80%] mx-auto mb-10">
       <!-- カラーパレットセクション -->
       <div class="my-3">
         <!-- パレット本体 -->
@@ -196,15 +199,6 @@
         </div>
       </div>
 
-    </div>
-
-    <!-- 上端パレット部分より下 -->
-    <div class="p-4">
-
-      <!-- 仮置き開発中モーダル -->
-      <div class="flex flex-col items-center justify-center my-10">
-        <%= image_tag "kaihatsu_now.svg", class:"w-full" %>
-      </div>
     </div>
 
   </div>
