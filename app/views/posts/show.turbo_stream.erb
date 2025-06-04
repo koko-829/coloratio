@@ -25,7 +25,6 @@
     </div>
 
     <div class="w-[80%] mx-auto">
-
       <!-- カラーパレットセクション -->
       <div class="my-3">
         <!-- パレット本体 -->
@@ -138,7 +137,7 @@
       <div class="max-w-[90%] grid grid-cols-3 gap-4 my-8 mx-auto">
         <% 3.times do |i| %>
           <div class="w-full aspect-square">
-            <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: colors %>
+            <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: @sorted_colors %>
           </div>
         <% end %>
         <% 0.times do |i| %>
@@ -167,7 +166,7 @@
         <!-- Color&Ratioフォントセクション -->
         <div class="w-full my-auto overflow-hidden border-slate-500 border rounded-2xl shadow-2xl">
           <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
-          <%= render "shared/svg/color_ratio_svg", colors: colors %>
+          <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
         </div>
       </div>
       <!-- 円グラフセクション -->

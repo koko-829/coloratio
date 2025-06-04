@@ -36,8 +36,6 @@ class PostsController < ApplicationController
       [ "#4f85a6", "#79a7d9", "#d8dbd9" ],
       [ "#7c2e1e", "#b19962", "#2a4743" ],
       [ "#eae4d1", "#6c8650", "#a87570" ],
-      [ "#b32425", "#fffde1", "#d6b845", "#150c15" ],
-      [ "#150c15", "#9a1117", "#917c50", "#bbe3f5", "#da6a38" ],
       [ "#8b272b", "#e5006a" ],
       [ "#462e2e", "#cfaa2a" ],
       [ "#fff5e0", "#1a0b08" ],
@@ -126,6 +124,8 @@ class PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @tags = @post.tags.pluck(:name)
+    # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
+    @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
     respond_to do |format|
       format.turbo_stream
       format.html
