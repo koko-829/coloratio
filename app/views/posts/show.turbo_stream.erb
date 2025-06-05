@@ -23,10 +23,9 @@
             </div>
           </div>
           <!-- 準備中スライド -->
-          <% 3.times do |i| %>
-            <div class="swiper-slide h-full">
-              <div class="slide-svg">
-                <%#= image_tag "kaihatsu_now.svg", class:"w-full" %>
+          <% 4.times do |i| %>
+            <div class="swiper-slide h-full w-full">
+              <div class="slide-svg flex justify-center h-full w-full aspect-auto">
                 <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
               </div>
             </div>
@@ -215,9 +214,11 @@
 
       <!-- 配色数別デザイン例表示 -->
       <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
-      <% 4.times do |i|  %>
-        <div class="w-full aspect-square border-2 border-slate-300"></div>
-      <% end %>
+        <% 4.times do |i|  %>
+          <div class="w-full flex justify-center aspect-square">
+            <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+          </div>
+        <% end %>
       </div>
 
     </div>
