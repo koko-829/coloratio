@@ -128,7 +128,8 @@ class PostsController < ApplicationController
     @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
     respond_to do |format|
       format.turbo_stream
-      format.html
+      # html時のページを作成できてないので一旦擬似404を出す。
+      format.html { render "errors/not_found", layout: "error", status: 404 }
     end
   end
 

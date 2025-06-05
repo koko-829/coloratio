@@ -4,7 +4,7 @@
   <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain">
 
     <!-- デザイン例カルーセル部分 -->
-    <div class="relative w-full aspect-[5/3] flex items-center">
+    <div class="relative w-full aspect-[5/3] flex items-center animate-slide-top">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
       <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
         <% post.color_count.times do |i| %>
@@ -15,10 +15,19 @@
       <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
         <%#= render "shared/svg/color_ratio_svg", colors: colors %>
         <div class="swiper-wrapper overflow-hidden">
-          <% 2.times do |i| %>
+          <!-- color&ratioスライド -->
+          <div class="swiper-slide h-full">
+            <div class="slide-svg">
+              <%#= image_tag "kaihatsu_now.svg", class:"w-full" %>
+              <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
+            </div>
+          </div>
+          <!-- 準備中スライド -->
+          <% 3.times do |i| %>
             <div class="swiper-slide h-full">
-              <div class="slide-img flex h-full items-center justify-center">
-                <%= image_tag "kaihatsu_now.svg", class:"w-full" %>
+              <div class="slide-svg">
+                <%#= image_tag "kaihatsu_now.svg", class:"w-full" %>
+                <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
               </div>
             </div>
           <% end %>
@@ -29,7 +38,7 @@
     <!-- カルーセルより下 -->
     <div class="w-[80%] mx-auto mb-10">
       <!-- カラーパレットセクション -->
-      <div class="my-3">
+      <div class="my-3  animate-slide-top">
         <!-- パレット本体 -->
         <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
           <% post.color_count.times do |i| %>
@@ -48,7 +57,7 @@
       </div>
 
       <!-- タイトル -->
-      <div class="flex gap-2 items-end">
+      <div class="flex gap-2 items-end  animate-slide-top">
 
         <!-- パレットタイトル -->
         <div class="flex w-full items-center gap-1 border-l-4 pl-2 border-orange-500 text-xl md:text-2xl font-extrabold">
@@ -58,7 +67,7 @@
       </div>
 
       <!-- ユーザー名と作成日時欄&いいね欄 -->
-      <div class="w-full flex my-2 md:my-4">
+      <div class="w-full flex my-2 md:my-4  animate-slide-top">
         <!-- ユーザーセクション -->
         <div class="min-w-[90%] max-w-[90%] flex gap-1 items-center">
           <!-- アイコン -->
@@ -94,14 +103,14 @@
 
       <!-- 説明文欄 -->
       <% if post.description.present? %>
-        <div class="mt-2 mb-4 w-full">
+        <div class="mt-2 mb-4 w-full  animate-slide-top">
           <div class="text-xs text-gray-400"><%= post.description %></div>
         </div>
       <% end %>
 
       <!-- タグリスト -->
       <% if @tags.present? %> <%# tagが登録されてる場合のみ表示する %>
-        <div class="max-w-[90%] md:max-w-[80%] my-2">
+        <div class="max-w-[90%] md:max-w-[80%] my-2 animate-slide-top">
           <div class="flex gap-1 ml-1 flex-wrap">
             <% @tags.each do |i| %>
               <div class="inline-flex flex-nowrap items-center bg-gray-100 border border-gray-400 rounded-3xl p-0.5 pr-2 gap-1">
@@ -116,7 +125,7 @@
       <% end %>
 
       <!-- コードコピー欄 -->
-      <div x-data="{colorCount: <%= post.color_count %>}" class="w-full my-6">
+      <div x-data="{colorCount: <%= post.color_count %>}" class="w-full my-6 animate-slide-top">
         <div class="w-full flex flex-wrap items-center justify-center" :class="{ 'gap-x-8': colorCount % 2 == 0 }">
           <% post.color_count.times do |i| %>
             <div :class="colorCount % 2 == 0 ? 'w-[34%]' : 'w-1/3'" class="my-1 flex justify-center items-center">
@@ -137,7 +146,7 @@
       </div>
 
       <!-- color&ratioと円グラフ -->
-      <div class="grid grid-cols-2">
+      <div class="grid grid-cols-2 animate-slide-top">
         <!-- 円グラフセクション -->
         <div class="w-full mx-auto px-2 py-4 rounded-xl flex justify-center items-center gap-2">
           <!-- サークルセクション -->
@@ -173,7 +182,7 @@
       </div>
 
       <!-- ミニアイコンデザインセクション -->
-      <div class="max-w-[90%] grid grid-cols-3 gap-4 my-2 md:my-4 mx-auto">
+      <div class="max-w-[90%] grid grid-cols-3 gap-4 my-2 md:my-4 mx-auto animate-slide-top">
         <% 3.times do |i| %>
           <div class="w-full aspect-square">
             <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: @sorted_colors %>
@@ -188,7 +197,7 @@
       </div>
 
       <!-- 筆記体とグラデーション -->
-      <div class="grid grid-cols-2 my-4 md:my-6 gap-2">
+      <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
         <!-- 筆記体coloratioセクション -->
         <div class="w-full flex flex-col justify-center items-center text-xl md:text-2xl font-playwrite">
           <% post.color_count.times do |i| %>
@@ -202,6 +211,13 @@
             <div class="h-4 md:h-6 w-[70%] shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
           <% end %>
         </div>
+      </div>
+
+      <!-- 配色数別デザイン例表示 -->
+      <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
+      <% 4.times do |i|  %>
+        <div class="w-full aspect-square border-2 border-slate-300"></div>
+      <% end %>
       </div>
 
     </div>
