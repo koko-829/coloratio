@@ -1,9 +1,12 @@
 <%= turbo_stream.replace "palette-modal-#{@post.id}" do %>
   <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
+  <%# 下記idの要素がある場合のみswiperを初期化する(いいねボタンでのturbo_streamイベントではカルーセルの初期化が起こらないようにするため) %>
+  <%# 一度swiperが初期化されたらこの要素を削除するjsを書いてみた(別のモーダルが開かれる時はまた新しく下記要素が出現するため、同一モーダル内で一回だけswiperが初期化されるような仕組みを擬似的に作成してみた。現状この方法で不具合確認されず。) %>
+  <div id="swiper-start"></div>
 
   <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain">
     <!-- デザイン例カルーセル部分 -->
-    <div class="relative w-full aspect-[5/3] flex items-center animate-slide-top">
+    <div class="relative w-full aspect-[5/3] flex items-center">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
       <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
         <% post.color_count.times do |i| %>
@@ -15,7 +18,7 @@
         <%#= render "shared/svg/color_ratio_svg", colors: colors %>
         <div class="swiper-wrapper overflow-hidden">
           <!-- 準備中スライド -->
-          <% 2.times do |i| %>
+          <% 3.times do |i| %>
             <div class="swiper-slide h-full w-full">
               <div class="slide-svg flex justify-center h-full w-full aspect-auto">
                 <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
@@ -215,7 +218,7 @@
 
       <!-- 配色数別デザイン例表示 -->
       <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
-        <% 2.times do |i|  %>
+        <% 3.times do |i|  %>
           <div class="w-full h-full aspect-square flex justify-center">
             <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
           </div>

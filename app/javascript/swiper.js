@@ -30,7 +30,13 @@ document.addEventListener("turbo:before-stream-render", function() {
     // beforeイベントから0.5秒後にSwiperのインスタンスを作成(beforeイベントの段階ではまだ.swiper-container要素が描画されてないため0.5秒後に取得する感じ。)
     // ↓存在しなturbo:after-stream-renderイベントを擬似的に再現してるみたいな感じ。
     setTimeout(function() {
-      const swiper = new Swiper('.swiper-container', swipeOption);
+      // モーダル開いて1回目だけswiperを初期化したいから、id='swiper-start'があった時のみnew Swiperを実行(モーダル内のいいねボタンを押すと,streamが走ってカルーセルが2重になってしまう)
+      const swiperStart = document.getElementById('swiper-start');
+      if (swiperStart) {
+        const swiper = new Swiper('.swiper-container', swipeOption);
+        // 同一モーダル内で再度new Swiperが実行されないように<div id="swiper-start">要素を削除する。
+        swiperStart.remove();
+      }
     }, 300);
   }
 });
