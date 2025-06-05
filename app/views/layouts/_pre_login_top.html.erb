@@ -1,7 +1,6 @@
 <%# ログイン前に表示するトップページ %>
-<div x-data="{modalIsOpen: false}" class="relative min-h-fit shadow-bottom text-[#897e70]">
+<div class="relative min-h-fit shadow-bottom text-[#897e70]">
   <div class="w-[90vw] mx-auto my-10 max-w-screen-xl">
-
 
     <!-- Hero -->
     <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8">
@@ -99,7 +98,7 @@
 
 <!-- さらに表示ボタン -->
     <div class="fter:h-px flex items-center before:h-px before:flex-1  before:bg-gray-300 before:content-[''] after:h-px after:flex-1 after:bg-gray-300  after:content-['']">
-      <button x-on:click="modalIsOpen = true" type="button" class="flex items-center rounded-full border border-gray-300 bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100">
+      <button @click="modalPrompt = true" type="button" class="flex items-center rounded-full border border-gray-300 bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-1 h-4 w-4">
           <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
         </svg>

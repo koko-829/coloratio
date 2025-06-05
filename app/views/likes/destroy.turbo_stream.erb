@@ -1,8 +1,20 @@
+<%# 詳細モーダル開かれてたとき用のいいねボタン更新処理 %>
+<%= turbo_stream.replace "modal-unlike-button-#{@post.id}" do %>
+  <%= render 'posts/modal_like', post: @post %>
+<% end %>
+
+<%# 詳細モーダル開かれてたとき用のいいね数更新処理 %>
+<%= turbo_stream.update "modal-like-count-#{@post.id}" do %>
+  <%= @post.likes.count %>
+<% end %>
+
 <%# いいね削除後にunlike-button-id要素をlikeのパーシャルに変更できたらOK %>
 <%= turbo_stream.replace "unlike-button-#{@post.id}" do %>
   <%= render 'posts/like', post: @post %>
 <% end %>
+
 <%= turbo_stream.update "like-count-#{@post.id}" do %>
   <%= @post.likes.count %>
 <% end %>
+
 <%= turbo_stream.prepend "flash", partial: "shared/liked_flash" %>

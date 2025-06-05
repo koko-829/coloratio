@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.css" integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <!-- begin・swiper用の記載 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- end・swiper -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js" integrity="sha512-g/feAizmeiVKSwvfW0Xk3ZHZqv5Zs8PEXEBKzL15pM0SevEvoX8eJ4yFWbqakvRj7vtw1Q97bLzEpG2IVWX0Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wnumb/1.2.0/wNumb.min.js" integrity="sha512-igVQ7hyQVijOUlfg3OmcTZLwYJIBXU63xL9RC12xBHNpmGJAktDnzl9Iw0J4yrSaQtDxTTVlwhY730vphoVqJQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
@@ -39,32 +43,17 @@
 
   <body class="font-body bg-[#f8f7f1]">
     <%= render 'shared/top_scroll' %><!-- 画面上部までスクロールボタン -->
-    <!-- スマホサイズ時に表示する用(md:指定やと絶妙に表示されてしまうアプリがあるため、) -->
-    <div class="block sm:hidden h-screen w-screen">
 
-      <div class="h-full w-full flex flex-col justify-center items-center gap-4">
+    <div x-data="{modalDevelop: false, modalPalette: false, modalPrompt: false}" class="main-container">
+      <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %>
 
-        <%= image_tag "coloratio-logo.svg", class:"w-[16rem]" %>
+      <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
+      <%= render "shared/development_modal" %>
+      <%= render "shared/loading_modal" %>
+      <%= render "shared/palette_modal" %>
+      <%= yield %>
 
-        <%= image_tag 'not-mobile.svg', class:"w-full max-w-[52rem]", id:"fukidashi" %>
-
-
-      </div>
-
-    </div>
-    <!-- パソコンサイズ時 -->
-    <div class="hidden sm:block">
-      <div x-data="{modalDevelop: false, modalPalette: false}" class="main-container">
-        <%= render user_signed_in? ? 'layouts/header_logged_in' : 'layouts/header_pre_login' %>
-
-        <%= render 'shared/flash_message' %> <%# フラッシュメッセージのパーシャル呼び出し用 %>
-        <%= render "shared/development_modal" %>
-        <%= render "shared/loading_modal" %>
-        <%= render "shared/palette_modal" %>
-        <%= yield %>
-
-        <%= render 'layouts/footer' %>
-      </div>
+      <%= render 'layouts/footer' %>
     </div>
 
   </body>

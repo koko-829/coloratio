@@ -42,10 +42,11 @@
       <!-- 並び替え・配色数ボタン -->
       <div class="flex flex-col lg:flex-row gap-2 text-sm my-3">
         <!-- 並び替えボタン -->
-        <div class="flex flex-col xs:flex-row items-start xs:items-center border-2 p-4 rounded-md gap-1 my-1">
-          <div class="flex items-center gap-1">
+        <div class="flex items-start xs:items-center border-2 p-4 rounded-md gap-1 my-1">
+          <div class="flex items-center gap-1 text-xs sm:text-sm lg:text-md">
             <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4V16H23L19 21L15 16H18V4H20ZM12 18V20H3V18H12ZM14 11V13H3V11H14ZM14 4V6H3V4H14Z"></path></svg>
-            並び替え：
+            <div class="hidden xs:block">並び替え</div>
+            <div>：</div>
           </div>
 
           <div class="flex">
@@ -54,7 +55,7 @@
               value="created_at desc"
               @click="sort = 'created_at desc'"
               :class="sort === 'created_at desc' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               新しい順
             </button>
 
@@ -63,7 +64,7 @@
               value="created_at asc"
               @click="sort = 'created_at asc'"
               :class="sort === 'created_at asc' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               古い順
             </button>
 
@@ -72,7 +73,7 @@
               value="most_liked"
               @click="sort = 'most_liked'"
               :class="sort === 'most_liked' ? 'text-white bg-orange-500 hover:bg-orange-700' : 'bg-orange-50 text-orange-500 hover:bg-orange-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               人気順
             </button>
           </div>
@@ -80,10 +81,11 @@
         </div>
 
         <!-- 配色数絞り込み -->
-        <div class="flex flex-col xs:flex-row items-start xs:items-center border-2 p-4 rounded-md gap-1 my-1">
-          <div class="flex items-center gap-1">
+        <div class="flex items-start xs:items-center border-2 p-4 rounded-md gap-1 my-1">
+          <div class="flex items-center gap-1 text-xs sm:text-sm lg:text-md">
             <svg class="size-5 fill-slate-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M2 4C2 3.44772 2.44772 3 3 3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4ZM16 19H20V5H16V19ZM14 5H10V19H14V5ZM4 5V19H8V5H4Z"></path></svg>
-            配色数：
+            <div class="hidden xs:block">配色数</div>
+            <div>:</div>
           </div>
 
           <div class="flex">
@@ -92,7 +94,7 @@
               value=""
               @click="color_count = ''"
               :class="color_count === '' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               全て
             </button>
 
@@ -101,7 +103,7 @@
               value="2"
               @click="color_count = '2'"
               :class="color_count === '2' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               2色
             </button>
 
@@ -110,7 +112,7 @@
               value="3"
               @click="color_count = '3'"
               :class="color_count === '3' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               3色
             </button>
 
@@ -119,7 +121,7 @@
               value="4"
               @click="color_count = '4'"
               :class="color_count === '4' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               4色
             </button>
 
@@ -128,7 +130,7 @@
               value="5"
               @click="color_count = '5'"
               :class="color_count === '5' ? 'text-white bg-blue-500 hover:bg-blue-700' : 'bg-blue-50 text-blue-500 hover:bg-blue-100'"
-              class="py-1.5 px-3 text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
+              class="py-1 md:py-1.5 px-1.5 md:px-3 text-xs md:text-sm rounded-3xl cursor-pointer font-normal text-center shadow-xs transition-all duration-500 flex items-center justify-center">
               5色
             </button>
           </div>

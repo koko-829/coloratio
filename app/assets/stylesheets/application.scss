@@ -3,8 +3,9 @@
 @use 'maintenance';
 @use 'loading';
 @use 'practice';
-// フォント指定
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Zen+Maru+Gothic&display=swap');
+@use 'swiper';
+// フォント指定(Noto Sans Japanese,Zen Maru Gothic Static, Playwrite Tanzania)
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Playwrite+TZ:wght@100..400&family=Zen+Maru+Gothic&display=swap');
 
 @tailwind base;
 @tailwind components;
