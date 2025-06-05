@@ -18,7 +18,7 @@
         <%#= render "shared/svg/color_ratio_svg", colors: colors %>
         <div class="swiper-wrapper overflow-hidden">
           <!-- 準備中スライド -->
-          <% 3.times do |i| %>
+          <% 4.times do |i| %>
             <div class="swiper-slide h-full w-full">
               <div class="slide-svg flex justify-center h-full w-full aspect-auto">
                 <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
@@ -218,9 +218,9 @@
 
       <!-- 配色数別デザイン例表示 -->
       <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
-        <% 3.times do |i|  %>
+        <% 4.times do |i|  %>
           <div class="w-full h-full aspect-square flex justify-center">
-            <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+            <%= render "shared/svg/designs/design_#{i}_svg", class:"size-full", colors: @sorted_colors %>
           </div>
         <% end %>
       </div>
