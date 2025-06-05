@@ -27,7 +27,7 @@ document.addEventListener("turbo:before-stream-render", function() {
       // }
     };
 
-    // beforeイベントから0.5秒後にSwiperのインスタンスを作成(beforeイベントの段階ではまだ.swiper-container要素が描画されてないため0.5秒後に取得する感じ。)
+    // beforeイベントから0.3秒後にSwiperのインスタンスを作成(beforeイベントの段階ではまだ.swiper-container要素が描画されてないため0.3秒後に取得する感じ。)
     // ↓存在しなturbo:after-stream-renderイベントを擬似的に再現してるみたいな感じ。
     setTimeout(function() {
       // モーダル開いて1回目だけswiperを初期化したいから、id='swiper-start'があった時のみnew Swiperを実行(モーダル内のいいねボタンを押すと,streamが走ってカルーセルが2重になってしまう)
@@ -39,4 +39,25 @@ document.addEventListener("turbo:before-stream-render", function() {
       }
     }, 300);
   }
+});
+
+// html遷移用
+document.addEventListener("turbo:load", function() {
+  const swiperStart = document.getElementById('swiper-start');
+    if (swiperStart) {
+      const swiper = new Swiper('.swiper-container', {
+        loop: true,
+        effect: 'fade',
+        fadeEffect: {
+          crossFade: true
+        },
+        autoplay: {
+          delay: 1500, // スライド切り替えのスパン(ms)
+          disableOnInteraction: false,
+        },
+        speed: 2000,
+        allowTouchMove: false, //タップでのスライド変更無効
+        simulateTouch: false //PCでのドラッグ無効
+      });
+    }
 });

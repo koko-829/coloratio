@@ -65,7 +65,7 @@ class PostsController < ApplicationController
       if @post.status == "draft"
         redirect_to user_path(current_user, draft: true), notice: "下書きを保存しました。" # 作成が成功したら詳細ページへ移動する。
       else
-        redirect_to user_path(current_user, published: true), notice: "パレットを公開しました。"
+        redirect_to post_path(@post), notice: "パレットを公開しました。"
       end
     else
       render :new, status: :unprocessable_entity
@@ -129,7 +129,8 @@ class PostsController < ApplicationController
     respond_to do |format|
       format.turbo_stream
       # html時のページを作成できてないので一旦擬似404を出す。
-      format.html { render "errors/not_found", layout: "error", status: 404 }
+      # format.html { render "errors/not_found", layout: "error", status: 404 }
+      format.html
     end
   end
 
