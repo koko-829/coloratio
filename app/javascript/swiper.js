@@ -7,7 +7,6 @@ document.addEventListener("turbo:before-stream-render", function() {
 
   // .swiper-Triggerが存在する場合のみSwiperを初期化
   if (swiperTrigger) {
-    console.log('swiperのトリガー要素が見つかりました');
     let swipeOption = {
       loop: true,
       effect: 'fade',
@@ -15,10 +14,12 @@ document.addEventListener("turbo:before-stream-render", function() {
         crossFade: true
       },
       autoplay: {
-        delay: 2000,
+        delay: 1500, // スライド切り替えのスパン(ms)
         disableOnInteraction: false,
       },
-      speed: 2000
+      speed: 2000,
+      allowTouchMove: false, //タップでのスライド変更無効
+      simulateTouch: false //PCでのドラッグ無効
       // swiperのページネーションつけるなら必要↓
       // pagination: {
       //   el: '.swiper-pagination',
@@ -30,6 +31,6 @@ document.addEventListener("turbo:before-stream-render", function() {
     // ↓存在しなturbo:after-stream-renderイベントを擬似的に再現してるみたいな感じ。
     setTimeout(function() {
       const swiper = new Swiper('.swiper-container', swipeOption);
-    }, 500);
+    }, 300);
   }
 });

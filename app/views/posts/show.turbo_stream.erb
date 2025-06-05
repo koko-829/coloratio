@@ -36,7 +36,7 @@
     </div>
 
     <!-- カルーセルより下 -->
-    <div class="w-[80%] mx-auto mb-10">
+    <div class="w-[80%] mx-auto">
       <!-- カラーパレットセクション -->
       <div class="my-3  animate-slide-top">
         <!-- パレット本体 -->
@@ -224,5 +224,11 @@
 
     </div>
 
+    <!-- アプリロゴ(モーダル最下層) -->
+    <div @click="modalPalette = false" class="cursor-pointer w-[20%] mx-auto mt-32 mb-10">
+      <%= image_tag "coloratio-logo.svg", class:"w-full" %>
+    </div>
+
   </div>
+
 <% end %>
