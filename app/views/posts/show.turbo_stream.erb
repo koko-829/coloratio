@@ -2,7 +2,6 @@
   <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
 
   <div :id="modalPalette" class="h-full hidden-scrollbar overflow-y-auto overscroll-y-contain">
-
     <!-- デザイン例カルーセル部分 -->
     <div class="relative w-full aspect-[5/3] flex items-center animate-slide-top">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
@@ -15,6 +14,15 @@
       <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
         <%#= render "shared/svg/color_ratio_svg", colors: colors %>
         <div class="swiper-wrapper overflow-hidden">
+          <!-- 準備中スライド -->
+          <% 2.times do |i| %>
+            <div class="swiper-slide h-full w-full">
+              <div class="slide-svg flex justify-center h-full w-full aspect-auto">
+                <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+              </div>
+            </div>
+          <% end %>
+
           <!-- color&ratioスライド -->
           <div class="swiper-slide h-full">
             <div class="slide-svg">
@@ -22,14 +30,7 @@
               <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
             </div>
           </div>
-          <!-- 準備中スライド -->
-          <% 4.times do |i| %>
-            <div class="swiper-slide h-full w-full">
-              <div class="slide-svg flex justify-center h-full w-full aspect-auto">
-                <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
-              </div>
-            </div>
-          <% end %>
+
         </div>
       </div>
     </div>
@@ -214,8 +215,8 @@
 
       <!-- 配色数別デザイン例表示 -->
       <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
-        <% 4.times do |i|  %>
-          <div class="w-full flex justify-center aspect-square">
+        <% 2.times do |i|  %>
+          <div class="w-full h-full aspect-square flex justify-center">
             <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
           </div>
         <% end %>
