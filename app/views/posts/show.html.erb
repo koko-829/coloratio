@@ -6,7 +6,7 @@
     <!-- デザイン例カルーセル部分 -->
     <div class="relative w-full aspect-[5/3] flex items-center">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
-      <div class="hidden absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
+      <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
         <% post.color_count.times do |i| %>
           <div class="w-full aspect-[5/3] border border-r-0 border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
         <% end %>

@@ -1,25 +1,25 @@
-<nav class="sticky top-0 z-50 border-t-2 shadow bg-[#f8f7f1] dark:bg-gray-800">
-  <div class="container px-6 py-4 mx-auto flex justify-between min-h-20">
-    <div class="flex items-center justify-between"> <%# ロゴボタン %>
+<nav class="sticky top-0 z-50 shadow-lg bg-[#f8f7f1] dark:bg-gray-800">
+  <div class="w-[90vw] max-w-screen-2xl py-4 mx-auto flex justify-between">
+    <%# ロゴボタン %>
+    <div class="flex items-center justify-between">
       <%= link_to root_path do %>
         <%= image_tag "coloratio-logo.svg", class:"lg:w-40 w-32" %>
       <% end %>
     </div>
-    <div class="flex flex-row gap-4"> <%# ログイン・新規登録ボタン %>
+    <%# ログイン・新規登録ボタン %>
+    <div class="flex flex-row gap-2 lg:gap-4">
       <!-- ログインボタン -->
-      <%= link_to new_user_session_path, data: { turbo: false }, class: "group relative inline-block text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
+      <%= link_to new_user_session_path, data: { turbo: false }, class: "group relative inline-block text-xs lg:text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
         <span class="absolute inset-0 border border-current"></span>
-        <span
-          class="block border border-current bg-white p-3 lg:px-6 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+        <span class="block border border-current bg-white p-3 lg:px-6 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           ログイン
         </span>
       <% end %>
 
       <!-- 会員登録ボタン -->
-      <%= link_to new_user_registration_path, data: { turbo: false }, class: "group relative inline-block text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
-        <span class="absolute inset-0 border border-black"></span>
-        <span
-          class="block border rounded-sm border-black bg-amber-200 p-3 lg:px-6 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
+      <%= link_to new_user_registration_path, data: { turbo: false }, class: "group relative inline-block text-xs lg:text-sm font-medium text-black focus:ring-3 focus:outline-hidden" do %>
+        <span class="absolute inset-0 border border-current"></span>
+        <span class="block border rounded-sm border-black bg-amber-200 p-3 lg:px-6 transition-transform group-hover:-translate-x-1 group-hover:-translate-y-1">
           会員登録
         </span>
       <% end %>
