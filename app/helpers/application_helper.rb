@@ -21,7 +21,7 @@ module ApplicationHelper
     {
       title: :full_title,          # :full_title とすると、サイトに表示される <title> と全く同じものを表示できる
       # description: :description,   # 上に同じ
-      description: "'好き'から見つけるぴったり配色。あなたの目に映る世界を色だけで表現してみるカラーパレットアプリ",
+      description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
       url: request.original_url,
       image: image_url("ogp.png")
     }
