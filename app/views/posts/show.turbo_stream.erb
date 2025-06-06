@@ -17,7 +17,7 @@
       <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
         <%#= render "shared/svg/color_ratio_svg", colors: colors %>
         <div class="swiper-wrapper overflow-hidden">
-          <!-- 準備中スライド -->
+          <!-- カルーセル中身 -->
           <% 4.times do |i| %>
             <div class="swiper-slide h-full w-full">
               <div class="slide-svg flex justify-center h-full w-full aspect-auto">
@@ -34,6 +34,13 @@
             </div>
           </div>
 
+        </div>
+        <!-- shareアイコン -->
+        <div class="w-full flex justify-end items-center gap-1 px-6 my-2">
+          <div class="gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg text-sm px-3 py-2 text-center inline-flex items-center">
+            <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
+            <div class="text-sm text-gray-500 font-medium">シェア</div>
+          </div>
         </div>
       </div>
     </div>
