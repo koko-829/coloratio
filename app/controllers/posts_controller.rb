@@ -187,7 +187,7 @@ class PostsController < ApplicationController
   # 動的OGP用のmeta_tags再定義メソッド(上端にてhelper_method :prepare_meta_tagsを指定してどこでも使えるようにしてる)
   def prepare_meta_tags(post)
     ## このimage_urlにMiniMagickで設定したOGPの生成した合成画像を代入する
-    image_url = "#{request.base_url}/assets/palette.png"
+    image_url = "#{request.base_url}/assets/dynamic_ogp_base.png"
     set_meta_tags og: {
                   site_name: "Coloratio",
                   title: post.title,
