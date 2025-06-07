@@ -1,5 +1,6 @@
 // Entry point for the build script in your package.json
 import "@hotwired/turbo-rails"
+import "./html2canvas.min"
 import "./controllers"
 import "./range_slider"
 import "./color_select"
@@ -9,4 +10,5 @@ import "./tagify"
 import "./top_scroll"
 import "./palette_modal"
 import "./swiper"
+import "./create_ogp_image"
 

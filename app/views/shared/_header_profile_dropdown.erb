@@ -1,21 +1,14 @@
 
 <!-- 画面サイズ大きい時に表示されるメニュー -->
-<section class="dark:bg-dark hidden lg:block">
+<section class="dark:bg-dark hidden sm:block">
   <div class="container">
     <!-- Account Dropdown Style One -->
     <div x-data="{showDropdown: false}" class="flex">
-      <div
-        @click.outside="showDropdown = false"
-        class="relative inline-block"
-      >
-        <button
-          @click="showDropdown = !showDropdown"
-          class="mb-2 inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-medium text-dark dark:border-dark-3 dark:bg-dark-2 dark:text-white"
-        > <%# プロフィールアイコンボタン %>
+      <div @click.outside="showDropdown = false" class="relative inline-block">
+        <button @click="showDropdown = !showDropdown" class="mb-2 inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 py-3 text-base font-medium text-dark dark:border-dark-3 dark:bg-dark-2 dark:text-white">
           <div class="relative size-12 overflow-hidden rounded-full">
             <%= image_tag "profile_#{current_user.profile_icon}.svg", class:"size-full" %>
           </div>
-
           <span :class="showDropdown ? '-scale-y-100' : ''" class="duration-100"> <%# トグルアイコン%>
             <svg class="size-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path
@@ -28,7 +21,7 @@
         <div
           :class="showDropdown ? 'block' : 'hidden'"
           class="absolute right-0 top-full w-[240px] shadow-xl border-2 bg-[#f8f7f1] divide-y divide-stroke border-stroke overflow-hidden rounded-lg dark:divide-dark-3 dark:bg-dark-2"
-        >
+          >
 
           <!-- プロフィールアイコンとユーザーネームセクション -->
           <div class="flex items-center gap-3 px-4 py-3">
@@ -86,6 +79,7 @@
               </span>
             </button>
           </div>
+
           <div>
             <!-- 公開済み一覧 -->
             <%= link_to user_path(current_user, published: true), class:"flex w-full items-center justify-between px-4 py-2.5 text-sm font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
@@ -109,7 +103,9 @@
               </span>
             <% end %>
           </div>
-          <div> <%# ログアウトボタン %>
+
+          <%# ログアウトボタン %>
+          <div>
             <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトします。よろしいですか" }, class:"flex w-full items-center justify-between px-4 py-2.5 text-sm text-red-600 font-medium text-dark hover:bg-gray-50 dark:text-white dark:hover:bg-white/5" do %>
               <span class="flex items-center gap-2">
                 <svg
@@ -133,6 +129,19 @@
               </span>
             <% end %>
           </div>
+
+          <%# xシェアセクション %>
+          <div class="px-6 py-4 w-[90%] mx-auto">
+            <%= image_tag "x_share_prompt.svg", class:"w-[90%] poyopoyo" %>
+            <!-- xボタン本体 -->
+            <%= link_to "https://twitter.com/intent/tweet?url=https://coloratio-app.com/&text=配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。%20%7C%20%20%23Coloratio%0a%0a", target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
+              <button type="button" class="w-full inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-3xl bg-black border border-black px-4 py-2 tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0">
+                <%= image_tag "twitter_icon.svg", class:"size-6" %>
+                シェアする
+              </button>
+            <% end %>
+          </div>
+
         </div>
       </div>
     </div>

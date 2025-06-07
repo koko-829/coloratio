@@ -3,9 +3,10 @@
 <!-- 作成作業所 -->
 
 <% @sorted_colors = ["#b6e1f4", "#f19aac", "#6495ce", "#f6f9fb", "#fdbf01"] %>
-<div class="w-[60vw]">
-  <%= render "shared/svg/designs/design_2_svg", colors: @sorted_colors %>
-</div>
+<%= link_to "https://twitter.com/intent/tweet?url=https://coloratio-app.com/&text=配色数も比率も自由自在。%0a暮らしの中の「好き」から作る、%0a自分だけのカラーパレットアプリ。%0a%23Coloratio%20%23カラーパレット%0a%0a", target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
+<%#= link_to "https://twitter.com/intent/tweet?url=https://www.coloratio-app.com/&text=配色数・比率、自由自在。%0a身近なものから作る、見つける、あなただけのカラーパレットアプリ。%20%23coloratio", target: '_blank' do %>
+xでシェア
+<% end %>
 <!-- end デザイン確認枠 -->
 
 </div>

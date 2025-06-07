@@ -44,20 +44,22 @@ document.addEventListener("turbo:before-stream-render", function() {
 // html遷移用
 document.addEventListener("turbo:load", function() {
   const swiperStart = document.getElementById('swiper-start');
-    if (swiperStart) {
-      const swiper = new Swiper('.swiper-container', {
-        loop: true,
-        effect: 'fade',
-        fadeEffect: {
-          crossFade: true
-        },
-        autoplay: {
-          delay: 1500, // スライド切り替えのスパン(ms)
-          disableOnInteraction: false,
-        },
-        speed: 2000,
-        allowTouchMove: false, //タップでのスライド変更無効
-        simulateTouch: false //PCでのドラッグ無効
-      });
-    }
+  if (swiperStart) {
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
+      },
+      autoplay: {
+        delay: 1500, // スライド切り替えのスパン(ms)
+        disableOnInteraction: false,
+      },
+      speed: 2000,
+      allowTouchMove: false, //タップでのスライド変更無効
+      simulateTouch: false //PCでのドラッグ無効
+    });
+    swiperStart.remove();
+  }
+
 });

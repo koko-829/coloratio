@@ -1,0 +1,5 @@
+development:
+  url: <%= ENV['CLOUDINARY_URL'] %>
+
+production:
+  url: <%= ENV['CLOUDINARY_URL'] %>
