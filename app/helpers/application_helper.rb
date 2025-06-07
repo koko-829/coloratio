@@ -13,11 +13,11 @@ module ApplicationHelper
           title: @post.title,
           description: "このポストの説明文をここに入れる",
           url: request.original_url,
-          image: @post.ogp_url.presence || image_url("ogp.png")
+          image: image_url("ogp.png")
         },
         twitter: {
           card: "summary_large_image",
-          image: @post.ogp_url.presence || image_url("ogp.png")
+          image: image_url("ogp.png")
         }
       }
     else
