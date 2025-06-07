@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  ## 設定したprepare_meta_tagsをprivateにあってもpostコントローラー以外にも使えるようにする
+  helper_method :prepare_meta_tags
+
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to :root, alert: "無効なURLです"
   end
@@ -126,6 +129,7 @@ class PostsController < ApplicationController
     @tags = @post.tags.pluck(:name)
     # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
     @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
+    prepare_meta_tags(@post)
     respond_to do |format|
       format.turbo_stream
       # html時のページを作成できてないので一旦擬似404を出す。
@@ -178,5 +182,24 @@ class PostsController < ApplicationController
       slider_range << sum
     end
     slider_range
+  end
+
+  # 動的OGP用のmeta_tags再定義メソッド(上端にてhelper_method :prepare_meta_tagsを指定してどこでも使えるようにしてる)
+  def prepare_meta_tags(post)
+    ## このimage_urlにMiniMagickで設定したOGPの生成した合成画像を代入する
+    image_url = "#{request.base_url}/assets/palette.png"
+    set_meta_tags og: {
+                  site_name: "Coloratio",
+                  title: post.title,
+                  description: "パレット詳細ページ",
+                  type: "website",
+                  url: request.original_url,
+                  image: image_url,
+                  locale: "ja-JP"
+                },
+                twitter: {
+                  card: "summary_large_image",
+                  image: image_url
+                }
   end
 end

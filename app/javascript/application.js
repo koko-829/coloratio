@@ -9,4 +9,5 @@ import "./tagify"
 import "./top_scroll"
 import "./palette_modal"
 import "./swiper"
+import "./create_ogp_image"
 
