@@ -130,11 +130,10 @@ class PostsController < ApplicationController
     # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
     @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
     # prepare_meta_tags(@post)
+    response.headers["Content-Type"] = "text/html"
     respond_to do |format|
       format.turbo_stream
-      # html時のページを作成できてないので一旦擬似404を出す。
-      # format.html { render "errors/not_found", layout: "error", status: 404 }
-      format.html
+      format.html { render :show }
     end
   end
 
