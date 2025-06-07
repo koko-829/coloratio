@@ -46,6 +46,11 @@
 
     </div>
 
+<% if post.ogp_url.present? %>
+  <%= post.ogp_url %>
+<% else %>
+  urlがありません
+<% end %>
     <!-- 画像アップロード用のjsファイル -->
     <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
       <%= hidden_field_tag :image_data, nil, id: 'image_data' %>

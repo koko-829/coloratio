@@ -126,10 +126,10 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    prepare_meta_tags(@post)
     @tags = @post.tags.pluck(:name)
     # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
     @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
-    # prepare_meta_tags(@post)
     respond_to do |format|
       format.turbo_stream
       # html時のページを作成できてないので一旦擬似404を出す。
@@ -187,7 +187,7 @@ class PostsController < ApplicationController
   # 動的OGP用のmeta_tags再定義メソッド(上端にてhelper_method :prepare_meta_tagsを指定してどこでも使えるようにしてる)
   def prepare_meta_tags(post)
     ## このimage_urlにMiniMagickで設定したOGPの生成した合成画像を代入する
-    image_url = "#{request.base_url}/assets/dynamic_ogp_base.png"
+    image_url = post.ogp_url.present? ? post.ogp_url : "#{request.base_url}/assets/ogp.png"
     set_meta_tags og: {
                   site_name: "Coloratio",
                   title: post.title,
