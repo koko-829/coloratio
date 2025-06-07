@@ -1,0 +1,15 @@
+<%= turbo_stream.replace 'upload-check' do %>
+  <div>保存完了</div>
+  <div><%= @image_url %></div>
+<% end %>
+
+<%= turbo_stream.append 'scripts' do %>
+  <script>
+    (function() {
+      const metaTag = document.querySelector('meta[name="twitter:image"]');
+      if (metaTag) {
+        metaTag.setAttribute("content", "<%= @image_url %>");
+      }
+    })();
+  </script>
+<% end %>

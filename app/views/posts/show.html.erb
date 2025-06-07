@@ -46,6 +46,14 @@
 
     </div>
 
+    <!-- 画像アップロード用のjsファイル -->
+    <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
+      <%= hidden_field_tag :image_data, nil, id: 'image_data' %>
+      <%= hidden_field_tag :post_id, post.id %>
+      <%= form.submit '画像をアップロード', id: 'upload-button' %>
+    <% end %>
+    <div id="upload-check">通信前</div>
+
     <!-- カルーセルより下 -->
     <div class="w-[80%] mx-auto">
       <!-- カラーパレットセクション -->
@@ -269,11 +277,6 @@
 <div class="my-10 flex flex-col items-center justify-center">
   複製結果⬇︎
   <div id="ogp-dup" class="w-[1200px] h-[630px]"></div>
-</div>
-
-<div class="my-10 flex flex-col items-center justify-center">
-  image_url:
-  <div id="ogp-url"></div>
 </div>
 
 <div class="my-10 flex flex-col items-center justify-center">

@@ -129,7 +129,7 @@ class PostsController < ApplicationController
     @tags = @post.tags.pluck(:name)
     # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
     @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
-    prepare_meta_tags(@post)
+    # prepare_meta_tags(@post)
     respond_to do |format|
       format.turbo_stream
       # html時のページを作成できてないので一旦擬似404を出す。
