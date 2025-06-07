@@ -2,25 +2,27 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def default_meta_tags
-    # if controller_name == "posts" && action_name == "show"
-    #   # ここでポストのメタタグを設定する
-    #   {
-    #     site: "Coloratio",
-    #     reverse: true,
-    #     separator: "|",
-    #     canonical: request.original_url,
-    #     og: {
-    #       title: @post.title,
-    #       description: "このポストの説明文をここに入れる",
-    #       url: request.original_url,
-    #       image: image_url("ogp.png")
-    #     },
-    #     twitter: {
-    #       card: "summary_large_image",
-    #       image: image_url("ogp.png")
-    #     }
-    #   }
-    # else
+    if controller_name == "posts" && action_name == "show"
+      # ここでポストのメタタグを設定する
+      {
+        site: "Coloratio",
+        reverse: true,
+        separator: "|",
+        canonical: request.original_url,
+        og: {
+          title: @post.title,
+          description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
+          url: request.original_url,
+          image: image_url("ogp.png")
+        },
+        twitter: {
+          title: @post.title,
+          description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
+          card: "summary_large_image",
+          image: image_url("ogp.png")
+        }
+      }
+    else
       # デフォルトのメタタグ
       {
         site: "Coloratio",
@@ -30,7 +32,7 @@ module ApplicationHelper
         og: default_og,
         twitter: default_twitter_card
       }
-    # end
+    end
   end
 
   def my_post?(post)
