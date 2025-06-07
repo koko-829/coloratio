@@ -34,30 +34,21 @@
           </a>
           <!-- シェアボタン -->
           <%#= link_to "https://twitter.com/intent/tweet?url=https://coloratio-app.com/posts/#{post.id}&text=「#{post.title}」を#{post.color_count}色で表現✨%0a%0a配色数も比率も自由自在。私だけのカラーパレット%20%23Coloratio%0a", target: '_blank', title: "Xでシェアする" do %>
-          <%= link_to "https://twitter.com/intent/tweet?url=https://coloratio-app.com/posts/#{post.id}&text=⚠️こちらのシェア機能は準備中です⚠️%0a%20%23Coloratio%0a", target: '_blank', title: "Xでシェアする" do %>
-            <div class="cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-3 py-2 text-center inline-flex items-center">
-              <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
-              <div class="text-sm text-gray-500 font-medium">シェア</div>
-            </div>
-          <% end %>
+            <!-- 画像アップロード用のjsファイル -->
+            <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
+              <%= hidden_field_tag :image_data, nil, id: 'image_data' %>
+              <%= hidden_field_tag :post_id, post.id %>
+              <button type="submit" id="upload-button" class="cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-3 py-2 text-center inline-flex items-center">
+                <svg class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
+                <div class="text-sm text-gray-500 font-medium">シェア</div>
+              </button>
+            <% end %>
+
         </div>
 
       </div>
 
     </div>
-
-<% if post.ogp_url.present? %>
-  <%= post.ogp_url %>
-<% else %>
-  urlがありません
-<% end %>
-    <!-- 画像アップロード用のjsファイル -->
-    <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
-      <%= hidden_field_tag :image_data, nil, id: 'image_data' %>
-      <%= hidden_field_tag :post_id, post.id %>
-      <%= form.submit '画像をアップロード', id: 'upload-button' %>
-    <% end %>
-    <div id="upload-check">通信前</div>
 
     <!-- カルーセルより下 -->
     <div class="w-[80%] mx-auto">

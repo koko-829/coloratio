@@ -18,8 +18,8 @@ class ImagesController < ApplicationController
     @image_url = result["secure_url"]  # HTTPS形式のURLを取得
 
     # Postモデルを更新
-    @post = Post.find(params[:post_id])
-    @post.update(ogp_url: @image_url)
+    @upload_post = Post.find(params[:post_id])
+    @upload_post.update(ogp_url: @image_url)
 
     respond_to do |format|
       format.turbo_stream

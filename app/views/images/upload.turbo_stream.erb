@@ -1,9 +1,13 @@
-<%= turbo_stream.replace 'upload-check' do %>
-  <div>保存完了</div>
-<% end %>
-
 <%= turbo_stream.append 'scripts' do %>
   <script>
+
+    const postId = <%= @upload_post.id %>; // Rubyからpost.idを埋め込む
+    const postTitle = "<%= j @upload_post.title %>"; // Rubyからpost.titleを埋め込む
+    const colorCount = <%= @upload_post.color_count %>; // Rubyからpost.color_countを埋め込む
+
+    const twitterUrl = `https://twitter.com/intent/tweet?url=https://coloratio-app.com/posts/${postId}&text=「${postTitle}」を${colorCount}色で表現✨%0a%0a配色数も比率も自由自在。私だけのカラーパレット%20#Coloratio%0a`;
+
+    window.open(twitterUrl, '_blank');
 
   </script>
 <% end %>
