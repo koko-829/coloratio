@@ -20,13 +20,9 @@ document.addEventListener('turbo:load', function() {
           // 隠しフィールドにBase64データを設定
           imageDataField.value = base64data;
 
-          // ogp-dupに画像を描画
-          const ogpDup = document.getElementById('ogp-dup');
-          ogpDup.innerHTML = `<img src="${base64data}" alt="OGP Image" />`;
-
-          // サイズを表示(確認用)
-          const sizeDisplay = document.getElementById('image-size');
-          sizeDisplay.textContent = `幅：${canvas.width}px x 高さ：${canvas.height}px`;
+          // // ogp-dupに画像を描画
+          // const ogpDup = document.getElementById('ogp-dup');
+          // ogpDup.innerHTML = `<img src="${base64data}" alt="OGP Image" />`;
 
           // 画像ダウンロードリンクのhrefをBase64データに変更
           const downloadLink = document.getElementById('image-download-link');
