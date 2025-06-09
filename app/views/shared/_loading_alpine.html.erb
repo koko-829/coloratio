@@ -8,7 +8,7 @@
 
   // turbo-driveの遷移前
   document.addEventListener("turbo:before-visit", () => {
-    console.log('turbo:before-visit');
+    // console.log('turbo:before-visit');
     Alpine.store('loading').loadingModal = true;
   });
 
