@@ -2,7 +2,7 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def default_meta_tags
-    if controller_name == "posts" && action_name == "index"
+    if controller_name == "posts" && action_name == "show"
       # ここでポストのメタタグを設定する
       {
         site: "Coloratio",
@@ -60,7 +60,7 @@ module ApplicationHelper
 
   def posts_twitter_card
     {
-      title: "post投稿"
+      title: "post投稿",
       description: "ポスト投稿用のOG",
       card: "summary_large_image",
       # image: @post.ogp_url.presence || image_url("ogp.png")
