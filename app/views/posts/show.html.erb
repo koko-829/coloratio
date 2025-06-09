@@ -29,7 +29,7 @@
         <!-- share・ダウンロードアイコン -->
         <div class="w-full flex justify-end items-center gap-2 px-3 my-2">
           <!-- ダウンロードボタン -->
-          <a id="image-download-link" download="coloratio-palette-<%= post.id %>.png" class="hidden cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-2 py-2 text-center inline-flex items-center">
+          <a id="image-download-link" download="coloratio-palette-<%= post.id %>.png" class="cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-2 py-2 text-center inline-flex items-center">
             <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10H18L12 16L6 10H11V3H13V10ZM4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19Z"></path></svg>
           </a>
           <!-- シェアボタン -->
@@ -270,6 +270,15 @@
   </div>
 </div>
 
+<div class="my-10 flex flex-col items-center justify-center">
+  複製結果⬇︎
+  <div id="ogp-dup" class="w-[1200px] h-[630px]"></div>
+</div>
+
+<div class="my-10 flex flex-col items-center justify-center">
+  image_size:
+  <div id="image-size"></div>
+</div>
 
 <%# 未ログイン時のみ登録誘導モーダル設置 %>
 <% if !user_signed_in? %>
