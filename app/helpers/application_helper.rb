@@ -2,15 +2,29 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def default_meta_tags
-    # デフォルトのメタタグ
-    {
-      site: "Coloratio",
-      reverse: true,
-      separator: "|",
-      canonical: request.original_url,
-      og: default_og,
-      twitter: default_twitter_card
-    }
+    if controller_name == "posts" && action_name == "show"
+      # ここでポストのメタタグを設定する
+      {
+        site: "Coloratio",
+        title: "Coloratio",
+        reverse: true,
+        separator: "|",
+        charset: "utf-8",
+        canonical: request.original_url,
+        og: posts_og,
+        twitter: posts_twitter_card
+      }
+    else
+      # デフォルトのメタタグ
+      {
+        site: "Coloratio",
+        reverse: true,
+        separator: "|",
+        canonical: request.original_url,
+        og: default_og,
+        twitter: default_twitter_card
+      }
+    end
   end
 
   def my_post?(post)
