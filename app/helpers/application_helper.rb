@@ -56,7 +56,7 @@ module ApplicationHelper
       title: @post.title,
       description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
       url: request.original_url,
-      image: @post.ogp_url.presence
+      image: @post.ogp_url.presence || image_url("ogp.png")
     }
   end
 
@@ -67,7 +67,7 @@ module ApplicationHelper
       title: @post.title,
       description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
       card: "summary_large_image",
-      image: @post.ogp_url.presence
+      image: @post.ogp_url.presence || image_url("ogp.png")
     }
   end
 end

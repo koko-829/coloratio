@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   ## 設定したprepare_meta_tagsをprivateにあってもpostコントローラー以外にも使えるようにする
-  helper_method :prepare_meta_tags
+  ## helper_method :prepare_meta_tags
 
   rescue_from ActiveRecord::RecordNotFound do |exception|
     redirect_to :root, alert: "無効なURLです"
