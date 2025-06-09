@@ -49,21 +49,25 @@ module ApplicationHelper
     }
   end
 
+  # postページのOGP
   def posts_og
     {
+      site: "Coloratio",
       title: @post.title,
-      description: "ポスト投稿用のOG情報",
+      description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
       url: request.original_url,
-      image: @post.ogp_url.presence || image_url("ogp.png")
+      image: @post.ogp_url.presence
     }
   end
 
+  # postページのtwitterカード
   def posts_twitter_card
     {
-      title: "post投稿",
-      description: "ポスト投稿用のOG",
+      site: "Coloratio",
+      title: @post.title,
+      description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
       card: "summary_large_image",
-      image: @post.ogp_url.presence || image_url("ogp.png")
+      image: @post.ogp_url.presence
     }
   end
 end
