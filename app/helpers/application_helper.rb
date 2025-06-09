@@ -64,7 +64,7 @@ module ApplicationHelper
       description: "ポスト投稿用のOG",
       card: "summary_large_image",
       # image: @post.ogp_url.presence || image_url("ogp.png")
-      mage: image_url("palette.png")
+      image: image_url("palette.png")
     }
   end
 end
