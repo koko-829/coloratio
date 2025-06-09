@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:show]
   ## 設定したprepare_meta_tagsをprivateにあってもpostコントローラー以外にも使えるようにする
   helper_method :prepare_meta_tags
 
@@ -130,7 +129,7 @@ class PostsController < ApplicationController
     @tags = @post.tags.pluck(:name)
     # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
     @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
-    prepare_meta_tags(@post)
+    # prepare_meta_tags(@post)
     respond_to do |format|
       format.turbo_stream
       format.html { render :show }
