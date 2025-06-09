@@ -33,7 +33,7 @@ module ApplicationHelper
 
   def default_og
     {
-      title: "デフォルトタイトル",
+      title: "Coloratio",
       description: "配色数も比率も自由自在。暮らしの中の「好き」から作る、自分だけのカラーパレット。",
       url: request.original_url,
       image: image_url("ogp.png")
