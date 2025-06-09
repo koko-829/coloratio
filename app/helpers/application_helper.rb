@@ -6,8 +6,10 @@ module ApplicationHelper
       # ここでポストのメタタグを設定する
       {
         site: "Coloratio",
+        title: "Coloratio",
         reverse: true,
         separator: "|",
+        charset: "utf-8",
         canonical: request.original_url,
         og: posts_og,
         twitter: posts_twitter_card
@@ -61,7 +63,8 @@ module ApplicationHelper
       title: @post.title,
       description: "ポスト投稿用のOG",
       card: "summary_large_image",
-      image: @post.ogp_url.presence || image_url("ogp.png")
+      # image: @post.ogp_url.presence || image_url("ogp.png")
+      mage: image_url("palette.png")
     }
   end
 end
