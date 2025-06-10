@@ -15,15 +15,19 @@ class ImagesController < ApplicationController
       transformation: { width: 1200, height: 630, crop: :limit }
       )
 
-    @image_url = result["secure_url"]  # HTTPS形式のURLを取得
+    if result && result["secure_url"]
+      @image_url = result["secure_url"]  # HTTPS形式のURLを取得
 
-    # Postモデルを更新
-    @upload_post = Post.find(params[:post_id])
-    @upload_post.update(ogp_url: @image_url)
+      # Postモデルを更新
+      @upload_post = Post.find(params[:post_id])
+      @upload_post.update(ogp_url: @image_url)
 
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to root_path }
+      respond_to do |format|
+        format.turbo_stream
+        format.html { redirect_to root_path }
+      end
+    else
+      redirect_to root_path, alert: "画像の取得に失敗しました"
     end
   end
 end

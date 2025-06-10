@@ -114,7 +114,7 @@ class PostsController < ApplicationController
         if @post.status == "draft"
           redirect_to user_path(current_user, draft: true), notice: "下書き情報を更新しました。" # 作成が成功したら詳細ページへ移動する。
         else
-          redirect_to user_path(current_user, published: true), notice: "パレットを公開しました。"
+          redirect_to post_path(@post), notice: "パレットを公開しました。"
         end
       else
         raise ActiveRecord::Rollback # saveまでうまくいかなかった時はロールバックを発生させる。

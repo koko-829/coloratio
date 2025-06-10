@@ -3,10 +3,19 @@
 <!-- 作成作業所 -->
 
 <% @sorted_colors = ["#b6e1f4", "#f19aac", "#6495ce", "#f6f9fb", "#fdbf01"] %>
-<%= link_to "https://twitter.com/intent/tweet?url=https://coloratio-app.com/&text=配色数も比率も自由自在。%0a暮らしの中の「好き」から作る、%0a自分だけのカラーパレットアプリ。%0a%23Coloratio%20%23カラーパレット%0a%0a", target: '_blank', data: { toggle: "tooltip", placement: "bottom" }, title: "Xでシェア" do %>
-<%#= link_to "https://twitter.com/intent/tweet?url=https://www.coloratio-app.com/&text=配色数・比率、自由自在。%0a身近なものから作る、見つける、あなただけのカラーパレットアプリ。%20%23coloratio", target: '_blank' do %>
-xでシェア
-<% end %>
+<div x-data="{ shareLoading: false }">
+  <button  @click="shareLoading = !shareLoading" :disabled="shareLoading" type="button" id="upload-button" class="relative disabled:opacity-70 disabled:cursor-not-allowed cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg p-2 text-center inline-flex items-center justify-center">
+    <!-- xアイコンとテキスト -->
+    <svg :class="{ 'invisible': shareLoading }" class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
+    <div :class="{ 'invisible': shareLoading }" class="text-sm text-gray-500 font-medium">シェア</div>
+    <!-- ローディング要素(turboの通信待ちに表示) -->
+    <div x-show="shareLoading" class="absolute inset-0 flex justify-center items-center gap-1" aria-label="読み込み中">
+      <div class="animate-spin size-6 border-4 border-gray-500 rounded-full border-t-transparent"></div>
+    </div>
+  </button>
+</div>
+
+
 <!-- end デザイン確認枠 -->
 
 </div>
