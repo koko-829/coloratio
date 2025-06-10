@@ -42,7 +42,7 @@
                 <svg :class="{ 'invisible': shareLoading }" class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
                 <div :class="{ 'invisible': shareLoading }" class="text-sm text-gray-500 font-medium">シェア</div>
                 <!-- ローディング要素(turboの通信待ちに表示) -->
-                <div x-show="shareLoading" class="absolute inset-0 flex justify-center items-center gap-1" aria-label="読み込み中">
+                <div x-show="shareLoading" x-cloak class="absolute inset-0 flex justify-center items-center gap-1" aria-label="読み込み中">
                   <div class="animate-spin size-6 border-4 border-gray-500 rounded-full border-t-transparent"></div>
                 </div>
               </button>
