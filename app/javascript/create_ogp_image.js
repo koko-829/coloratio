@@ -1,5 +1,6 @@
 import html2canvas from './html2canvas.min';
 
+// htmlリクエストのshow画面用
 document.addEventListener('turbo:load', function() {
   const ogpImageBase = document.getElementById('ogp-image-base');
   const imageDataField = document.getElementById('image_data');
@@ -32,3 +33,41 @@ document.addEventListener('turbo:load', function() {
     });
   }
 });
+
+// turboによるモーダルshow表示用(before-stream-renderイベントのため、全てのDOMがレンダリングされてるであろう0.3秒後に走らせる。)
+document.addEventListener("turbo:before-stream-render", function() {
+  setTimeout(function() {
+    const ogpImageBaseModal = document.getElementById('ogp-image-base-modal');
+    const imageDataFieldModal = document.getElementById('image_data-modal');
+
+    // ogp-image-baseが存在する場合のみ実行
+    if (ogpImageBaseModal) {
+      console.log('みつかちゃった');
+      // 元画像を一瞬だけ表示する
+      ogpImageBaseModal.style.display = 'block';
+
+      // html2canvasを使用して画像を生成
+      html2canvas(ogpImageBaseModal).then(function(canvas) {
+        // CanvasをDataURLに変換
+        const base64data = canvas.toDataURL('image/png');
+
+        // 隠しフィールドにBase64データを設定
+        imageDataFieldModal.value = base64data;
+
+        // サイズを表示(確認用)
+        const sizeDisplayModal = document.getElementById('image-size-modal');
+        sizeDisplayModal.textContent = `幅：${canvas.width}px x 高さ：${canvas.height}px`;
+
+        // 画像ダウンロードリンクのhrefをBase64データに変更
+        const downloadLinkModal = document.getElementById('image-download-link-modal');
+        if (downloadLinkModal) {
+          downloadLinkModal.href = base64data; // hrefをBase64データに更新
+        }
+
+        // 元画像を非表示にする
+        ogpImageBaseModal.style.display = 'none';
+      });
+    }
+  }, 300);
+});
+
