@@ -11,4 +11,5 @@ import "./top_scroll"
 import "./palette_modal"
 import "./swiper"
 import "./create_ogp_image"
+import "./share_function"
 
