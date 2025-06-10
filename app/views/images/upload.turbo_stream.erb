@@ -1,15 +1,14 @@
-<%= turbo_stream.replace 'scripts' do %>
-  <div id="scripts">
-    <script>
+<%= turbo_stream.update 'scripts' do %>
+  <script>
 
-      const postTitle = "<%= j @upload_post.title %>"; // Rubyからpost.titleを埋め込む
-      const colorCount = <%= @upload_post.color_count %>; // Rubyからpost.color_countを埋め込む
-      const dynamicUrl = "https://coloratio-app.com/posts/<%= @upload_post.id %>/?r=<%= SecureRandom.hex(5) %>"
+    const postTitle = "<%= j @upload_post.title %>"; // Rubyからpost.titleを埋め込む
+    const colorCount = <%= @upload_post.color_count %>; // Rubyからpost.color_countを埋め込む
+    const dynamicUrl = "https://coloratio-app.com/posts/<%= @upload_post.id %>/?r=<%= SecureRandom.hex(5) %>"
 
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${dynamicUrl}&text=「${postTitle}」を${colorCount}色で表現✨%0a%0a配色数も比率も自由自在。私だけのカラーパレット%20#Coloratio%0a`;
+    const twitterUrl = `https://twitter.com/intent/tweet?url=${dynamicUrl}&text=「${postTitle}」を${colorCount}色で表現✨%0a%0a配色数も比率も自由自在。私だけのカラーパレット%20#Coloratio%0a`;
 
-      window.open(twitterUrl, '_blank');
+    window.open(twitterUrl, '_blank');
+    window.location.href = dynamicUrl;
 
-    </script>
-  </div>
+  </script>
 <% end %>
