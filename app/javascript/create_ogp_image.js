@@ -43,9 +43,11 @@ document.addEventListener("turbo:before-stream-render", function() {
   setTimeout(function() {
     const ogpImageBaseModal = document.getElementById('ogp-image-base-modal');
     const imageDataFieldModal = document.getElementById('image_data-modal');
+    const ogpTrigger = document.getElementById('ogp-trigger');
 
-    // ogp-image-baseが存在する場合のみ実行
-    if (ogpImageBaseModal) {
+    // ogpTriggerが存在する場合のみ実行(いいねボタンのturbo_streamでは走らないようにしたい。)
+    if (ogpTrigger) {
+      console.log('実行します');
       // 元画像を一瞬だけ表示する
       ogpImageBaseModal.style.display = 'block';
 
@@ -69,6 +71,7 @@ document.addEventListener("turbo:before-stream-render", function() {
 
         // 元画像を非表示にする
         ogpImageBaseModal.style.display = 'none';
+        ogpTrigger.remove(); // ogpTrigger要素を削除(モーダル開いた1回目だけ画像処理がお子なれるようにするため)
       });
     }
   }, 300);
