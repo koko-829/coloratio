@@ -51,7 +51,6 @@
             </div>
           <% end %>
 
-
         </div>
 
       </div>
@@ -259,19 +258,25 @@
 
     </div>
 
+    <!-- アプリロゴ(モーダル最下層) -->
+    <div class="cursor-pointer w-[30%] mx-auto mt-20 mb-10">
+      <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
+    </div>
+
 </div>
 
-
-
-<div class="my-1">
+<!-- OGP作成用 -->
+<div class="my-52">
   <!-- 実際にOGP画像にしたい要素部分 -->
-  <div id="ogp-image-base" class="w-[1200px] mx-auto aspect-[1200/630] bg-[#f8f7f1] border-2 border-blue-300">
+  <div id="ogp-image-base" class="w-[1200px] mx-auto aspect-[1200/630] bg-[#f8f7f1] border-2">
     <div class="w-full h-full relative flex flex-col justify-center items-center gap-1">
       <div class="text-xl">OGP・ダウンロード用画像試作中</div>
       <%= post.title %>
-      <div class="w-[40%] mx-auto grid grid-cols-2 gap-2">
+      <div class="w-[40%] aspect-square mx-auto grid grid-cols-2 gap-2">
         <% 4.times do |i| %>
-          <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+          <div class="w-full h-full border-2">
+            <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+          </div>
         <% end %>
       </div>
     </div>

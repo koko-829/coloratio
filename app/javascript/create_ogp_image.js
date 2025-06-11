@@ -29,7 +29,7 @@ document.addEventListener('turbo:load', function() {
       }
 
       // 元画像を非表示にする
-      ogpImageBase.style.display = 'none';
+      // ogpImageBase.style.display = 'none';
     });
   }
 });
@@ -54,9 +54,9 @@ document.addEventListener("turbo:before-stream-render", function() {
         // 隠しフィールドにBase64データを設定
         imageDataFieldModal.value = base64data;
 
-        // サイズを表示(確認用)
-        const sizeDisplayModal = document.getElementById('image-size-modal');
-        sizeDisplayModal.textContent = `幅：${canvas.width}px x 高さ：${canvas.height}px`;
+        // // サイズを表示(確認用)
+        // const sizeDisplayModal = document.getElementById('image-size-modal');
+        // sizeDisplayModal.textContent = `幅：${canvas.width}px x 高さ：${canvas.height}px`;
 
         // 画像ダウンロードリンクのhrefをBase64データに変更
         const downloadLinkModal = document.getElementById('image-download-link-modal');

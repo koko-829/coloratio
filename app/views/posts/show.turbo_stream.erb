@@ -252,8 +252,8 @@
     </div>
 
     <!-- アプリロゴ(モーダル最下層) -->
-    <div @click="modalPalette = false" class="cursor-pointer w-[20%] mx-auto mt-32 mb-10">
-      <%= image_tag "coloratio-logo.svg", class:"w-full" %>
+    <div @click="modalPalette = false" class="cursor-pointer w-[30%] mx-auto mt-20 mb-10">
+      <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
     </div>
 
     <div class="my-1">
@@ -269,11 +269,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="my-10 flex flex-col items-center justify-center">
-      image_size:
-      <div id="image-size-modal"></div>
     </div>
 
   </div>
