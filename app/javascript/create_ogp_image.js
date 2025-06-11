@@ -7,7 +7,7 @@ document.addEventListener('turbo:load', function() {
 
   // ogp-image-baseが存在する場合のみ実行
   if (ogpImageBase) {
-    // 元画像を一瞬だけ表示する
+    // 元画像ベースを一瞬だけ表示する
     ogpImageBase.style.display = 'block';
 
     // html2canvasを使用して画像を生成
@@ -17,6 +17,10 @@ document.addEventListener('turbo:load', function() {
 
       // 隠しフィールドにBase64データを設定
       imageDataField.value = base64data;
+
+      // ogp-dupに画像を描画
+      const ogpDup = document.getElementById('ogp-dup');
+      ogpDup.innerHTML = `<img src="${base64data}" alt="OGP Image" />`;
 
       // サイズを表示(確認用)
       const sizeDisplay = document.getElementById('image-size');
@@ -28,7 +32,7 @@ document.addEventListener('turbo:load', function() {
         downloadLink.href = base64data; // hrefをBase64データに更新
       }
 
-      // 元画像を非表示にする
+      // 元画像ベースを非表示にする
       // ogpImageBase.style.display = 'none';
     });
   }
