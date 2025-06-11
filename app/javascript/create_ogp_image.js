@@ -32,7 +32,7 @@ document.addEventListener('turbo:load', function() {
         downloadLink.href = base64data; // hrefをBase64データに更新
       }
 
-      // 元画像ベースを非表示にする
+      // // 元画像ベースを非表示にする
       // ogpImageBase.style.display = 'none';
     });
   }

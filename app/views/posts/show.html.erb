@@ -6,18 +6,35 @@
 
   <!-- OGP作成用 -->
   <div class="my-5">
-    <!-- 実際にOGP画像にしたい要素部分 -->
     <div class="text-5xl flex justify-center my-3">画像ベース</div>
-    <div id="ogp-image-base" class="w-[1200px] mx-auto aspect-[1200/630] bg-[#f8f7f1] border-2">
-      <div class="w-full h-full relative flex flex-col justify-center items-center gap-1">
-        <div class="text-xl">OGP・ダウンロード用画像試作中</div>
-        <%= post.title %>
-        <div class="w-[40%] aspect-square mx-auto grid grid-cols-2 gap-2">
-          <% 4.times do |i| %>
-            <div class="w-full h-full border-2">
-              <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+    <!-- 実際にOGP画像にしたい要素部分 -->
+    <div id="ogp-image-base" class="relative w-[1200px] mx-auto h-[630px] bg-[#f8f7f1] border-2">
+      <div class="absolute inset-0"><%= render "shared/svg/ogp/background_1_svg" %></div>
+      <div class="absolute w-44 top-40 left-32"><%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %></div>
+
+      <div class="w-full h-full flex items-center justify-center">
+        <!-- OGPの埋め込み部分(ブラウザ別レイアウト崩れの対策として1段階上の親要素必要) -->
+        <div class="w-[90%] h-[75%] flex">
+          <!-- 左側 -->
+          <div class="w-[50%] h-full border-2 flex flex-col justify-end">
+            <div class="w-full h-80 border-2 border-green-400"></div>
+          </div>
+          <!-- 右側 -->
+          <div class="w-[50%] h-full flex flex-col justify-between">
+            <!-- デザイン例svgセク -->
+            <div class="mt-10 w-[90%] ml-auto">
+              <%= render "shared/svg/designs/design_2_svg", colors: @sorted_colors %>
             </div>
-          <% end %>
+            <!-- カラーコードセク -->
+            <div class="flex justify-end gap-4">
+              <% post.color_count.times do |i| %>
+                <div class="flex flex-col justify-center items-center">
+                  <div class="size-[5.5rem] border-2 rounded-full" style="background-color: <%= colors[i].hex_code %>"></div>
+                  <div class="font-roboto text-[#3c3c3c] font-medium"><%= colors[i].hex_code %></div>
+                </div>
+              <% end %>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -38,267 +55,267 @@
 <div class="max-w-screen-md w-[100vw] mx-auto overflow-hidden py-5 text-neutral-600">
   <%# 下記idの要素がある場合のみswiperを初期化する(いいねボタンでのturbo_streamイベントではカルーセルの初期化が起こらないようにするため) %>
   <%# 一度swiperが初期化されたらこの要素を削除するjsを書いてみた(別のモーダルが開かれる時はまた新しく下記要素が出現するため、同一モーダル内で一回だけswiperが初期化されるような仕組みを擬似的に作成してみた。現状この方法で不具合確認されず。) %>
-    <div id="swiper-start"></div>
+  <div id="swiper-start"></div>
 
-    <!-- デザイン例カルーセル部分 -->
-    <div class="relative w-full aspect-[5/3] flex items-center">
-      <!-- カルーセル部分の横にある長方形カラー部分 -->
-      <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
+  <!-- デザイン例カルーセル部分 -->
+  <div class="relative w-full aspect-[5/3] flex items-center">
+    <!-- カルーセル部分の横にある長方形カラー部分 -->
+    <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
+      <% post.color_count.times do |i| %>
+        <div class="w-full aspect-[5/3] border border-r-0 border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
+      <% end %>
+    </div>
+    <!-- カルーセル本体 -->
+    <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
+      <!-- カルーセル中身 -->
+      <div class="swiper-wrapper overflow-hidden">
+        <!-- スライド中身 -->
+        <% 4.times do |i| %>
+          <div class="swiper-slide h-full w-full">
+            <div class="slide-svg flex justify-center h-full w-full aspect-auto">
+              <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
+            </div>
+          </div>
+        <% end %>
+
+      </div>
+
+      <!-- share・ダウンロードアイコン -->
+      <div class="w-full flex justify-end items-center gap-2 px-3 my-2">
+        <!-- ダウンロードボタン -->
+        <a id="image-download-link" download="coloratio-palette-<%= post.id %>.png" class="cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-2 py-2 text-center inline-flex items-center">
+          <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10H18L12 16L6 10H11V3H13V10ZM4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19Z"></path></svg>
+        </a>
+        <!-- シェアボタン -->
+        <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
+          <%= hidden_field_tag :image_data, nil, id: 'image_data' %>
+          <%= hidden_field_tag :post_id, post.id %>
+          <div x-data="{ shareLoading: false }" :class="{ 'cursor-not-allowed' : shareLoading }">
+            <button  @click="shareLoading = true" type="submit" id="upload-button" :class="{ 'opacity-70 pointer-events-none': shareLoading }"  class="relative shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg p-2 text-center inline-flex items-center justify-center">
+              <!-- xアイコンとテキスト -->
+              <svg :class="{ 'invisible': shareLoading }" class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
+              <div :class="{ 'invisible': shareLoading }" class="text-sm text-gray-500 font-medium">シェア</div>
+              <!-- ローディング要素(turboの通信待ちに表示) -->
+              <div x-show="shareLoading" x-cloak class="absolute inset-0 flex justify-center items-center gap-1" aria-label="読み込み中">
+                <div class="animate-spin size-6 border-4 border-gray-500 rounded-full border-t-transparent"></div>
+              </div>
+            </button>
+            <!-- turbo_streamの処理が完了したらshareLoadingの値をfalseに戻すためのトリガーid要素(turbo_stream.updateでx-init="shareLoading = false"要素を入れ込む) -->
+            <div id="loading-reset"></div>
+          </div>
+        <% end %>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- カルーセルより下 -->
+  <div class="w-[80%] mx-auto">
+    <!-- カラーパレットセクション -->
+    <div class="my-3  animate-slide-top">
+      <!-- パレット本体 -->
+      <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
         <% post.color_count.times do |i| %>
-          <div class="w-full aspect-[5/3] border border-r-0 border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
+          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
         <% end %>
       </div>
-      <!-- カルーセル本体 -->
-      <div class="swiper-container w-[90%] aspect-[5/3] mx-auto">
-        <!-- カルーセル中身 -->
-        <div class="swiper-wrapper overflow-hidden">
-          <!-- スライド中身 -->
-          <% 4.times do |i| %>
-            <div class="swiper-slide h-full w-full">
-              <div class="slide-svg flex justify-center h-full w-full aspect-auto">
-                <%= render "shared/svg/designs/design_#{i}_svg", colors: @sorted_colors %>
-              </div>
-            </div>
-          <% end %>
 
-        </div>
+      <!-- 絵の具セクション -->
+      <div class="flex justify-end gap-2 mr-4 mt-0.5 md:mt-1">
+        <% post.color_count.times do |i| %>
+          <div class="w-3 md:w-4" style="color: <%= colors[i].hex_code %>;">
+            <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
+          </div>
+        <% end %>
+      </div>
+    </div>
 
-        <!-- share・ダウンロードアイコン -->
-        <div class="w-full flex justify-end items-center gap-2 px-3 my-2">
-          <!-- ダウンロードボタン -->
-          <a id="image-download-link" download="coloratio-palette-<%= post.id %>.png" class="cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-2 py-2 text-center inline-flex items-center">
-            <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10H18L12 16L6 10H11V3H13V10ZM4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19Z"></path></svg>
-          </a>
-          <!-- シェアボタン -->
-          <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
-            <%= hidden_field_tag :image_data, nil, id: 'image_data' %>
-            <%= hidden_field_tag :post_id, post.id %>
-            <div x-data="{ shareLoading: false }" :class="{ 'cursor-not-allowed' : shareLoading }">
-              <button  @click="shareLoading = true" type="submit" id="upload-button" :class="{ 'opacity-70 pointer-events-none': shareLoading }"  class="relative shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg p-2 text-center inline-flex items-center justify-center">
-                <!-- xアイコンとテキスト -->
-                <svg :class="{ 'invisible': shareLoading }" class="w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.4883 14.651L15.25 21H22.25L14.3917 10.5223L20.9308 3H18.2808L13.1643 8.88578L8.75 3H1.75L9.26086 13.0145L2.31915 21H4.96917L10.4883 14.651ZM16.25 19L5.75 5H7.75L18.25 19H16.25Z"></path></svg>
-                <div :class="{ 'invisible': shareLoading }" class="text-sm text-gray-500 font-medium">シェア</div>
-                <!-- ローディング要素(turboの通信待ちに表示) -->
-                <div x-show="shareLoading" x-cloak class="absolute inset-0 flex justify-center items-center gap-1" aria-label="読み込み中">
-                  <div class="animate-spin size-6 border-4 border-gray-500 rounded-full border-t-transparent"></div>
-                </div>
-              </button>
-              <!-- turbo_streamの処理が完了したらshareLoadingの値をfalseに戻すためのトリガーid要素(turbo_stream.updateでx-init="shareLoading = false"要素を入れ込む) -->
-              <div id="loading-reset"></div>
-            </div>
-          <% end %>
+    <!-- タイトル -->
+    <div class="flex gap-2 items-end  animate-slide-top">
 
-        </div>
-
+      <!-- パレットタイトル -->
+      <div class="flex w-full items-center gap-1 border-l-4 pl-2 border-orange-500 text-xl md:text-2xl font-extrabold">
+        <div class="text-[#897e70] break-all"><%= post.title %></div>
       </div>
 
     </div>
 
-    <!-- カルーセルより下 -->
-    <div class="w-[80%] mx-auto">
-      <!-- カラーパレットセクション -->
-      <div class="my-3  animate-slide-top">
-        <!-- パレット本体 -->
-        <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
-          <% post.color_count.times do |i| %>
-            <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
-          <% end %>
+    <!-- ユーザー名と作成日時欄&いいね欄 -->
+    <div class="w-full flex my-2 md:my-4  animate-slide-top">
+      <!-- ユーザーセクション -->
+      <div class="min-w-[90%] max-w-[90%] flex gap-1 items-center">
+        <!-- アイコン -->
+        <div class="size-6 md:size-8 overflow-hidden rounded-full">
+          <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
         </div>
-
-        <!-- 絵の具セクション -->
-        <div class="flex justify-end gap-2 mr-4 mt-0.5 md:mt-1">
-          <% post.color_count.times do |i| %>
-            <div class="w-3 md:w-4" style="color: <%= colors[i].hex_code %>;">
-              <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- タイトル -->
-      <div class="flex gap-2 items-end  animate-slide-top">
-
-        <!-- パレットタイトル -->
-        <div class="flex w-full items-center gap-1 border-l-4 pl-2 border-orange-500 text-xl md:text-2xl font-extrabold">
-          <div class="text-[#897e70] break-all"><%= post.title %></div>
-        </div>
-
-      </div>
-
-      <!-- ユーザー名と作成日時欄&いいね欄 -->
-      <div class="w-full flex my-2 md:my-4  animate-slide-top">
-        <!-- ユーザーセクション -->
-        <div class="min-w-[90%] max-w-[90%] flex gap-1 items-center">
-          <!-- アイコン -->
-          <div class="size-6 md:size-8 overflow-hidden rounded-full">
-            <%= image_tag "profile_#{post.user.profile_icon}.svg", class:"size-full" %>
-          </div>
-          <!-- ユーザー名と作成日(縦並び) -->
-          <div class="flex flex-col">
-            <!-- ユーザー名 -->
-            <% if user_signed_in? %>
-              <%= link_to user_path(post.user_id), class:"max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500" do %>
-                <%= post.user.name %>
-              <% end %>
-            <% else %>
-              <div @click="modalPrompt = true" class="max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500">
-                <%= post.user.name %>
-              </div>
-            <% end %>
-            <!-- 作成日時 -->
-            <div class="text-[0.6rem] font-light text-nowrap mt-0.5"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
-          </div>
-        </div>
-        <!-- いいね欄 -->
-        <div class="flex min-w-[10%] max-w-[10%] items-end">
+        <!-- ユーザー名と作成日(縦並び) -->
+        <div class="flex flex-col">
+          <!-- ユーザー名 -->
           <% if user_signed_in? %>
-            <%# すでにいいねしていた時 %>
-            <% if post.liked_by?(current_user) %>
-              <%= render 'posts/modal_unlike', { post: post } %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="hidden size-6 md:size-8 fill-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
-            <%# いいねしてない時 %>
-            <% else %>
-              <%= render 'posts/modal_like', { post: post } %>
-              <svg xmlns="http://www.w3.org/2000/svg" class="hidden size-6 md:size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
+            <%= link_to user_path(post.user_id), class:"max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500" do %>
+              <%= post.user.name %>
             <% end %>
-          <!-- ログインしていない場合 -->
           <% else %>
-            <div @click="modalPrompt = true" class="cursor-pointer hover:scale-110 transition-all duration-500 ease-out active:translate-y-1">
-              <svg xmlns="http://www.w3.org/2000/svg" class="size-6 md:size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
+            <div @click="modalPrompt = true" class="max-w-60 md:max-w-72 truncate block underline cursor-pointer text-xs antialiased text-slate-500">
+              <%= post.user.name %>
             </div>
           <% end %>
-          <!-- いいね数表示 -->
-          <div id="modal-like-count-<%= post.id %>" class="select-none text-sm"><%= post.likes.count %></div>
+          <!-- 作成日時 -->
+          <div class="text-[0.6rem] font-light text-nowrap mt-0.5"><%= post.updated_at.strftime("%Y年%m月%d日") %></div>
+        </div>
+      </div>
+      <!-- いいね欄 -->
+      <div class="flex min-w-[10%] max-w-[10%] items-end">
+        <% if user_signed_in? %>
+          <%# すでにいいねしていた時 %>
+          <% if post.liked_by?(current_user) %>
+            <%= render 'posts/modal_unlike', { post: post } %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="hidden size-6 md:size-8 fill-orange-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853Z"></path></svg>
+          <%# いいねしてない時 %>
+          <% else %>
+            <%= render 'posts/modal_like', { post: post } %>
+            <svg xmlns="http://www.w3.org/2000/svg" class="hidden size-6 md:size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
+          <% end %>
+        <!-- ログインしていない場合 -->
+        <% else %>
+          <div @click="modalPrompt = true" class="cursor-pointer hover:scale-110 transition-all duration-500 ease-out active:translate-y-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="size-6 md:size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M12.001 4.52853C14.35 2.42 17.98 2.49 20.2426 4.75736C22.5053 7.02472 22.583 10.637 20.4786 12.993L11.9999 21.485L3.52138 12.993C1.41705 10.637 1.49571 7.01901 3.75736 4.75736C6.02157 2.49315 9.64519 2.41687 12.001 4.52853ZM18.827 6.1701C17.3279 4.66794 14.9076 4.60701 13.337 6.01687L12.0019 7.21524L10.6661 6.01781C9.09098 4.60597 6.67506 4.66808 5.17157 6.17157C3.68183 7.66131 3.60704 10.0473 4.97993 11.6232L11.9999 18.6543L19.0201 11.6232C20.3935 10.0467 20.319 7.66525 18.827 6.1701Z"></path></svg>
+          </div>
+        <% end %>
+        <!-- いいね数表示 -->
+        <div id="modal-like-count-<%= post.id %>" class="select-none text-sm"><%= post.likes.count %></div>
+      </div>
+    </div>
+
+    <!-- 説明文欄 -->
+    <% if post.description.present? %>
+      <div class="mt-2 mb-4 w-full  animate-slide-top">
+        <div class="text-xs text-gray-400"><%= post.description %></div>
+      </div>
+    <% end %>
+
+    <!-- タグリスト -->
+    <% if @tags.present? %> <%# tagが登録されてる場合のみ表示する %>
+      <div class="max-w-[90%] md:max-w-[80%] my-2 animate-slide-top">
+        <div class="flex gap-1 ml-1 flex-wrap">
+          <% @tags.each do |i| %>
+            <div class="inline-flex flex-nowrap items-center bg-gray-100 border border-gray-400 rounded-3xl p-0.5 pr-2 gap-1">
+              <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>
+              <div class="whitespace-nowrap text-[0.6rem] sm:text-xs text-gray-800">
+                <%= i %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- コードコピー欄 -->
+    <div x-data="{colorCount: <%= post.color_count %>}" class="w-full my-6 animate-slide-top">
+      <div class="w-full flex flex-wrap items-center justify-center" :class="{ 'gap-x-8': colorCount % 2 == 0 }">
+        <% post.color_count.times do |i| %>
+          <div :class="colorCount % 2 == 0 ? 'w-[34%]' : 'w-1/3'" class="my-1 flex justify-center items-center">
+            <div class="w-[95%]">
+              <div class="w-full aspect-[5/2] rounded-2xl border border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
+              <div class="w-full flex items-center px-2 gap-0.5">
+                <!-- hexコード -->
+                <div class="text-sm sm:text-base md:text-lg text-[#737373] font-zenmaru"><%= colors[i].hex_code %></div>
+                <!-- コピーボタン -->
+                <div>
+                  <%= render "posts/copy_hex_code", hex_code: colors[i].hex_code %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- color&ratioと円グラフ -->
+    <div class="grid grid-cols-2 animate-slide-top">
+      <!-- 円グラフセクション -->
+      <div class="w-full mx-auto px-2 py-4 rounded-xl flex justify-center items-center gap-2">
+        <!-- サークルセクション -->
+        <div class="w-[70%] aspect-square rounded-full relative overflow-hidden shadow-lg">
+          <% if post.color_count == 2 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% 100%);" class="size-full"></div>
+          <% elsif post.color_count == 3 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+          <% elsif post.color_count == 4 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+          <% elsif post.color_count == 5 %>
+            <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% <%= ratio[0,4].map(&:to_i).sum %>%, <%= colors[4].hex_code %> <%= ratio[0,4].map(&:to_i).sum %>% 100%);" class="size-full"></div>
+          <% end %>
+          <%# ドーナツ型にするための空洞用div %>
+          <div class="absolute w-[50%] aspect-square bg-[#f8f7f1] border rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
+        </div>
+        <!-- 比率リストセクション -->
+        <div class="h-full flex flex-col justify-end gap-0.5 sm:gap-1">
+          <% post.color_count.times do |i| %>
+            <div class="flex gap-0.5 sm:gap-1 items-center">
+              <div class="size-3 sm:size-4 md:size-5 rounded-full border shadow-lg" style="background-color: <%= colors[i].hex_code %>;"></div>
+              <div class="text-[0.5rem] sm:text-xs text-[#897e70] font-extrabold"><%= ratio[i] %>%</div>
+            </div>
+          <% end %>
         </div>
       </div>
 
-      <!-- 説明文欄 -->
-      <% if post.description.present? %>
-        <div class="mt-2 mb-4 w-full  animate-slide-top">
-          <div class="text-xs text-gray-400"><%= post.description %></div>
+      <!-- Color&Ratioフォントセクション -->
+      <div class="w-[95%] m-auto overflow-hidden rounded-3xl shadow-2xl">
+        <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
+        <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
+      </div>
+    </div>
+
+    <!-- ミニアイコンデザインセクション -->
+    <div class="max-w-[90%] grid grid-cols-3 gap-4 my-2 md:my-4 mx-auto animate-slide-top">
+      <% 3.times do |i| %>
+        <div class="w-full aspect-square">
+          <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: @sorted_colors %>
+        </div>
+      <% end %>
+      <% 0.times do |i| %>
+        <div class="w-full aspect-square">
+          <%= render "shared/svg/icons/colors_#{post.color_count}/mini_icon_#{i}_svg", colors: colors %>
         </div>
       <% end %>
 
-      <!-- タグリスト -->
-      <% if @tags.present? %> <%# tagが登録されてる場合のみ表示する %>
-        <div class="max-w-[90%] md:max-w-[80%] my-2 animate-slide-top">
-          <div class="flex gap-1 ml-1 flex-wrap">
-            <% @tags.each do |i| %>
-              <div class="inline-flex flex-nowrap items-center bg-gray-100 border border-gray-400 rounded-3xl p-0.5 pr-2 gap-1">
-                <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10.9042 2.10025L20.8037 3.51446L22.2179 13.414L13.0255 22.6063C12.635 22.9969 12.0019 22.9969 11.6113 22.6063L1.71184 12.7069C1.32131 12.3163 1.32131 11.6832 1.71184 11.2926L10.9042 2.10025ZM11.6113 4.22157L3.83316 11.9997L12.3184 20.485L20.0966 12.7069L19.036 5.28223L11.6113 4.22157ZM13.7327 10.5855C12.9516 9.80448 12.9516 8.53815 13.7327 7.7571C14.5137 6.97606 15.78 6.97606 16.5611 7.7571C17.3421 8.53815 17.3421 9.80448 16.5611 10.5855C15.78 11.3666 14.5137 11.3666 13.7327 10.5855Z"></path></svg>
-                <div class="whitespace-nowrap text-[0.6rem] sm:text-xs text-gray-800">
-                  <%= i %>
-                </div>
-              </div>
-            <% end %>
-          </div>
+    </div>
+
+    <!-- 筆記体とグラデーション -->
+    <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
+      <!-- 筆記体coloratioセクション -->
+      <div class="w-full flex flex-col justify-center items-center text-xl md:text-2xl font-playwrite">
+        <% post.color_count.times do |i| %>
+          <div class="" style="color: <%= colors[i].hex_code %>; -webkit-text-stroke: 0.3px gray;">Coloratio</div>
+        <% end %>
+      </div>
+      <!-- グラデーションセクション -->
+      <div class="w-full flex flex-col justify-center items-center gap-3 md:gap-2">
+        <% post.color_count.times do |i| %>
+          <!-- グラデーションをつける(最後の要素の2色目はcolors[0]を参照する) -->
+          <div class="h-4 md:h-6 w-[70%] shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
+        <% end %>
+      </div>
+    </div>
+
+    <!-- 配色数別デザイン例表示 -->
+    <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
+      <% 4.times do |i|  %>
+        <div class="w-full h-full aspect-square flex justify-center">
+          <%= render "shared/svg/designs/design_#{i}_svg", class:"size-full", colors: @sorted_colors %>
         </div>
       <% end %>
-
-      <!-- コードコピー欄 -->
-      <div x-data="{colorCount: <%= post.color_count %>}" class="w-full my-6 animate-slide-top">
-        <div class="w-full flex flex-wrap items-center justify-center" :class="{ 'gap-x-8': colorCount % 2 == 0 }">
-          <% post.color_count.times do |i| %>
-            <div :class="colorCount % 2 == 0 ? 'w-[34%]' : 'w-1/3'" class="my-1 flex justify-center items-center">
-              <div class="w-[95%]">
-                <div class="w-full aspect-[5/2] rounded-2xl border border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
-                <div class="w-full flex items-center px-2 gap-0.5">
-                  <!-- hexコード -->
-                  <div class="text-sm sm:text-base md:text-lg text-[#737373] font-zenmaru"><%= colors[i].hex_code %></div>
-                  <!-- コピーボタン -->
-                  <div>
-                    <%= render "posts/copy_hex_code", hex_code: colors[i].hex_code %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- color&ratioと円グラフ -->
-      <div class="grid grid-cols-2 animate-slide-top">
-        <!-- 円グラフセクション -->
-        <div class="w-full mx-auto px-2 py-4 rounded-xl flex justify-center items-center gap-2">
-          <!-- サークルセクション -->
-          <div class="w-[70%] aspect-square rounded-full relative overflow-hidden shadow-lg">
-            <% if post.color_count == 2 %>
-              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% 100%);" class="size-full"></div>
-            <% elsif post.color_count == 3 %>
-              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-            <% elsif post.color_count == 4 %>
-              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-            <% elsif post.color_count == 5 %>
-              <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% <%= ratio[0,4].map(&:to_i).sum %>%, <%= colors[4].hex_code %> <%= ratio[0,4].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-            <% end %>
-            <%# ドーナツ型にするための空洞用div %>
-            <div class="absolute w-[50%] aspect-square bg-[#f8f7f1] border rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></div>
-          </div>
-          <!-- 比率リストセクション -->
-          <div class="h-full flex flex-col justify-end gap-0.5 sm:gap-1">
-            <% post.color_count.times do |i| %>
-              <div class="flex gap-0.5 sm:gap-1 items-center">
-                <div class="size-3 sm:size-4 md:size-5 rounded-full border shadow-lg" style="background-color: <%= colors[i].hex_code %>;"></div>
-                <div class="text-[0.5rem] sm:text-xs text-[#897e70] font-extrabold"><%= ratio[i] %>%</div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-
-        <!-- Color&Ratioフォントセクション -->
-        <div class="w-[95%] m-auto overflow-hidden rounded-3xl shadow-2xl">
-          <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
-          <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
-        </div>
-      </div>
-
-      <!-- ミニアイコンデザインセクション -->
-      <div class="max-w-[90%] grid grid-cols-3 gap-4 my-2 md:my-4 mx-auto animate-slide-top">
-        <% 3.times do |i| %>
-          <div class="w-full aspect-square">
-            <%= render "shared/svg/icons/mini_icon_#{i}_svg", colors: @sorted_colors %>
-          </div>
-        <% end %>
-        <% 0.times do |i| %>
-          <div class="w-full aspect-square">
-            <%= render "shared/svg/icons/colors_#{post.color_count}/mini_icon_#{i}_svg", colors: colors %>
-          </div>
-        <% end %>
-
-      </div>
-
-      <!-- 筆記体とグラデーション -->
-      <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
-        <!-- 筆記体coloratioセクション -->
-        <div class="w-full flex flex-col justify-center items-center text-xl md:text-2xl font-playwrite">
-          <% post.color_count.times do |i| %>
-            <div class="" style="color: <%= colors[i].hex_code %>; -webkit-text-stroke: 0.3px gray;">Coloratio</div>
-          <% end %>
-        </div>
-        <!-- グラデーションセクション -->
-        <div class="w-full flex flex-col justify-center items-center gap-3 md:gap-2">
-          <% post.color_count.times do |i| %>
-            <!-- グラデーションをつける(最後の要素の2色目はcolors[0]を参照する) -->
-            <div class="h-4 md:h-6 w-[70%] shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
-          <% end %>
-        </div>
-      </div>
-
-      <!-- 配色数別デザイン例表示 -->
-      <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
-        <% 4.times do |i|  %>
-          <div class="w-full h-full aspect-square flex justify-center">
-            <%= render "shared/svg/designs/design_#{i}_svg", class:"size-full", colors: @sorted_colors %>
-          </div>
-        <% end %>
-      </div>
-
     </div>
 
-    <!-- アプリロゴ(モーダル最下層) -->
-    <div class="cursor-pointer w-[30%] mx-auto mt-20 mb-10">
-      <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
-    </div>
+  </div>
+
+  <!-- アプリロゴ(モーダル最下層) -->
+  <div class="cursor-pointer w-[30%] mx-auto mt-20 mb-10">
+    <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
+  </div>
 
 </div>
 
