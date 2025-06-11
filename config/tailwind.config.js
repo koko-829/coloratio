@@ -14,7 +14,8 @@ module.exports = {
       },
       fontFamily: {
         body: ["Noto Sans JP", "Zen Maru Gothic", "sans-serif"],
-        zenmaru: ["Zen Maru Gothic"],
+        noto: ["Noto Sans JP", "sans-serif"],
+        zenmaru: ["Zen Maru Gothic", "sans-serif"],
         playwrite: ["Playwrite TZ"],
         roboto: ["Roboto", "sans-serif"],
       },
