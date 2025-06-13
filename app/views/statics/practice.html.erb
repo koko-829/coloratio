@@ -2,17 +2,6 @@
 
 <!-- 作成作業所 -->
 
-<% if @colors.present? %>
-  <%= @colors %>
-<% end %>
-
-<%= form_with url: colors_update_static_path, method: :post do |f| %>
-  <div class="flex gap-1 items-center justify-center">
-    <%= f.number_field :post_id, placeholder:"更新したいpostのid", autofocus: true, class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
-    <%= f.submit "postを更新する" %>
-  </div>
-<% end %>
-
 <!-- end デザイン確認枠 -->
 
 </div>
