@@ -7,6 +7,7 @@ document.addEventListener("turbo:before-stream-render", function() {
       // ポップアップブロック対策として空要素をクリックさせておく。
       if (popupBlockerMeasure) {
         popupBlockerMeasure.click();
+        console.log('クリック要素を見つけました');
       }
       // 新しいウィンドウを開く
       const newWindow = window.open(shareLink, '_blank');

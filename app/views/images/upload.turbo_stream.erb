@@ -1,5 +1,5 @@
 <%= turbo_stream.update 'dynamic-share-button' do %>
-  <div id="popup-blocker-measure"></div>
+  <div id="popup-blocker-measure" class="size-4">...</div>
   <%= link_to "https://twitter.com/intent/tweet?url=https://coloratio-app.com/posts/#{@upload_post.id}?r=#{Time.now.to_i}&text=／%0a「#{@upload_post.title}」を#{@upload_post.color_count}色で表現✨✨%0a＼%0a%0a配色数も比率も自由自在!!%0a%23Coloratio で、私だけのカラーパレット🎨%0a%0a", target: '_blank', title: "Xでシェアする", id:"share-trigger" do %>
   <% end %>
 <% end %>
