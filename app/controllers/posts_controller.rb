@@ -56,7 +56,7 @@ class PostsController < ApplicationController
     # tagを登録する用の処理
     input_tags = tag_params[:tag].split(",")
     @post.create_tags(input_tags) # create_tagsをtag.rbに記載。tagsテーブルのデータ作成と中間テーブルへの登録を行うためのメソッド。
-    input_colors = color_params[:color].split(",")
+    input_colors = color_params[:color_list].split(",")
     @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
     if @post.save
 
@@ -97,7 +97,7 @@ class PostsController < ApplicationController
       # @post.idを持つpost_colorsテーブルのデータを全て削除。
       ColorPost.where(post_id: @post.id).delete_all
       # 新しい色を登録する
-      input_colors = color_params[:color].split(",")
+      input_colors = color_params[:color_list].split(",")
       @post.create_colors(input_colors) # create_colorsをpost.rbにメソッド記載。colorテーブルの作成と中間テーブルへの登録を行うためのメソッド。
       # tag関連の更新も行っておく。
       input_tags = tag_params[:tag].split(",")
@@ -160,11 +160,11 @@ class PostsController < ApplicationController
   # paramsとは別にuser_idもこの時点で定義してパラメーターとして追加しておきたいからmergeを使用。
   # これでPost.newの時にuser_idも一緒に登録してくれる。
   def post_params # post関連のストロングパラメータ
-    params.require(:post).permit(:title, :description, :ratio, :status).merge(user_id: current_user.id)
+    params.require(:post).permit(:title, :description, :ratio, :status, :color_list).merge(user_id: current_user.id)
   end
 
   def color_params # color関連のストロングパラメータ
-    params.require(:post).permit(:color)
+    params.require(:post).permit(:color_list)
   end
 
   def tag_params # tag用のストロングパラメータ

@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       get "contact" # お問い合わせ
       get "about_app" # アプリの使い方ページ
       get "practice" # デザイン確認用ページ(開発用。全て終わったら削除する)
+      post "colors_update"
     end
   end
 

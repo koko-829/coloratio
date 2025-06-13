@@ -1,5 +1,5 @@
 <%= turbo_stream.replace "palette-modal-#{@post.id}" do %>
-  <% post = @post; ratio = post.ratio.split(','); colors = post.colors; %>
+  <% post = @post; ratio = post.ratio.split(','); colors = post.colors; color_count = post.color_count %>
   <%# 下記idの要素がある場合のみswiperを初期化する(いいねボタンでのturbo_streamイベントではカルーセルの初期化が起こらないようにするため) %>
   <%# 一度swiperが初期化されたらこの要素を削除するjsを書いてみた(別のモーダルが開かれる時はまた新しく下記要素が出現するため、同一モーダル内で一回だけswiperが初期化されるような仕組みを擬似的に作成してみた。現状この方法で不具合確認されず。) %>
   <div id="swiper-start"></div>
@@ -9,7 +9,7 @@
     <div class="relative w-full aspect-[5/3] flex items-center">
       <!-- カルーセル部分の横にある長方形カラー部分 -->
       <div class="absolute w-4 sm:w-6 right-0 bottom-10 sm:bottom-14 flex flex-col gap-1">
-        <% post.color_count.times do |i| %>
+        <% color_count.times do |i| %>
           <div class="w-full aspect-[5/3] border border-r-0 border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
         <% end %>
       </div>
@@ -70,14 +70,14 @@
       <div class="my-3  animate-slide-top">
         <!-- パレット本体 -->
         <div class="shadow-xl overflow-hidden aspect-[6/1] flex border border-slate-300 rounded-xl">
-          <% post.color_count.times do |i| %>
+          <% color_count.times do |i| %>
             <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class=""></div>
           <% end %>
         </div>
 
         <!-- 絵の具セクション -->
         <div class="flex justify-end gap-2 mr-4 mt-0.5 md:mt-1">
-          <% post.color_count.times do |i| %>
+          <% color_count.times do |i| %>
             <div class="w-3 md:w-4" style="color: <%= colors[i].hex_code %>;">
               <%= render partial:'shared/svg/enogu_svg' %> <!-- image_tagやとfillを動的に変更できないため、svgのみのパーシャルerbを作成してfillを指定する方法で試してみる -->
             </div>
@@ -152,9 +152,9 @@
       <% end %>
 
       <!-- コードコピー欄 -->
-      <div x-data="{colorCount: <%= post.color_count %>}" class="w-full my-6 animate-slide-top">
+      <div x-data="{colorCount: <%= color_count %>}" class="w-full my-6 animate-slide-top">
         <div class="w-full flex flex-wrap items-center justify-center" :class="{ 'gap-x-8': colorCount % 2 == 0 }">
-          <% post.color_count.times do |i| %>
+          <% color_count.times do |i| %>
             <div :class="colorCount % 2 == 0 ? 'w-[34%]' : 'w-1/3'" class="my-1 flex justify-center items-center">
               <div class="w-[95%]">
                 <div class="w-full aspect-[5/2] rounded-2xl border border-slate-300" style="background-color: <%= colors[i].hex_code %>"></div>
@@ -178,13 +178,13 @@
         <div class="w-full mx-auto px-2 py-4 rounded-xl flex justify-center items-center gap-2">
           <!-- サークルセクション -->
           <div class="w-[70%] aspect-square rounded-full relative overflow-hidden shadow-lg">
-            <% if post.color_count == 2 %>
+            <% if color_count == 2 %>
               <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% 100%);" class="size-full"></div>
-            <% elsif post.color_count == 3 %>
+            <% elsif color_count == 3 %>
               <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-            <% elsif post.color_count == 4 %>
+            <% elsif color_count == 4 %>
               <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% 100%);" class="size-full"></div>
-            <% elsif post.color_count == 5 %>
+            <% elsif color_count == 5 %>
               <div style="background-image: conic-gradient(<%= colors[0].hex_code %> 0% <%= ratio[0] %>%, <%= colors[1].hex_code %> <%= ratio[0] %>% <%= ratio[0,2].map(&:to_i).sum %>%, <%= colors[2].hex_code %> <%= ratio[0,2].map(&:to_i).sum %>% <%= ratio[0,3].map(&:to_i).sum %>%, <%= colors[3].hex_code %> <%= ratio[0,3].map(&:to_i).sum %>% <%= ratio[0,4].map(&:to_i).sum %>%, <%= colors[4].hex_code %> <%= ratio[0,4].map(&:to_i).sum %>% 100%);" class="size-full"></div>
             <% end %>
             <%# ドーナツ型にするための空洞用div %>
@@ -192,7 +192,7 @@
           </div>
           <!-- 比率リストセクション -->
           <div class="h-full flex flex-col justify-end gap-0.5 sm:gap-1">
-            <% post.color_count.times do |i| %>
+            <% color_count.times do |i| %>
               <div class="flex gap-0.5 sm:gap-1 items-center">
                 <div class="size-3 sm:size-4 md:size-5 rounded-full border shadow-lg" style="background-color: <%= colors[i].hex_code %>;"></div>
                 <div class="text-[0.5rem] sm:text-xs text-[#897e70] font-extrabold"><%= ratio[i] %>%</div>
@@ -203,7 +203,7 @@
 
         <!-- Color&Ratioフォントセクション -->
         <div class="w-[95%] m-auto overflow-hidden rounded-3xl shadow-2xl">
-          <%#= render "shared/svg/color_ratio#{post.color_count}_svg", colors: colors %>
+          <%#= render "shared/svg/color_ratio#{color_count}_svg", colors: colors %>
           <%= render "shared/svg/color_ratio_svg", colors: @sorted_colors %>
         </div>
       </div>
@@ -217,7 +217,7 @@
         <% end %>
         <% 0.times do |i| %>
           <div class="w-full aspect-square">
-            <%= render "shared/svg/icons/colors_#{post.color_count}/mini_icon_#{i}_svg", colors: colors %>
+            <%= render "shared/svg/icons/colors_#{color_count}/mini_icon_#{i}_svg", colors: colors %>
           </div>
         <% end %>
 
@@ -227,13 +227,13 @@
       <div class="grid grid-cols-2 my-4 md:my-6 gap-2 animate-slide-top">
         <!-- 筆記体coloratioセクション -->
         <div class="w-full flex flex-col justify-center items-center text-xl md:text-2xl font-playwrite">
-          <% post.color_count.times do |i| %>
+          <% color_count.times do |i| %>
             <div class="" style="color: <%= colors[i].hex_code %>; -webkit-text-stroke: 0.3px gray;">Coloratio</div>
           <% end %>
         </div>
         <!-- グラデーションセクション -->
         <div class="w-full flex flex-col justify-center items-center gap-3 md:gap-2">
-          <% post.color_count.times do |i| %>
+          <% color_count.times do |i| %>
             <!-- グラデーションをつける(最後の要素の2色目はcolors[0]を参照する) -->
             <div class="h-4 md:h-6 w-[70%] shadow-lg" style="background: linear-gradient(90deg, <%= colors[i].hex_code %>, <%= (colors[i + 1] || colors[0]).hex_code %>);"></div>
           <% end %>
@@ -259,54 +259,10 @@
     <!-- 実際にOGP画像にしたい要素部分 -->
     <%# ogp作成のJS走らせる用(いいねボタン時のturbo_streamでは走らないようにするための記載) %>
     <div id="ogp-trigger"></div>
-    <div id="ogp-image-base-modal" class="hidden relative w-[1200px] mx-auto h-[630px] bg-[#f8f7f1] border-2">
+    <div id="ogp-image-base-modal" class="hidden relative w-[1200px] mx-auto h-[630px]">
 
-      <div class="w-full h-full flex items-center justify-center">
-        <!-- OGPの埋め込み部分(ブラウザ別レイアウト崩れの対策として1段階上の親要素必要) -->
-        <div class="w-[90%] h-[75%] flex items-end">
-          <!-- 左側 -->
-          <div class="w-[50%] h-[21rem] p-4 pt-1 flex flex-col justify-between">
-            <!-- タイトルとタグセクション -->
-            <div class="flex flex-col gap-4">
-              <div x-data="{ fontSize: <%= post.title.length %> }" class="mb-6">
-                <div :class="fontSize >= 28 ? 'text-4xl' : fontSize >= 8 ? 'text-5xl' : 'text-6xl'"><%= post.title %></div>
-              </div>
-              <% if @tags.present? %>
-                <div class="w-full flex flex-wrap gap-x-4">
-                  <% @tags.each do |i| %>
-                    <div class="font-noto text-base font-medium text-[#737373]">#<%= i %></div>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-            <!-- カラーパレット長方形セク -->
-            <div class="w-full aspect-[6/1] flex border border-slate-300">
-              <% post.color_count.times do |i| %>
-                <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>"></div>
-              <% end %>
-            </div>
-          </div>
-          <!-- 右側 -->
-          <div class="w-[50%] h-full flex flex-col justify-between">
-            <!-- デザイン例svgセク -->
-            <div class="mt-10 w-[90%] ml-auto">
-              <%= render "shared/svg/designs/design_2_svg", colors: @sorted_colors %>
-            </div>
-            <!-- カラーコードセク -->
-            <div class="flex justify-end gap-4">
-              <% post.color_count.times do |i| %>
-                <div class="flex flex-col justify-center items-center">
-                  <div class="size-[5.5rem] border-2 rounded-full" style="background-color: <%= colors[i].hex_code %>"></div>
-                  <div class="font-roboto text-[#3c3c3c] font-medium"><%= colors[i].hex_code %></div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="absolute inset-0"><%= render "shared/svg/ogp/background_1_svg" %></div>
-      <div class="absolute w-44 top-40 left-32"><%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %></div>
+      <!-- ogpの基になる要素を動的に変更するためにパーシャル化 -->
+      <%= render "shared/ogp_base/ogp_1", post: post, ratio: ratio, color_count: color_count, colors: colors %>
     </div>
 
   </div>

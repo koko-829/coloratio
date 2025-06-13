@@ -1,0 +1,17 @@
+<div class="w-full h-full flex items-center justify-center" style="background-color: <%= @sorted_colors[0] %>">
+
+</div>
+
+<div class="absolute inset-0"><%= render "shared/svg/ogp/background_1_svg", colors: @sorted_colors %></div>
+<div class="absolute w-52 bottom-3 right-11"><%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %></div>
+<div class="absolute top-[184px] left-[150px] font-noto font-bold text-md" style="color: <%= @sorted_colors[0] %>"><%= color_count %>色パレット</div>
+<!-- タイトルとタグ欄 -->
+<div class="absolute left-[104px] top-[218px] w-[512px] h-48">
+  <!-- タイトル -->
+  <div x-data="{ fontSize: <%= post.title.length %> }">
+    <div :class="fontSize >= 31 ? 'text-4xl' : fontSize >= 25 ? 'text-5xl' : fontSize >= 13 ? 'text-6xl' : 'text-7xl'" style="color: <%= @sorted_colors[1] %>" class="font-bold"><%= post.title %></div>
+    <div :class="fontSize >= 25 ? 'mt-12 w-36' : 'mt-16 w-44'">
+      <%= render "shared/svg/ogp/polka_material_svg", colors: @sorted_colors %>
+    </div>
+  </div>
+</div>

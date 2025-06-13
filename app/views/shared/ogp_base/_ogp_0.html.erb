@@ -1,0 +1,46 @@
+<div class="w-full h-full flex items-center justify-center bg-[#f8f7f1]">
+  <!-- OGPの埋め込み部分(ブラウザ別レイアウト崩れの対策として1段階上の親要素必要) -->
+  <div class="w-[90%] h-[75%] flex items-end">
+    <!-- 左側 -->
+    <div class="w-[50%] h-[21rem] p-4 pt-1 flex flex-col justify-between">
+      <!-- タイトルとタグセクション -->
+      <div class="flex flex-col gap-4">
+        <div x-data="{ fontSize: <%= post.title.length %> }" class="mb-6">
+          <div :class="fontSize >= 28 ? 'text-4xl' : fontSize >= 8 ? 'text-5xl' : 'text-6xl'"><%= post.title %></div>
+        </div>
+        <% if @tags.present? %>
+          <div class="w-full flex flex-wrap gap-x-4">
+            <% @tags.each do |i| %>
+              <div class="font-noto text-base font-medium text-[#737373]">#<%= i %></div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <!-- カラーパレット長方形セク -->
+      <div class="w-full aspect-[6/1] flex border border-slate-300">
+        <% color_count.times do |i| %>
+          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>"></div>
+        <% end %>
+      </div>
+    </div>
+    <!-- 右側 -->
+    <div class="w-[50%] h-full flex flex-col gap-4">
+      <!-- デザイン例svgセク -->
+      <div class="mt-10 w-[90%] ml-auto">
+        <%= render "shared/svg/designs/design_2_svg", colors: @sorted_colors %>
+      </div>
+      <!-- カラーコードセク -->
+      <div x-data="{ colorCount: <%= color_count %> }" :class="colorCount == 5 ? 'gap-2' : 'gap-4'" class="flex justify-end">
+        <% color_count.times do |i| %>
+          <div class="flex flex-col justify-center items-center">
+            <div :class="colorCount == 5 ? 'size-[5rem]' : 'size-[6rem]'" class="border-2 rounded-full" style="background-color: <%= colors[i].hex_code %>"></div>
+            <div class="font-roboto text-[#3c3c3c] font-medium"><%= colors[i].hex_code %></div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="absolute inset-0"><%= render "shared/svg/ogp/background_0_svg" %></div>
+<div class="absolute w-44 top-40 left-32"><%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %></div>

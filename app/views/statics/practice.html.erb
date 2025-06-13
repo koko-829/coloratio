@@ -1,33 +1,17 @@
-<div x-data class="transform h-full w-full flex flex-col justify-center items-center gap-4">
+<div class="transform h-full w-full flex flex-col justify-center items-center gap-4">
 
 <!-- 作成作業所 -->
 
-<div class="grid grid-cols-2">
+<% if @colors.present? %>
+  <%= @colors %>
+<% end %>
 
-  <% @sorted_colors = ["#150c15", "#9a1117"] %>
-  <div class="my-10">
-    <div>2色</div>
-    <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
+<%= form_with url: colors_update_static_path, method: :post do |f| %>
+  <div class="flex gap-1 items-center justify-center">
+    <%= f.number_field :post_id, placeholder:"更新したいpostのid", autofocus: true, class:"w-80 px-4 py-2 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white" %>
+    <%= f.submit "postを更新する" %>
   </div>
-
-  <% @sorted_colors = ["#150c15", "#9a1117", "#917c50"] %>
-  <div class="my-10">
-    <div>3色</div>
-    <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
-  </div>
-
-  <% @sorted_colors = ["#150c15", "#9a1117", "#917c50", "#bbe3f5"] %>
-  <div class="my-10">
-    <div>4色</div>
-    <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
-  </div>
-  <% @sorted_colors = ["#150c15", "#9a1117", "#917c50", "#bbe3f5", "#da6a38"] %>
-  <div class="my-10">
-    <div>5色</div>
-    <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
-  </div>
-</div>
-
+<% end %>
 
 <!-- end デザイン確認枠 -->
 

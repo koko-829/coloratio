@@ -85,7 +85,7 @@ document.addEventListener("turbo:load", function() {
 
     // プレビューのパレットリアルタイム反映用。
     window.previewUpdate = function(){
-      document.getElementById('post_color').value = window.colors;
+      document.getElementById('post_color_list').value = window.colors;
       for(let i = 0; i < window.colors.length; i++){ //colorsの要素数分繰り返す。
         document.getElementById(`preview-${i+1}`).style.background = window.colors[i];
       }
