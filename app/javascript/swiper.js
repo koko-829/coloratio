@@ -41,7 +41,7 @@ document.addEventListener("turbo:before-stream-render", function() {
   }
 });
 
-// html遷移用
+// htmlリクエスト遷移用
 document.addEventListener("turbo:load", function() {
   const swiperStart = document.getElementById('swiper-start');
   if (swiperStart) {

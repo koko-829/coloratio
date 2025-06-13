@@ -1,32 +1,5 @@
 <% post = @post; ratio = post.ratio.split(','); colors = post.color_list.split(","); color_count = post.color_count %>
 
-
-<!-- OGP作成用 -->
-<div class="text-5xl flex justify-center my-3">こちらのページは、動的OGPを作成につき工事中です。</div>
-<div class="border-y-4 border-red-500 py-10 my-10">
-
-  <!-- OGP作成用 -->
-  <div class="my-5">
-    <div class="text-5xl flex justify-center my-3">画像ベース</div>
-    <!-- 実際にOGP画像にしたい要素部分 -->
-    <div id="ogp-image-base" class="relative w-[1200px] mx-auto h-[630px]">
-      <!-- ogpの基になる要素を動的に変更するためにパーシャル化 -->
-      <%= render "shared/ogp_base/ogp_1", post: post, ratio: ratio, color_count: color_count, colors: colors %>
-    </div>
-  </div>
-
-  <!-- 画像複製結果 -->
-
-  <div class="flex flex-col items-center my-3">
-    <div class="text-5xl">作成された画像</div>
-    <div>image_size:</div>
-    <div id="image-size"></div>
-  </div>
-
-  <div id="ogp-dup" class="w-[1200px] h-[630px] mx-auto"></div>
-
-</div>
-
 <div class="max-w-screen-md w-[100vw] mx-auto overflow-hidden py-5 text-neutral-600">
   <%# 下記idの要素がある場合のみswiperを初期化する(いいねボタンでのturbo_streamイベントではカルーセルの初期化が起こらないようにするため) %>
   <%# 一度swiperが初期化されたらこの要素を削除するjsを書いてみた(別のモーダルが開かれる時はまた新しく下記要素が出現するため、同一モーダル内で一回だけswiperが初期化されるような仕組みを擬似的に作成してみた。現状この方法で不具合確認されず。) %>
@@ -290,6 +263,12 @@
   <!-- アプリロゴ(モーダル最下層) -->
   <div class="w-[30%] mx-auto mt-20 mb-10">
     <%= render "shared/svg/ogp/ogp_logo_svg", colors: @sorted_colors %>
+  </div>
+
+  <!-- 実際にOGP画像にしたい要素部分 -->
+  <div id="ogp-image-base" class="hidden relative w-[1200px] mx-auto h-[630px]">
+    <!-- ogpの基になる要素を動的に変更するためにパーシャル化 -->
+    <%= render "shared/ogp_base/ogp_1", post: post, ratio: ratio, color_count: color_count, colors: colors %>
   </div>
 
 </div>
