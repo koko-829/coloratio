@@ -1,5 +1,5 @@
 <div id="palette-base"></div> <%# js走らせる用 %>
-<% @colors = @palette_colors.map(&:hex_code) %>
+<% @colors = @palette_colors %>
 <div id="color-tag-info" data-json=<%= @colors.to_json %>></div>
 <div id="ratio-tag-info" data-json=<%= @slider_range.to_json %>></div>
 <div id="tags_info" data-json="<%= @existed_tags.to_json %>" ></div>

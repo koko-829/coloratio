@@ -4,8 +4,8 @@
     <!-- パレット表示部分 -->
     <%= link_to post_path(post), data: { turbo_stream: true } do %>
       <div @click="modalPalette = 'palette-modal-<%= post.id %>'; document.getElementById('palette-skelton').style.display = 'block'" class="skelton-trigger relative transform hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
-        <% ratio = post.ratio.split(','); colors = post.colors; post.color_count.times do |i| %>
-          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>" class="h-full bg-gray-400"></div>
+        <% ratio = post.ratio.split(","); colors = post.color_list.split(","); post.color_count.times do |i| %>
+          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full bg-gray-400"></div>
         <% end %>
         <!-- 「あなたの投稿」タグ -->
         <% if post.user_id == current_user.id %>

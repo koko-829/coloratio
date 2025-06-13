@@ -78,7 +78,7 @@ class PostsController < ApplicationController
   def edit
     @post = Post.find(params[:id])
     # 最新のカラー情報を取得して編集画面に渡したい。
-    @palette_colors = @post.colors
+    @palette_colors = @post.color_list.split(",")
     # noUiSlider用のratio変数を用意する。
     ratio = @post.ratio.split(",").map(&:to_i)
     @slider_range = create_slider_range(ratio)
@@ -128,7 +128,7 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @tags = @post.tags.pluck(:name)
     # 比率が大きい順に並んだhexコードの配列(デザイン例に使用)
-    @sorted_colors = @post.colors.pluck(:hex_code).zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
+    @sorted_colors = @post.color_list.split(",").zip(@post.ratio.split(",").map(&:to_i)).sort_by { |i| -i[1] }.map(&:first)
     # prepare_meta_tags(@post)
     # respond_to do |format|
     #   format.turbo_stream
