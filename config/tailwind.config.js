@@ -18,6 +18,7 @@ module.exports = {
         zenmaru: ["Zen Maru Gothic", "sans-serif"],
         playwrite: ["Playwrite TZ"],
         roboto: ["Roboto", "sans-serif"],
+        sawarabi: ["Sawarabi Mincho", "sans-serif"],
       },
       animation: {
         'slide-top': 'slide-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',

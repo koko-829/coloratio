@@ -6,7 +6,7 @@
       <!-- タイトルとタグセクション -->
       <div class="flex flex-col gap-4">
         <div x-data="{ fontSize: <%= post.title.length %> }" class="mb-6">
-          <div :class="fontSize >= 28 ? 'text-4xl' : fontSize >= 8 ? 'text-5xl' : 'text-6xl'"><%= post.title %></div>
+          <div :class="fontSize >= 28 ? 'text-4xl' : fontSize >= 8 ? 'text-5xl' : 'text-6xl'" class="font-sawarabi text-[#545454]"><%= post.title %></div>
         </div>
         <% if @tags.present? %>
           <div class="w-full flex flex-wrap gap-x-4">
@@ -19,7 +19,7 @@
       <!-- カラーパレット長方形セク -->
       <div class="w-full aspect-[6/1] flex border border-slate-300">
         <% color_count.times do |i| %>
-          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i].hex_code %>"></div>
+          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>"></div>
         <% end %>
       </div>
     </div>
@@ -33,8 +33,8 @@
       <div x-data="{ colorCount: <%= color_count %> }" :class="colorCount == 5 ? 'gap-2' : 'gap-4'" class="flex justify-end">
         <% color_count.times do |i| %>
           <div class="flex flex-col justify-center items-center">
-            <div :class="colorCount == 5 ? 'size-[5rem]' : 'size-[6rem]'" class="border-2 rounded-full" style="background-color: <%= colors[i].hex_code %>"></div>
-            <div class="font-roboto text-[#3c3c3c] font-medium"><%= colors[i].hex_code %></div>
+            <div :class="colorCount == 5 ? 'size-[5rem]' : 'size-[6rem]'" class="border-2 rounded-full" style="background-color: <%= colors[i] %>"></div>
+            <div class="font-roboto text-[#3c3c3c] font-medium"><%= colors[i] %></div>
           </div>
         <% end %>
       </div>

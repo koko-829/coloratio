@@ -76,4 +76,3 @@ document.addEventListener("turbo:before-stream-render", function() {
     }
   }, 300);
 });
-
