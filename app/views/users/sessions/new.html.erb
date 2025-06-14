@@ -28,7 +28,10 @@
 
               <!-- メアド入力欄 -->
               <div class="flex flex-col gap-1">
-                <%= f.label :email, "メールアドレス", class: "font-bold" %>
+                <div class="flex gap-1 items-center">
+                  <%= image_tag "mail_icon.svg", class:"size-5" %>
+                  <%= f.label :email, "メールアドレス", class: "font-bold" %>
+                </div>
                 <%= f.text_field :email,
                   "x-model": "email",
                   "x-on:blur": "validateEmailBlur();",
@@ -43,7 +46,10 @@
 
               <!-- パスワード入力欄 -->
               <div class="flex flex-col gap-1 my-5">
-                <%= f.label :password, "パスワード", class: "font-bold" %>
+                <div class="flex gap-1 items-center">
+                  <%= image_tag "password_icon.svg", class:"size-5" %>
+                  <%= f.label :password, "パスワード", class: "font-bold" %>
+                </div>
                 <!-- 入力フォーム -->
                 <div x-data="{ show: false }" class="relative flex items-center">
                   <%= f.text_field :password,
