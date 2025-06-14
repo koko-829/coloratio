@@ -87,10 +87,14 @@ document.addEventListener("turbo:load", function() {
 
             // input要素を取得
             const currentSlideInput = document.getElementById('current-slide-input');
-            // inputの値を変更
-            currentSlideInput.value = currentSlideIndex;
-            // inputイベントを発火させる(x-model要素で認識させるため)
-            currentSlideInput.dispatchEvent(new Event('input'));
+            if (currentSlideInput) {
+              // inputの値を変更
+              currentSlideInput.value = currentSlideIndex;
+              // inputイベントを発火させる(x-model要素で認識させるため)
+              currentSlideInput.dispatchEvent(new Event('input'));
+            } else {
+              console.warn('current-slide-inputが見つかりませんでした。');
+            }
           }
         }
     });
