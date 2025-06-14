@@ -75,7 +75,7 @@ document.addEventListener("turbo:load", function() {
         crossFade: true
       },
       autoplay: {
-        delay: 1500, // スライド切り替えのスパン(ms)
+        delay: 2000, // スライド切り替えのスパン(ms)
         disableOnInteraction: false,
       },
       speed: 1000,
