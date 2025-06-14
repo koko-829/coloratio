@@ -3,8 +3,7 @@
   <div class="w-[90vw] mx-auto my-5 max-w-screen-xl">
 
     <!-- heroセクション -->
-    <div x-data="{ currentSlide: '20' }"><!-- 表示中のスライドパレット管理用状態変数(初期値は存在しないindexにしておかないとパレットの挙動がおかしくなる) -->
-      <input type="hidden" x-model="currentSlide" id="current-slide-input">
+    <div>
       <!-- 上側パレット -->
       <div x-data
           x-init="
@@ -21,8 +20,8 @@
               <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
                 <% @slide_posts.first(6).each.with_index do |post, index|  %>
                   <!-- パレット -->
-                  <div class="w-52 aspect-[5/3] flex justify-center items-center">
-                    <div class="w-[90%] aspect-[5/3] transition-all duration-1000 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500" :class="currentSlide == <%= index %> ? 'scale-110' : 'scale-90'">
+                  <div class="w-56 aspect-[5/3] flex justify-center items-center">
+                    <div class="slide-palette-<%= index %> w-[90%] aspect-[5/3] transition-all duration-1000 scale-90 opacity-60 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500">
                       <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
                         <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
                       <% end %>
@@ -91,8 +90,8 @@
                   <div x-ref="item" class="flex flex-row-reverse items-center justify-around flex-shrink-0 w-full py-2">
                     <% @slide_posts.last(6).each.with_index(6) do |post, index|  %>
                       <!-- パレット -->
-                      <div class="w-52 aspect-[5/3] flex justify-center items-center">
-                        <div class="w-[90%] aspect-[5/3] transition-all duration-1000 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500" :class="currentSlide == <%= index %> ? 'scale-110' : 'scale-90'">
+                      <div class="w-56 aspect-[5/3] flex justify-center items-center">
+                        <div class="slide-palette-<%= index %> w-[90%] aspect-[5/3] transition-all duration-1000 scale-90 opacity-60 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500">
                           <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
                             <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
                           <% end %>
@@ -123,8 +122,8 @@
               <div x-ref="item" class="flex flex-row-reverse items-center justify-around flex-shrink-0 w-full py-2">
                 <% @slide_posts.last(6).each.with_index(6) do |post, index|  %>
                   <!-- パレット -->
-                  <div class="w-52 aspect-[5/3] flex justify-center items-center">
-                      <div class="w-[90%] aspect-[5/3] transition-all duration-1000 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500" :class="currentSlide == <%= index %> ? 'scale-110' : 'scale-90'">
+                  <div class="w-56 aspect-[5/3] flex justify-center items-center">
+                    <div class="slide-palette-<%= index %> w-[90%] aspect-[5/3] transition-all duration-1000 scale-90 opacity-60 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500">
                       <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
                         <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
                       <% end %>

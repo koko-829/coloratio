@@ -84,16 +84,28 @@ document.addEventListener("turbo:load", function() {
       on: {
           slideChange: function () {
             const currentSlideIndex = this.realIndex; // 現在のスライドindexを取得。
+            let previousSlideIndex = currentSlideIndex - 1; // 一つ前に表示されてたパレット要素を取得
+            // 表示中のスライドが0だった場合(1つ前の要素が最終スライドの11だった場合)、11にする。
+            if (previousSlideIndex < 0) {
+              previousSlideIndex = 11;
+            }
+            const activeElements = document.getElementsByClassName(`slide-palette-${currentSlideIndex}`); // 拡大したい表示中のパレット要素を取得。
+            const previousElements = document.getElementsByClassName(`slide-palette-${previousSlideIndex}`); // 一つ前に拡大されていたパレット要素を取得。
 
-            // input要素を取得
-            const currentSlideInput = document.getElementById('current-slide-input');
-            if (currentSlideInput) {
-              // inputの値を変更
-              currentSlideInput.value = currentSlideIndex;
-              // inputイベントを発火させる(x-model要素で認識させるため)
-              currentSlideInput.dispatchEvent(new Event('input'));
-            } else {
-              console.warn('current-slide-inputが見つかりませんでした。');
+            // // 一つ前のパレット要素をもとの状態に戻す。
+            if (previousElements) {
+              for (let i = 0; i < previousElements.length; i++) {
+                previousElements[i].style.transform = "scale(0.9)"; // 大きさを戻す
+                previousElements[i].style.opacity = 0.6; // 透明度を戻す
+              }
+            }
+
+            // // 現在表示中のパレット要素を拡大する。
+            if (activeElements) {
+              for (let i = 0; i < activeElements.length; i++) {
+                activeElements[i].style.transform = "scale(1.2)"; // 大きさ拡大
+                activeElements[i].style.opacity = 1.0; // 透明度を1.0に
+              }
             }
           }
         }
