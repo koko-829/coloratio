@@ -4,7 +4,8 @@
 
     <!-- heroセクション -->
     <div x-data="{ currentSlide: '12' }"><!-- 表示中のスライドパレット管理用状態変数(初期値は存在しないindexにしておかないとパレットの挙動がおかしくなる) -->
-      <input type="hidden" x-model="currentSlide" id="current-slide-input">
+      <input type="number" x-model="currentSlide" id="current-slide-input">
+      <div x-text="currentSlide"></div>
       <!-- 上側パレット -->
       <div x-data
           x-init="
