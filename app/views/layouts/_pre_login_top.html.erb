@@ -16,7 +16,7 @@
                   });
           "
           >
-          <div class="relative w-full py-3 mx-auto overflow-hidden">
+          <div class="relative w-full py-3 mx-auto overflow-hidden z-10">
             <div x-ref="content" class="flex animate-marquee">
               <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
                 <% @slide_posts.first(6).each.with_index do |post, index|  %>
@@ -57,13 +57,21 @@
         </div>
 
         <!-- ロゴセクション(ヒーローセクション) -->
-        <div class="order-1">
+        <div class="order-1 relative">
           <!-- ロゴ本体(swiper実行する前にロゴが並んで表示されてしまうため、最初はinvisible。swiper後にjsでvisibleに変更) -->
           <div id="pre_login_swiper" class="swiper-container invisible w-[90%] mx-auto">
             <div class="swiper-wrapper">
               <% @slide_posts.each do |post| %>
-                <% colors = post.color_list.split(",")  %>
-                <div class="w-full h-full swiper-slide"><%= render "shared/svg/ogp/ogp_logo_svg", colors: colors %></div>
+                <% colors = post.color_list.split(",") %>
+                <div class="w-full h-full swiper-slide">
+                  <%= render "shared/svg/ogp/ogp_logo_svg", colors: colors %>
+                  <!-- 背景パレットセクション -->
+                  <div class="absolute flex top-4 lg:-top-12 left-8 w-[40%] lg:w-[50%] aspect-[5/3] border-2 transform -rotate-12 -z-50 opacity-30 overflow-hidden rounded-md lg:rounded-xl">
+                    <% ratio = post.ratio.split(','); post.color_count.times do |i| %>
+                      <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
+                    <% end %>
+                  </div>
+                </div>
               <% end %>
             </div>
           </div>
@@ -78,7 +86,7 @@
                       });
               "
               class="block lg:hidden">
-              <div class="relative w-full py-3 mx-auto overflow-hidden">
+              <div class="relative w-full py-3 mx-auto overflow-hidden z-10">
                 <div x-ref="content" class="flex animate-marquee-reverse">
                   <div x-ref="item" class="flex flex-row-reverse items-center justify-around flex-shrink-0 w-full py-2">
                     <% @slide_posts.last(6).each.with_index(6) do |post, index|  %>
@@ -110,7 +118,7 @@
                   });
           "
           class="hidden lg:block">
-          <div class="relative w-full py-3 mx-auto overflow-hidden">
+          <div class="relative w-full py-3 mx-auto overflow-hidden z-10">
             <div x-ref="content" class="flex animate-marquee-reverse">
               <div x-ref="item" class="flex flex-row-reverse items-center justify-around flex-shrink-0 w-full py-2">
                 <% @slide_posts.last(6).each.with_index(6) do |post, index|  %>
