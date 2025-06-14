@@ -1,7 +1,66 @@
-<div class="transform h-full w-full flex flex-col justify-center items-center gap-4">
+<div class="transform h-full w-full flex flex-col justify-center items-center">
 
 <!-- 作成作業所 -->
 
+<div class="w-[80vw] max-w-screen-xl mx-auto">
+  <!-- 上側パレット -->
+  <div x-data
+      x-init="
+              $nextTick(() => {
+                  const content = $refs.content;
+                  const item = $refs.item;
+                  const clone = item.cloneNode(true);
+                  content.appendChild(clone);
+              });
+      "
+      >
+      <div class="relative w-full py-3 mx-auto overflow-hidden">
+        <div x-ref="content" class="flex animate-marquee">
+          <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
+            <% 6.times do |i|  %>
+              <!-- パレット -->
+              <div class="w-44 aspect-[5/3] flex justify-center items-center">
+                <div class="w-[90%] aspect-[5/3] overflow-hidden rounded-xl flex border-2 border-slate-500">
+                  <div style="width: 100%; background-color: #6f6f6f" class="h-full"></div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- ドデカロゴ部分 -->
+  <div class="w-[40%] mx-auto my-2 sm:my-4 md:my-10">
+    <%= image_tag "coloratio-logo.svg" %>
+  </div>
+  <!-- 下側パレット -->
+  <div x-data
+      x-init="
+              $nextTick(() => {
+                  const content = $refs.content;
+                  const item = $refs.item;
+                  const clone = item.cloneNode(true);
+                  content.appendChild(clone);
+              });
+      "
+      >
+      <div class="relative w-full py-3 mx-auto overflow-hidden">
+        <div x-ref="content" class="flex animate-marquee-reverse">
+          <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
+            <% 6.times do |i|  %>
+              <!-- パレット -->
+              <div class="w-44 aspect-[5/3] flex justify-center items-center">
+                <div class="w-[90%] aspect-[5/3] overflow-hidden rounded-xl flex border-2 border-slate-500">
+                  <div style="width: 100%; background-color: #6f6f6f" class="h-full"></div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
 <!-- end デザイン確認枠 -->
 
 </div>

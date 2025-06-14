@@ -63,3 +63,25 @@ document.addEventListener("turbo:load", function() {
   }
 
 });
+
+// 未ログイントップ画面用swiper
+document.addEventListener("turbo:load", function() {
+  const preLoginSwiper = document.getElementById('pre_login_swiper');
+  if (preLoginSwiper) {
+    const swiper = new Swiper('.swiper-container', {
+      loop: true,
+      effect: 'fade',
+      fadeEffect: {
+        crossFade: true
+      },
+      autoplay: {
+        delay: 1000, // スライド切り替えのスパン(ms)
+        disableOnInteraction: false,
+      },
+      speed: 1000,
+      allowTouchMove: false, //タップでのスライド変更無効
+      simulateTouch: false //PCでのドラッグ無効
+    });
+  }
+
+});

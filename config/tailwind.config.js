@@ -22,17 +22,27 @@ module.exports = {
       },
       animation: {
         'slide-top': 'slide-top 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
-        'fuwafuwa': 'fuwafuwa 3s ease-in-out infinite alternate'
+        'fuwafuwa': 'fuwafuwa 3s ease-in-out infinite alternate',
+        'marquee': 'marquee 20s linear infinite',
+        'marquee-reverse': 'marquee-reverse 20s linear infinite',
       },
       keyframes: {
         'slide-top': {
           '0%': { transform: 'translateY(50px)' },
           'to': { transform: 'translateY(0px)' },
         },
-        'fuwafuwa' : {
+        'fuwafuwa': {
           '0%': {transform: 'translate(0, 0)' },
           '50%': {transform: 'translate(0, -10px)' },
           '100%': {transform: 'translate(0, 0)' },
+        },
+        'marquee': {
+            '0%': {transform: 'translateX(0)'},
+            '100%': {transform: 'translateX(-100%)'},
+        },
+        'marquee-reverse': {
+            '0%': {transform: 'translateX(-100%)'},
+            '100%': {transform: 'translateX(0)'},
         },
       },
     },

@@ -28,6 +28,7 @@ class PostsController < ApplicationController
     # ログイン前状態の処理
     else
       @posts = Post.joins(:user).where(users: { name: "Coloratio" }).published.latest.limit(10)
+      @slide_posts = Post.published.latest.limit(12)
     end
   end
 
