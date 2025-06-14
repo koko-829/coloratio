@@ -2,132 +2,134 @@
 <div class="relative min-h-fit shadow-bottom text-[#897e70]">
   <div class="w-[90vw] mx-auto my-5 max-w-screen-xl">
 
-
-    <!-- 上側パレット -->
-    <div x-data
-        x-init="
-                $nextTick(() => {
-                    const content = $refs.content;
-                    const item = $refs.item;
-                    const clone = item.cloneNode(true);
-                    content.appendChild(clone);
-                });
-        "
-        >
-        <div class="relative w-full py-3 mx-auto overflow-hidden">
-          <div x-ref="content" class="flex animate-marquee">
-            <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
-              <% @slide_posts.first(6).each do |post|  %>
-                <!-- パレット -->
-                <div class="w-52 aspect-[5/3] flex justify-center items-center">
-                  <div class="w-[90%] aspect-[5/3] overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500">
-                    <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
-                      <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-        </div>
-    </div>
-
-    <!-- Heroセクション -->
-    <div class="w-full mx-auto grid grid-cols-1 lg:grid-cols-2 lg:items-center">
-
-      <!-- 文章セクション -->
-      <div class="w-full order-2 lg:order-1">
-        <h1 class="block text-3xl font-bold sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">"好き"から見つける、ぴったり配色。<br><span class="text-orange-600">Coloratio.</span></h1>
-        <p class="mt-3 text-base font-medium text-gray-800 dark:text-neutral-400">
-        Coloratio(カラティオ)は、あなたの「好きなもの」を色だけで表現するカラーパレットです。いつもの道で見かけるあの看板、長年大切に使っている小物、今まさに手に握っているマグカップ。身近過ぎて当たり前な存在。当たり前だけど「なぜか好き」。そんな生活を彩るあなたの"好き"を色だけで表現してみると、新しい発見があるかも。身近なものから「デザインにそのまま使える配色」を見つけられる、そんなカラーパレットとなっております。
-        </p>
-
-        <!-- 会員登録・ログインはこちら -->
-        <div class="mt-7 grid gap-3 w-full sm:inline-flex">
-          <%= link_to new_user_registration_path, data: { turbo: false } do %>
-            <div class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-orange-600 text-white hover:bg-orange-700 focus:outline-hidden focus:bg-orange-700 disabled:opacity-50 disabled:pointer-events-none">
-              会員登録・ログインはこちら
-              <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
-            </div>
-          <% end %>
-        </div>
-
-      </div>
-
-      <!-- ロゴセクション(ヒーローセクション) -->
-      <div class="order-1">
-        <!-- ロゴ本体 -->
-        <div class="swiper-container">
-          <div id="pre_login_swiper" class="swiper-wrapper">
-            <% @slide_posts.each do |post| %>
-              <% colors = post.color_list.split(",")  %>
-              <div class="w-full h-full swiper-slide"><%= render "shared/svg/ogp/ogp_logo_svg", colors: colors %></div>
-            <% end %>
-          </div>
-        </div>
-        <!-- 下側パレット(mdサイズより小さい時に表示する用) -->
-        <div x-data
-            x-init="
-                    $nextTick(() => {
-                        const content = $refs.content;
-                        const item = $refs.item;
-                        const clone = item.cloneNode(true);
-                        content.appendChild(clone);
-                    });
-            "
-            class="block lg:hidden">
-            <div class="relative w-full py-3 mx-auto overflow-hidden">
-              <div x-ref="content" class="flex animate-marquee-reverse">
-                <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
-                  <% @slide_posts.last(6).each do |post|  %>
-                    <!-- パレット -->
-                    <div class="w-52 aspect-[5/3] flex justify-center items-center">
-                      <div class="w-[90%] aspect-[5/3] overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500">
-                        <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
-                          <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
-                        <% end %>
-                      </div>
+    <!-- heroセクション -->
+    <div x-data="{ currentSlide: '12' }"><!-- 表示中のスライドパレット管理用状態変数(初期値は存在しないindexにしておかないとパレットの挙動がおかしくなる) -->
+      <input type="hidden" x-model="currentSlide" id="current-slide-input">
+      <!-- 上側パレット -->
+      <div x-data
+          x-init="
+                  $nextTick(() => {
+                      const content = $refs.content;
+                      const item = $refs.item;
+                      const clone = item.cloneNode(true);
+                      content.appendChild(clone);
+                  });
+          "
+          >
+          <div class="relative w-full py-3 mx-auto overflow-hidden">
+            <div x-ref="content" class="flex animate-marquee">
+              <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
+                <% @slide_posts.first(6).each.with_index do |post, index|  %>
+                  <!-- パレット -->
+                  <div class="w-52 aspect-[5/3] flex justify-center items-center">
+                    <div class="w-[90%] aspect-[5/3] transition-all duration-1000 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500 scale-90" :class="currentSlide == <%= index %> ? 'scale-110' : 'scale-90'">
+                      <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
+                        <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
+                      <% end %>
                     </div>
-                  <% end %>
-                </div>
+                  </div>
+                <% end %>
               </div>
             </div>
-        </div>
+          </div>
       </div>
 
-    </div>
+      <!-- Heroセクション -->
+      <div class="w-full mx-auto grid grid-cols-1 lg:grid-cols-2 lg:items-center">
 
-    <!-- 下側パレット(mdサイズ以上の時に表示する用) -->
-    <div x-data
-        x-init="
-                $nextTick(() => {
-                    const content = $refs.content;
-                    const item = $refs.item;
-                    const clone = item.cloneNode(true);
-                    content.appendChild(clone);
-                });
-        "
-        class="hidden lg:block">
-        <div class="relative w-full py-3 mx-auto overflow-hidden">
-          <div x-ref="content" class="flex animate-marquee-reverse">
-            <div x-ref="item" class="flex items-center justify-around flex-shrink-0 w-full py-2">
-              <% @slide_posts.last(6).each do |post|  %>
-                <!-- パレット -->
-                <div class="w-52 aspect-[5/3] flex justify-center items-center">
-                  <div class="w-[90%] aspect-[5/3] overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500">
-                    <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
-                      <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
-                    <% end %>
-                  </div>
-                </div>
+        <!-- 文章セクション -->
+        <div class="w-full order-2 lg:order-1">
+          <h1 class="block text-3xl font-bold sm:text-4xl lg:text-6xl lg:leading-tight dark:text-white">"好き"から見つける、ぴったり配色。<br><span class="text-orange-600">Coloratio.</span></h1>
+          <p class="mt-3 text-base font-medium text-gray-800 dark:text-neutral-400">
+          Coloratio(カラティオ)は、あなたの「好きなもの」を色だけで表現するカラーパレットです。いつもの道で見かけるあの看板、長年大切に使っている小物、今まさに手に握っているマグカップ。身近過ぎて当たり前な存在。当たり前だけど「なぜか好き」。そんな生活を彩るあなたの"好き"を色だけで表現してみると、新しい発見があるかも。身近なものから「デザインにそのまま使える配色」を見つけられる、そんなカラーパレットとなっております。
+          </p>
+
+          <!-- 会員登録・ログインはこちら -->
+          <div class="mt-7 grid gap-3 w-full sm:inline-flex">
+            <%= link_to new_user_registration_path, data: { turbo: false } do %>
+              <div class="py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-orange-600 text-white hover:bg-orange-700 focus:outline-hidden focus:bg-orange-700 disabled:opacity-50 disabled:pointer-events-none">
+                会員登録・ログインはこちら
+                <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              </div>
+            <% end %>
+          </div>
+
+        </div>
+
+        <!-- ロゴセクション(ヒーローセクション) -->
+        <div class="order-1">
+          <!-- ロゴ本体(swiper実行する前にロゴが並んで表示されてしまうため、最初はinvisible。swiper後にjsでvisibleに変更) -->
+          <div id="pre_login_swiper" class="swiper-container invisible w-[90%] mx-auto">
+            <div class="swiper-wrapper">
+              <% @slide_posts.each do |post| %>
+                <% colors = post.color_list.split(",")  %>
+                <div class="w-full h-full swiper-slide"><%= render "shared/svg/ogp/ogp_logo_svg", colors: colors %></div>
               <% end %>
             </div>
           </div>
+          <!-- 下側パレット(mdサイズより小さい時に表示する用) -->
+          <div x-data
+              x-init="
+                      $nextTick(() => {
+                          const content = $refs.content;
+                          const item = $refs.item;
+                          const clone = item.cloneNode(true);
+                          content.appendChild(clone);
+                      });
+              "
+              class="block lg:hidden">
+              <div class="relative w-full py-3 mx-auto overflow-hidden">
+                <div x-ref="content" class="flex animate-marquee-reverse">
+                  <div x-ref="item" class="flex flex-row-reverse items-center justify-around flex-shrink-0 w-full py-2">
+                    <% @slide_posts.last(6).each.with_index(6) do |post, index|  %>
+                      <!-- パレット -->
+                      <div class="w-52 aspect-[5/3] flex justify-center items-center">
+                        <div class="w-[90%] aspect-[5/3] transition-all duration-1000 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500 scale-90" :class="currentSlide == <%= index %> ? 'scale-110' : 'scale-90'">
+                          <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
+                            <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
+                          <% end %>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
+
+      </div>
+
+      <!-- 下側パレット(mdサイズ以上の時に表示する用) -->
+      <div x-data
+          x-init="
+                  $nextTick(() => {
+                      const content = $refs.content;
+                      const item = $refs.item;
+                      const clone = item.cloneNode(true);
+                      content.appendChild(clone);
+                  });
+          "
+          class="hidden lg:block">
+          <div class="relative w-full py-3 mx-auto overflow-hidden">
+            <div x-ref="content" class="flex animate-marquee-reverse">
+              <div x-ref="item" class="flex flex-row-reverse items-center justify-around flex-shrink-0 w-full py-2">
+                <% @slide_posts.last(6).each.with_index(6) do |post, index|  %>
+                  <!-- パレット -->
+                  <div class="w-52 aspect-[5/3] flex justify-center items-center">
+                    <div class="w-[90%] aspect-[5/3] transition-all duration-1000 overflow-hidden rounded-md lg:rounded-xl flex lg:border border-slate-500 scale-90" :class="currentSlide == <%= index %> ? 'scale-110' : 'scale-90'">
+                      <% ratio = post.ratio.split(','); colors = post.color_list.split(","); post.color_count.times do |i| %>
+                        <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
 
-
-    <!-- feature section -->
+    <!-- featureセクション -->
     <div class="w-full h-full mx-auto my-10 lg:container">
       <div  class="flex h-full flex-col items-center justify-center md:flex-col lg:flex-row">
 
@@ -173,8 +175,8 @@
 
       </div>
     </div>
-    <!-- End feature section -->
 
+    <!-- パレット見本一覧セクション -->
     <div class="flex flex-col gap-10 mt-5">
       <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-2 md:gap-4 place-content-center place-items-center">
         <% @posts.each do |post|  %> <%# @postsはすでにpublishedのものだけ入ってる状態 %>
@@ -183,8 +185,8 @@
       </div>
     </div>
 
-<!-- さらに表示ボタン -->
-    <div class="fter:h-px flex items-center before:h-px before:flex-1  before:bg-gray-300 before:content-[''] after:h-px after:flex-1 after:bg-gray-300  after:content-['']">
+    <!-- さらに表示ボタン -->
+    <div class="flex items-center before:h-px before:flex-1  before:bg-gray-300 before:content-[''] after:h-px after:flex-1 after:bg-gray-300  after:content-['']">
       <button @click="modalPrompt = true" type="button" class="flex items-center rounded-full border border-gray-300 bg-secondary-50 px-3 py-2 text-center text-sm font-medium text-gray-900 hover:bg-gray-100">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mr-1 h-4 w-4">
           <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
@@ -192,10 +194,10 @@
         さらに表示する
       </button>
     </div>
-<!-- End -->
 
-    <!-- 表示するモーダルの部分呼び出し -->
+    <!-- 新規登録誘導モーダルの部分呼び出し -->
     <%= render 'shared/prompt_signup_modal' %>
-    <!-- End -->
+
   </div>
+
 </div>

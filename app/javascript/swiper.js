@@ -75,13 +75,26 @@ document.addEventListener("turbo:load", function() {
         crossFade: true
       },
       autoplay: {
-        delay: 1000, // スライド切り替えのスパン(ms)
+        delay: 1500, // スライド切り替えのスパン(ms)
         disableOnInteraction: false,
       },
       speed: 1000,
       allowTouchMove: false, //タップでのスライド変更無効
-      simulateTouch: false //PCでのドラッグ無効
+      simulateTouch: false, //PCでのドラッグ無効
+      on: {
+          slideChange: function () {
+            const currentSlideIndex = this.realIndex; // 現在のスライドindexを取得。
+
+            // input要素を取得
+            const currentSlideInput = document.getElementById('current-slide-input');
+            // inputの値を変更
+            currentSlideInput.value = currentSlideIndex;
+            // inputイベントを発火させる(x-model要素で認識させるため)
+            currentSlideInput.dispatchEvent(new Event('input'));
+          }
+        }
     });
+    preLoginSwiper.style.visibility = 'visible';
   }
 
 });
