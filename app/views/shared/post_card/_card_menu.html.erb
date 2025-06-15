@@ -1,114 +1,117 @@
 <div x-data="{ menuBarOpen: false }" @click.away="menuBarOpen=false" class="relative top-0 left-0 w-auto transition-all duration-150 ease-out">
 
   <div class="relative h-full cursor-default">
-    <button @click="menuBarOpen=true;" class="rounded text-sm flex items-center leading-tight justify-center h-full cursor-pointer">
+
+    <button @click="menuBarOpen =!menuBarOpen" class="rounded text-sm flex items-center leading-tight justify-center h-full cursor-pointer">
       <svg class="size-6 transform duration-200 rotate-90 hover:scale-110" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10ZM19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10ZM12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"></path></svg>
     </button>
+
     <div
-        x-show="menuBarOpen"
-        x-transition:enter="transition ease-linear duration-100"
-        x-transition:enter-start="translate-y-1 opacity-90"
-        x-transition:enter-end="translate-y-0 opacity-100"
-        class="absolute bottom-8 min-w-[8rem] text-neutral-800 rounded-md border border-neutral-200/70 bg-white text-sm p-1 sm:text-sm shadow-md w-48 -translate-x-32"
-        x-cloak>
+      x-show="menuBarOpen"
+      x-transition:enter="transition ease-linear duration-100"
+      x-transition:enter-start="translate-y-1 opacity-90"
+      x-transition:enter-end="translate-y-0 opacity-100"
+      class="absolute bottom-8 -translate-x-16 text-neutral-800 rounded-md border border-neutral-200/70 bg-white text-nowrap text-xs sm:text-sm p-1 pr-4 shadow-md"
+      x-cloak>
 
+      <!-- 下書きに戻すボタン -->
+      <div x-data="{ modalOpen: false }"
+        @keydown.escape.window="modalOpen = false"
+        :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
 
-        <!-- 下書きに戻すボタン -->
-        <div x-data="{ modalOpen: false }"
-            @keydown.escape.window="modalOpen = false"
-            :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
-
-            <% if post.status == "published" %>
-              <button @click="menuBarOpen=false, modalOpen=true" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-                  <span>下書きに戻す</span>
-              </button>
-            <% end %>
-
-            <template x-teleport="body">
-                <div x-show="modalOpen" class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen" x-cloak>
-                    <div x-show="modalOpen"
-                        x-transition:enter="ease-out duration-300"
-                        x-transition:enter-start="opacity-0"
-                        x-transition:enter-end="opacity-100"
-                        x-transition:leave="ease-in duration-300"
-                        x-transition:leave-start="opacity-100"
-                        x-transition:leave-end="opacity-0"
-                        @click="modalOpen=false" class="absolute inset-0 w-full h-full bg-white backdrop-blur-sm bg-opacity-70"></div>
-                    <div x-show="modalOpen"
-                        x-trap.inert.noscroll="modalOpen"
-                        x-transition:enter="ease-out duration-300"
-                        x-transition:enter-start="opacity-0 -translate-y-2 sm:scale-95"
-                        x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                        x-transition:leave="ease-in duration-200"
-                        x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                        x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
-                        class="relative py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-lg rounded-lg">
-                        <div class="relative w-auto pb-8">
-                            <p>下書きに戻します。よろしいですか。</p>
-                        </div>
-                        <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
-                            <button @click="modalOpen=false" type="button" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">キャンセル</button>
-                            <%= link_to unpublished_post_path(post), data: { "turbo-method": :post } do %>
-                              <button @click="modalOpen=false" type="button" class="w-full inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">下書きに戻す</button>
-                            <% end %>
-                        </div>
-                    </div>
-                </div>
-            </template>
-        </div>
-
-        <!-- 編集ボタン -->
-        <%= link_to edit_post_path(post), data: { turbo_frame: "_top" } do %>
-          <button @click="menuBarOpen=false" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-            <span>編集する</span>
+        <% if post.status == "published" %>
+          <button @click="menuBarOpen=false, modalOpen=true" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
+            <span>下書きに戻す</span>
           </button>
         <% end %>
 
-
-        <!-- 削除ボタン -->
-
-        <div x-data="{ modalOpen: false }"
-            @keydown.escape.window="modalOpen = false"
-            :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
-
-            <button @click="menuBarOpen=false, modalOpen=true" class="text-red-500 relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-red-600 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
-                <span>削除する</span>
-            </button>
-
-            <template x-teleport="body">
-              <div x-show="modalOpen" class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen" x-cloak>
-                  <div x-show="modalOpen"
-                    x-transition:enter="ease-out duration-300"
-                    x-transition:enter-start="opacity-0"
-                    x-transition:enter-end="opacity-100"
-                    x-transition:leave="ease-in duration-300"
-                    x-transition:leave-start="opacity-100"
-                    x-transition:leave-end="opacity-0"
-                    @click="modalOpen=false" class="absolute inset-0 w-full h-full bg-white backdrop-blur-sm bg-opacity-70">
-                  </div>
-                  <div x-show="modalOpen"
-                      x-trap.inert.noscroll="modalOpen"
-                      x-transition:enter="ease-out duration-300"
-                      x-transition:enter-start="opacity-0 -translate-y-2 sm:scale-95"
-                      x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
-                      x-transition:leave="ease-in duration-200"
-                      x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
-                      x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
-                      class="relative py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-lg rounded-lg">
-                      <div class="relative w-auto pb-8">
-                          <p>パレットを削除します。よろしいですか。</p>
-                      </div>
-                      <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
-                          <button @click="modalOpen=false" type="button" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">キャンセル</button>
-                          <%= link_to post_path(post), data: {turbo_method: :delete, turbo_confirm: "削除したパレットは元に戻りません。本当によろしいですか?"} do %>
-                            <button @click="modalOpen=false" type="button" class="w-full inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">削除する</button>
-                          <% end %>
-                      </div>
-                  </div>
+        <template x-teleport="body">
+          <div x-show="modalOpen" class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen" x-cloak>
+            <div x-show="modalOpen"
+              x-transition:enter="ease-out duration-300"
+              x-transition:enter-start="opacity-0"
+              x-transition:enter-end="opacity-100"
+              x-transition:leave="ease-in duration-300"
+              x-transition:leave-start="opacity-100"
+              x-transition:leave-end="opacity-0"
+              @click="modalOpen=false" class="absolute inset-0 w-full h-full bg-white backdrop-blur-sm bg-opacity-70">
+            </div>
+            <div x-show="modalOpen"
+              x-trap.inert.noscroll="modalOpen"
+              x-transition:enter="ease-out duration-300"
+              x-transition:enter-start="opacity-0 -translate-y-2 sm:scale-95"
+              x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+              x-transition:leave="ease-in duration-200"
+              x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+              x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
+              class="relative py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-lg rounded-lg">
+              <div class="relative w-auto pb-8">
+                <p>下書きに戻します。よろしいですか。</p>
               </div>
-            </template>
-        </div>
+              <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+                <button @click="modalOpen=false" type="button" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">キャンセル</button>
+                <%= link_to unpublished_post_path(post), data: { "turbo-method": :post } do %>
+                  <button @click="modalOpen=false" type="button" class="w-full inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">下書きに戻す</button>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- 編集ボタン -->
+      <%= link_to edit_post_path(post), data: { turbo_frame: "_top" } do %>
+        <button @click="menuBarOpen=false" class="relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-neutral-900 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
+          <span>編集する</span>
+        </button>
+      <% end %>
+
+
+      <!-- 削除ボタン -->
+      <div x-data="{ modalOpen: false }"
+          @keydown.escape.window="modalOpen = false"
+          :class="{ 'z-40': modalOpen }" class="relative w-auto h-auto">
+
+          <button @click="menuBarOpen=false, modalOpen=true" class="text-red-500 relative flex justify-between w-full cursor-default select-none group items-center rounded px-2 py-1.5 hover:bg-neutral-100 hover:text-red-600 outline-none data-[disabled]:opacity-50 data-[disabled]:pointer-events-none">
+              <span>削除する</span>
+          </button>
+
+          <template x-teleport="body">
+            <div x-show="modalOpen" class="fixed top-0 left-0 z-[99] flex items-center justify-center w-screen h-screen" x-cloak>
+                <div x-show="modalOpen"
+                  x-transition:enter="ease-out duration-300"
+                  x-transition:enter-start="opacity-0"
+                  x-transition:enter-end="opacity-100"
+                  x-transition:leave="ease-in duration-300"
+                  x-transition:leave-start="opacity-100"
+                  x-transition:leave-end="opacity-0"
+                  @click="modalOpen=false" class="absolute inset-0 w-full h-full bg-white backdrop-blur-sm bg-opacity-70">
+                </div>
+                <div x-show="modalOpen"
+                    x-trap.inert.noscroll="modalOpen"
+                    x-transition:enter="ease-out duration-300"
+                    x-transition:enter-start="opacity-0 -translate-y-2 sm:scale-95"
+                    x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100"
+                    x-transition:leave="ease-in duration-200"
+                    x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100"
+                    x-transition:leave-end="opacity-0 -translate-y-2 sm:scale-95"
+                    class="relative py-6 bg-white border shadow-lg px-7 border-neutral-200 sm:max-w-lg rounded-lg">
+                    <div class="relative w-auto pb-8">
+                        <p>パレットを削除します。よろしいですか。</p>
+                    </div>
+                    <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-2">
+                        <button @click="modalOpen=false" type="button" class="inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium transition-colors border rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-100 focus:ring-offset-2">キャンセル</button>
+                        <%= link_to post_path(post), data: {turbo_method: :delete, turbo_confirm: "削除したパレットは元に戻りません。本当によろしいですか?"} do %>
+                          <button @click="modalOpen=false" type="button" class="w-full inline-flex items-center justify-center h-10 px-4 py-2 text-sm font-medium text-white transition-colors border border-transparent rounded-md focus:outline-none focus:ring-2 focus:ring-neutral-900 focus:ring-offset-2 bg-neutral-950 hover:bg-neutral-900">削除する</button>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+          </template>
+      </div>
+
     </div>
+
   </div>
 
 </div>
