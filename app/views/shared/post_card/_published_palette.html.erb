@@ -3,14 +3,13 @@
   <div class="group animate-slide-top w-full p-1">
     <!-- パレット表示部分 -->
     <%= link_to post_path(post), data: { turbo_stream: true } do %>
-      <div @click="modalPalette = 'palette-modal-<%= post.id %>'; document.getElementById('palette-skelton').style.display = 'block'" class="skelton-trigger relative transform hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 border-2 rounded-2xl shadow-2xl flex">
+      <div @click="modalPalette = 'palette-modal-<%= post.id %>'; document.getElementById('palette-skelton').style.display = 'block'" class="skelton-trigger relative transform hover:scale-105 transition-transform duration-300 w-full aspect-[5/3] overflow-hidden border-slate-500 sm:border-2 rounded-2xl shadow-2xl flex">
         <% ratio = post.ratio.split(","); colors = post.color_list.split(","); post.color_count.times do |i| %>
           <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full bg-gray-400"></div>
         <% end %>
         <!-- 「あなたの投稿」タグ -->
         <% if post.user_id == current_user.id %>
-          <span class="inline-flex absolute right-2 top-2 whitespace-nowrap items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-blue-100 text-blue-800"> <%# https://preline.co/docs/badge.html %>
-            <span class="size-1.5 inline-block rounded-full bg-blue-800"></span>
+          <span class="inline-flex absolute right-2 top-2 whitespace-nowrap items-center gap-x-1 py-1 px-2 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
             あなたの投稿
           </span>
         <% end %>
