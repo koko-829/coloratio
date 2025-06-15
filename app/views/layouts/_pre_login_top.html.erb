@@ -56,20 +56,14 @@
         </div>
 
         <!-- ロゴセクション(ヒーローセクション) -->
-        <div class="order-1 relative">
+        <div class="order-1">
           <!-- ロゴ本体(swiper実行する前にロゴが並んで表示されてしまうため、最初はinvisible。swiper後にjsでvisibleに変更) -->
-          <div id="pre_login_swiper" class="swiper-container invisible w-[90%] mx-auto">
+          <div id="pre_login_swiper" class="swiper-container invisible w-[60%] lg:w-[80%] mx-auto my-6 lg:my-0">
             <div class="swiper-wrapper">
               <% @slide_posts.each do |post| %>
                 <% colors = post.color_list.split(",") %>
                 <div class="w-full h-full swiper-slide">
                   <%= render "shared/svg/ogp/ogp_logo_svg", colors: colors %>
-                  <!-- 背景パレットセクション -->
-                  <div class="absolute flex top-4 lg:-top-12 left-8 w-[40%] lg:w-[50%] aspect-[5/3] border-2 transform -rotate-12 -z-50 opacity-30 overflow-hidden rounded-md lg:rounded-xl">
-                    <% ratio = post.ratio.split(','); post.color_count.times do |i| %>
-                      <div style="width: <%= ratio[i]%>%; background-color: <%= colors[i] %>" class="h-full"></div>
-                    <% end %>
-                  </div>
                 </div>
               <% end %>
             </div>

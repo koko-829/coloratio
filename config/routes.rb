@@ -28,7 +28,7 @@ Rails.application.routes.draw do
       get "terms_of_service" # 利用規約
       get "privacy_policy" # プライバシーポリシー
       get "contact" # お問い合わせ
-      get "about_app" # アプリの使い方ページ
+      get "about_app" # アプリについてページ
       get "practice" # デザイン確認用ページ(開発用。全て終わったら削除する)
     end
   end
