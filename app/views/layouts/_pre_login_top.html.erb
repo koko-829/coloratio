@@ -34,13 +34,14 @@
       </div>
 
       <!-- Heroセクション -->
-      <div class="w-full mx-auto mt-3 lg:mt-5 grid grid-cols-1 lg:grid-cols-2 lg:items-center">
+      <div class="w-full mx-auto my-3 lg:my-10 grid grid-cols-1 lg:grid-cols-2 lg:items-center">
 
         <!-- 文章セクション -->
         <div class="w-full lg:w-[80%] mx-auto order-2 lg:order-1">
-          <h1 class="text-3xl font-bold lg:text-4xl">"好き"から作る、見つける。<br>私だけのカラーパレット</h1>
+          <h1 class="hidden xl:block text-3xl font-bold lg:text-4xl font-roboto">"好き"から作る、見つける。<br>私だけのカラーパレット</h1>
+          <h1 class="block xl:hidden text-3xl font-bold lg:text-4xl font-roboto">"好き"から作る、見つける。私だけのカラーパレット</h1>
           <p class="mt-5 text-base font-medium text-gray-500 dark:text-neutral-400">
-          「好きなもの」を色だけで表現するカラーパレットアプリ。<br>身近過ぎて当たり前な存在。当たり前だけど「なぜか好き」。<br>そんな、生活を彩るあなたの"好き"はどんな色？<br>Coloratioで「デザインにそのまま使える配色」を見つけてみませんか？
+          「好きなもの」を色だけで表現するカラーパレットアプリ。<br>あなたの生活を彩る"好き"はどんな色？Coloratioで「デザインにそのまま使える配色」を見つけてみませんか？
           </p>
 
           <!-- 会員登録・ログインはこちら -->
@@ -131,43 +132,43 @@
     </div>
 
     <!-- featureセクション -->
-    <div class="w-full h-full mx-auto my-10 lg:container">
-      <div  class="flex h-full flex-col items-center justify-center md:flex-col lg:flex-row">
+    <div class="w-full h-full mx-auto my-10 font-roboto">
+      <div  class="h-full grid grid-cols-1 lg:grid-cols-3 items-center justify-center">
 
         <!-- feature Sec1~3 -->
         <!-- アプリの特徴1つ目 -->
         <div class="col-span-1 flex flex-col items-center gap-6 px-10 py-10 lg:px-4 xl:px-2">
-          <%= image_tag "feature_1.svg", class:"size-40" %>
+          <%= image_tag "feature_1.svg", class:"size-[50%]" %>
           <div class="flex flex-col gap-2 px-2 text-center">
             <h4 class="text-xl font-extrabold text-dark-grey-900">
-              配色数・比率が自由自在!
+              配色数も比率も自由自在!!
             </h4>
-            <p class="text-gray-800 text-base font-medium leading-7 text-dark-grey-600 lg:px-8">
-              Colortioでは、使用する色の数を2~5色の範囲で自由に選んでパレットを作成できちゃいます！それぞれの色の面積比率も柔軟に設定できるので、あなたの'好き'をより鮮明に表現できること間違いなし！
+            <p class="text-gray-500 font-bold text-base leading-7 lg:px-8">
+              配色数は2~5色、比率は5%単位で、自由にカスタマイズが可能です。
             </p>
           </div>
         </div>
         <!-- 2つ目 -->
         <div class="col-span-1 flex flex-col items-center gap-6 px-10 py-10 lg:px-4 xl:px-2">
-          <%= image_tag "feature_2.svg", class:"size-40" %>
+          <%= image_tag "feature_2.svg", class:"size-[40%]" %>
           <div class="flex flex-col gap-2 px-2 text-center">
-            <h4 class="text-xl font-extrabold text-dark-grey-900">
+            <h4 class="text-xl font-extrabold font-roboto">
               画像からかんたん色選択!!
             </h4>
-            <p class="text-gray-800 text-base font-medium leading-7 text-dark-grey-600 lg:px-8">
-              「色の選び方がわからないよ」という方も安心。作成したい配色のもとになる画像をインポートするだけで、簡単に色が選択できます!<br>カラーパレットを使ったことがないから正しい配色が選べるかどうか不安…という方も大丈夫！Coloratioでは色の知識が一切必要ありません。まずは「なんとなく好き」をカラーパレットで表現してみるところから始めましょう！<br>※インポートされた画像はサーバーに保存されないので安心してお使いください。
+            <p class="text-gray-500 font-bold text-base leading-7 lg:px-8">
+              画像をインポートしてラクラク色抽出！色の知識は一切必要ありません。
             </p>
           </div>
         </div>
         <!-- 3つ目 -->
         <div class="col-span-1 flex flex-col items-center gap-6 px-10 py-10 lg:px-4 xl:px-2">
-          <%= image_tag "feature_3.svg", class:"size-40" %>
+          <%= image_tag "feature_3.svg", class:"size-[50%]" %>
           <div class="flex flex-col gap-2 px-2 text-center">
             <h4 class="text-xl font-extrabold text-dark-grey-900">
-              豊富なデザイン例(※開発中です)
+              デザイン例多数掲載！！
             </h4>
-            <p class="text-gray-800 text-base font-medium leading-7 text-dark-grey-600 lg:px-8">
-              作成したカラーパレットに基づいて、実際にその色を使用した際のデザイン例を確認することができます！身近にあるものからカラーパレットを作成するだけで、「あなたにぴったりな配色」「デザインにそのまま使える配色」が見つかるかも！<br>(※開発中です…！しばらくお待ちください…！)
+            <p class="text-gray-500 font-bold text-base leading-7 lg:px-8">
+              パレット詳細画面では、その配色を使ったデザイン例を確認できちゃいます！
             </p>
           </div>
         </div>
