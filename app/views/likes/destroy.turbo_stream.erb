@@ -17,4 +17,4 @@
   <%= @post.likes.count %>
 <% end %>
 
-<%= turbo_stream.prepend "flash", partial: "shared/liked_flash" %>
+<%= turbo_stream.update "like-flash", partial: "shared/liked_flash" %>
