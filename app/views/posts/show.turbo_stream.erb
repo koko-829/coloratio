@@ -38,17 +38,17 @@
         <!-- share・ダウンロードアイコン -->
         <div class="w-full flex justify-end items-center gap-2 px-3 my-2">
           <!-- ダウンロードボタン -->
-          <a id="image-download-link-modal" download="coloratio-palette-<%= Time.now.to_i %>.png" class="cursor-pointer shadow-sm gap-1 hover:bg-gray-100 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg px-2 py-2 text-center inline-flex items-center">
-            <svg class="size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10H18L12 16L6 10H11V3H13V10ZM4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19Z"></path></svg>
+          <a id="image-download-link-modal" download="coloratio-palette-<%= Time.now.to_i %>.png" class="p-1.5 md:p-2 cursor-pointer shadow-sm hover:bg-stone-200 border border-gray-200 focus:outline-none focus:ring-gray-100 rounded-lg flex justify-center items-center">
+            <svg class="size-5 md:size-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M13 10H18L12 16L6 10H11V3H13V10ZM4 19H20V12H22V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V12H4V19Z"></path></svg>
           </a>
           <!-- 画像アップロード&xシェアボタン -->
           <%= form_with url: images_upload_path, method: :post, data: { turbo_stream: true } do |form| %>
             <%= hidden_field_tag :image_data, nil, id: 'image_data-modal' %>
             <%= hidden_field_tag :post_id, post.id %>
             <div x-data="{ shareLoading: false }" :class="{ 'cursor-not-allowed' : shareLoading }">
-              <button @click="shareLoading = true" type="submit" id="upload-button" :class="{ 'opacity-70 pointer-events-none': shareLoading }" class="relative w-full inline-flex justify-center items-center gap-2 whitespace-nowrap rounded-3xl bg-black border border-black dark:border-white px-4 py-2 font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
-                <%= image_tag "twitter_icon.svg", class:"size-6", ':class':"{ 'invisible': shareLoading }" %>
-                <div :class="{ 'invisible': shareLoading }" class="text-xs xm:text-sm text-white font-medium">シェアする</div>
+              <button @click="shareLoading = true" type="submit" id="upload-button" :class="{ 'opacity-70 pointer-events-none': shareLoading }" class="relative w-full inline-flex justify-center items-center gap-1 md:gap-2 whitespace-nowrap rounded-3xl bg-black border border-black px-3 md:px-4 py-2 font-medium tracking-wide text-neutral-100 transition hover:opacity-75 text-center focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black active:opacity-100 active:outline-offset-0 disabled:opacity-75 disabled:cursor-not-allowed">
+                <%= image_tag "twitter_icon.svg", class:"size-4 md:size-6", ':class':"{ 'invisible': shareLoading }" %>
+                <div :class="{ 'invisible': shareLoading }" class="text-xs md:text-sm text-white font-medium">シェアする</div>
                 <div x-show="shareLoading" x-cloak class="absolute inset-0 flex justify-center items-center gap-1" aria-label="読み込み中">
                   <div class="animate-spin size-6 border-4 border-white rounded-full border-t-transparent"></div>
                 </div>
