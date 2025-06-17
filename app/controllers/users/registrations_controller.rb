@@ -21,7 +21,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted?
-        resource.update(name: params[:user][:name].presence || "default-name-#{resource.id}")
+        resource.update(
+          name: params[:user][:name].presence || "default-name-#{resource.id}",
+          profile_icon: rand(1..18)
+        )
       end
     end
   end

@@ -4,7 +4,7 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :likes, source: :post
   has_many :user_colors
   has_many :colors, through: :user_colors
-  validates :profile_icon, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 8 }
+  validates :profile_icon, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 17 }
   validates :name, uniqueness: true
   # 同じプロバイダー(Googleからとか)かつ同じuidからのログインの場合、ユーザーを新規作成できないようにする。
   validates :uid, presence: true, uniqueness: { scope: :provider }, if: -> { uid.present? }
@@ -27,6 +27,7 @@ class User < ApplicationRecord
       end
       user.email = auth.info.email
       user.password = Devise.friendly_token[0, 20]
+      user.profile_icon = rand(1..18)
     end
   end
 
