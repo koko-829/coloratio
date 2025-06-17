@@ -1,5 +1,5 @@
 <%# ログイン状態時のトップページパーシャル %>
-<div class= "min-h-fit max-w-screen-xl text-gray-900 w-[90vw] mx-auto">
+<div class= "min-h-fit max-w-screen-xl w-[90vw] mx-auto">
 
   <!-- フリーワード検索窓 -->
   <div x-data='{ search_word: "<%= params[:q][:title_or_tags_name_or_colors_hex_code_cont] %>", sort: "<%= params[:q][:sorts] %>", color_count: "<%= params[:q][:color_count_eq] %>" }' class="my-10 border-2 p-4 rounded-lg shadow-md">

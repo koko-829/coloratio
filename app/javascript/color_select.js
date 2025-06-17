@@ -15,7 +15,7 @@ document.addEventListener("turbo:load", function() {
 
     // 選択色反映用の関数を定義しておく
     function selectedIroChange(selectedIro) {
-      document.getElementById('selected-iro-box').style.background = selectedIro;
+      document.getElementById('selected-iro-box').value = selectedIro;
       document.getElementById('selected-iro-mini-box').style.background = selectedIro;
       document.getElementById('selected-iro').textContent = selectedIro;
     }
@@ -32,6 +32,7 @@ document.addEventListener("turbo:load", function() {
       document.getElementById("svg-base").style.fill = selectedIro;
       document.getElementById("square-base").style.background = selectedIro;
       document.getElementById("based-hex").textContent = selectedIro;
+      document.getElementById("ratio-circle").style.background = selectedIro;
     }
     // ページ更新時にIro.jsの初期色をプレビューに反映したい。
     selectedIroChange(colorPicker.color.hexString);
@@ -40,6 +41,27 @@ document.addEventListener("turbo:load", function() {
     // Iro.jsのカラーホイールで色が変化した時にプレビューに反映されるようにしたい。
     colorPicker.on('color:change', function() {
       selectedIroChange(colorPicker.color.hexString);
+    });
+
+
+    // input type="color"から値を変更した場合の処理
+    function formChange(selectedColor) {
+      document.getElementById('selected-iro-mini-box').style.background = selectedColor;
+      document.getElementById('selected-iro').textContent = selectedColor;
+      colorPicker.color.hexString = selectedColor
+    }
+
+    // 実際にinput type="color"の値が変更された時の処理。
+    const colorInputForm = document.getElementById('selected-iro-box');
+    colorInputForm.addEventListener('input', function() {
+      const selectedColor = colorInputForm.value;
+      formChange(selectedColor);
+    });
+
+    const HexInputImageSection = document.getElementById('hex_input_image_section');
+    HexInputImageSection.addEventListener('input', function() {
+      const withoutHashColor = HexInputImageSection.value;
+      document.getElementById('selected-iro-box').value = `${withoutHashColor}`;
     });
 
     // ベースの色を変更するボタンを押した時の処理。

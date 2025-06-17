@@ -1,16 +1,17 @@
-<!-- source:https://codepen.io/owaiswiz/pen/jOPvEPB -->
 <div id="palette-base"></div> <%# js走らせる用 %>
 <% @colors = @default_palette %>
 <div id="color-tag-info" data-json=<%= @colors.to_json %>></div>
 <div id="tags_info" data-json="<%= @existed_tags.to_json %>" ></div>
-<div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "min-h-fit py-10 text-gray-900 flex items-center justify-center"> <%# フォーム画面の土台枠外span %>
-  <div class="mx-20 my-5">
+<div x-data="{ choice: false, setting: <%= @colors.size %> }" class= "max-w-screen-xl w-[95vw] sm:w-[90vw] mx-auto py-10"> <%# フォーム画面の土台枠外span %>
 
-    <div class="mb-1 text-xl font-bold">パレット作成 </div>
 
+  <div class="mb-1 text-xl font-bold">パレット作成 </div>
+  <!-- 画面大枠 -->
+  <div class="border-2 p-2 max-w-full rounded-lg shadow-md">
     <%= form_with model: @post, local: true do |f| %>
-      <div class="px-2  bg-white shadow sm:rounded-lg flex flex-col lg:flex-row  items-center justify-center"> <%# フォームの大枠span・右半分と左半分で分けてるところ %>
-        <div class="flex flex-col p-6"> <%# 左側欄 %>
+      <div class="flex flex-col lg:flex-row  items-center justify-center">
+        <!-- プレビュー(左側) -->
+        <div class="flex flex-col p-6">
           <div class="flex justify-between items-end">
             <div class="text-xl font-bold">プレビュー</div> <%# プレビュー見出し %>
             <% if @post.id.present? %> <%# 既存パレット編集時は削除ボタンを表示して、新規作成時は表示しないための記載 %>
@@ -30,7 +31,8 @@
           </div>
         </div>
 
-        <div class="p-6 flex flex-col"> <%# フォーム本体枠 %>
+        <%# フォーム(右側) %>
+        <div class="p-6 flex flex-col">
           <div x-data="{status : 'draft'}" class="mx-auto max-w-xs">
             <%= render "shared/error_messages", resource: f.object %>
             <%# タイトル %>
@@ -112,7 +114,7 @@
               </div>
             </div>
 
-            <%= link_to "変更を保存せず終了する", root_path, data: { turbo_method: :get, turbo_confirm: "直近に保存した内容からの変更を反映せずに終了し、トップページに戻ります。よろしいですか?"}, class:"text-xs text-center text-blue-500 hover:text-blue-600 active:text-blue-500 underline" %>
+            <%#= link_to "変更を保存せず終了する", root_path, data: { turbo_method: :get, turbo_confirm: "直近に保存した内容からの変更を反映せずに終了し、トップページに戻ります。よろしいですか?"}, class:"text-xs text-center text-blue-500 hover:text-blue-600 active:text-blue-500 underline" %>
 
             <div class="mt-5 flex gap-2 justify-end">
               <%= f.button "下書き保存", type: 'button', onclick: "statusDraft(); confirmAndSubmit(this);", id:"draft_button", data: { turbo_confirm: 'パレットを下書き保存します'},  class:"py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700" %>
@@ -122,10 +124,12 @@
 
           </div>
         </div>
+
       </div>
     <% end %>
 
-    <div class="flex flex-col lg:flex-row justify-center items-center gap-2 mt-10">
+    <!-- ベース設定・ベースセッティング・色選択画面 -->
+    <div class="flex flex-col lg:flex-row justify-center items-center gap-2 my-10">
       <!-- ベース選択セクション -->
       <%= render "shared/edit_palette/palette_base" %>
       <!-- セット中の色反映セクション -->
@@ -133,7 +137,11 @@
       <!-- 色選択テンプレ -->
       <%= render "shared/edit_palette/color_selector" %>
     </div>
+
   </div>
+
+
+
 </div>
 
 <!-- Alpine.js用scriptパーシャル -->

@@ -102,7 +102,6 @@ document.addEventListener("turbo:load", function() {
           } else {
             inputRatio = inputRatio + `,${ratio}`; // 2色目以降は,区切りで入力したいから+ `,${ratio}`の形。
           }
-          document.getElementById('post_ratio').value = `${ratio}`;
           document.getElementById(`ratio-${i}`).textContent = `${ratio}%`;
           document.getElementById(`preview-${i}`).style.width = `${ratio}%`;
         }

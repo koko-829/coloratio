@@ -35,6 +35,7 @@
       resetLists[0].style.fill = window.colors[i - 1];
       resetLists[1].style.background = window.colors[i - 1];
       resetLists[2].textContent = window.colors[i - 1];
+      resetLists[3].style.background = window.colors[i - 1];
     }
   }
 
@@ -56,10 +57,12 @@
     // 配列の要素数を取得する。
     const addIndex = window.colors.length;
     // 配列の最後の値をベースの最後に反映させる。
-    resetLists = document.getElementsByClassName(`reset-base-${addIndex}`); //3色目が追加されたなら、それをreset-base-3に格納する。
+    resetLists = document.getElementsByClassName(`reset-base-${addIndex}`);
       resetLists[0].style.fill = window.colors[addIndex - 1];
       resetLists[1].style.background = window.colors[addIndex - 1];
       resetLists[2].textContent = window.colors[addIndex - 1];
+      // 比率部分の色確認サークルのカラー変更
+      resetLists[3].style.background = window.colors[addIndex - 1];
   }
 
   // スライダーを最新に変更する関数。(色が変更される処理のときに実行する。)
