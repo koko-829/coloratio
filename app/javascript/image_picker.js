@@ -252,7 +252,7 @@ document.addEventListener("turbo:load", function() {
       // colorsArr.push(colorObj);
 
       // displayColor();
-      // カラーホイールごと色を変更する。
+      // カラーホイールごと色を変更する。(カラーホイールが変更されたら、ベースも変わるようにする。)
       colorPicker.color.hexString = `${colorObj.colorCode}`;
     };
 
@@ -405,8 +405,6 @@ document.addEventListener("turbo:load", function() {
 
     // Initialize the code
     initialCode();
-
-
 
   }
 });
