@@ -1,10 +1,10 @@
 <div id="image-picker"></div><%# color_picker.js走らせる用 %>
-<div class="w-full h-full min-h-full max-h-full flex flex-col justify-center py-1 lg:py-2">
+<div class="w-full h-full max-h-full flex flex-col justify-start py-1 lg:py-2">
   <!-- ボタンセクション -->
   <div class="flex items-center gap-2 py-2 w-full">
 
     <!-- 画像アップロードボタン -->
-    <div id="drop-area" class="flex items-center gap-x-2 ml-2">
+    <div id="drop-area" class="flex items-center gap-x-2">
       <!-- 画像インポート用(こっちは非表示) -->
       <input class="hidden" id="browse-btn" name="browse-btn" type="file" />
       <!-- labelを押すことでfileタイプのinputに繋げる -->
@@ -38,27 +38,22 @@
   </div>
 
   <!-- 画像表示セクション -->
-  <div class="w-full h-full border-2 flex items-center justify-center">
+  <div class="w-full h-[80%] max-h-[80%] flex items-center justify-center">
 
-    <!-- 画像本体 -->
-    <%#= image_tag "image-picker-default.jpg", id: "image", alt: "image", class: "object-contain max-h-full" %>
+      <!-- 画像本体 -->
+      <%= image_tag "image-picker-default.jpg", id: "image", alt: "image", class: "object-contain max-h-full" %>
+
+
+    <!-- 画像描画用に必要やけど、実際にはスタイル別で指定したいため、非表示にする -->
+    <canvas class="hidden" id="canvas"></canvas>
+
+    <div class id="dropdown-btn"></div>
+    <div class="colors" id="colors"></div>
 
   </div>
 
 </div>
 
 
-<!-- 虫眼鏡セクション -->
-<div id="magnifier-glass-container" class="absolute rounded-full border-8 border-black box-content size-16 sm:size-20 hidden m-10">
-  <div id="magnifier-glass" class="w-full border-4 flex justify-center items-center rounded-full pt-[1px] pl-[1px] overflow-hidden">
-    <%# 一番真ん中のポインター %>
-    <div class="bg-transparent rounded-full border size-3"></div>
-  </div>
-</div>
 
-<!-- 画像描画用に必要やけど、実際にはスタイル別で指定したいため、非表示にする -->
-<canvas class="hidden" id="canvas"></canvas>
-
-<div class id="dropdown-btn"></div>
-<div class="colors" id="colors"></div>
 

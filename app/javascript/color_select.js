@@ -14,13 +14,15 @@ document.addEventListener("turbo:load", function() {
 
     // 選択画面の変更をベースにも反映する用の定義。(リフォーム後も残す)
     function selectorToBase(selectedIro){
-      document.getElementById("svg-base").style.fill = selectedIro;
-      document.getElementById("square-base").style.background = selectedIro;
-      document.getElementById("based-hex").textContent = selectedIro;
-      document.getElementById("ratio-circle").style.background = selectedIro;
-      window.colors[window.currentBaseNum - 1] = selectedIro; // 色の配列情報を変更
-      window.changeConnectColors(); // つまみの色を変更
-      window.previewUpdate(); //プレビューの色を変更
+      if (document.getElementById("svg-base")) {
+        document.getElementById("svg-base").style.fill = selectedIro;
+        document.getElementById("square-base").style.background = selectedIro;
+        document.getElementById("based-hex").textContent = selectedIro;
+        document.getElementById("ratio-circle").style.background = selectedIro;
+        window.colors[window.currentBaseNum - 1] = selectedIro; // 色の配列情報を変更
+        window.changeConnectColors(); // つまみの色を変更
+        window.previewUpdate(); //プレビューの色を変更
+      }
     }
 
     function setColor(preSetColor) {
@@ -35,7 +37,6 @@ document.addEventListener("turbo:load", function() {
     // カラーホイールの色が変化した時に選択中ベースの色も変更する。(選択中ベースはwindow.currentBaseNumで管理)
     colorPicker.on('color:change', function() {
       if (window.currentBaseNum){
-        console.log('選択中ベースが見つかりました');
         setColor(colorPicker.color.hexString);
       }
     });

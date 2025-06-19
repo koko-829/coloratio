@@ -23,9 +23,9 @@
 
   </div>
 
-  <div class="border-2 shadow-lg rounded-lg w-full aspect-[5/4] lg:h-full">
+  <div class="relative border-2 shadow-lg rounded-lg w-full aspect-[5/4] lg:h-full">
     <!-- ベースが選択されている時の表示 -->
-    <div x-show="choice" class="w-[90%] h-full mx-auto flex flex-col items-center justify-center">
+    <div :class="choice ? '' : 'blur-sm opacity-60'" class="w-[90%] h-full mx-auto flex flex-col items-center justify-center">
 
         <!-- パネルタブ反映 -->
         <div x-cloak x-show="selectedTab === 'select'" class="h-[95%] w-full flex items-center justify-center" id="tabpanelSelect">
@@ -33,7 +33,7 @@
           <div id="picker"></div>
         </div>
         <!-- カラーピッカータブ本体 -->
-        <div x-cloak x-show="selectedTab === 'picker'" class="h-full w-full flex items-center justify-center" id="tabpanelPicker">
+        <div x-cloak x-show="selectedTab === 'picker'" class="h-full w-full max-h-full flex items-center justify-center" id="tabpanelPicker">
 
           <!-- 画像抽出エリア -->
           <%= render "shared/edit_palette/image_picker" %>
@@ -44,9 +44,20 @@
     </div>
 
     <!-- ベースが選択されていない時(ベースを選択してね表示する用) -->
-    <div x-show="!choice" class="w-full h-full flex items-center justify-center">
+    <div x-show="!choice" class="absolute inset-0 text-lg font-medium bg-gray-200 bg-opacity-20 flex items-center justify-center">
       <div>ベースを選択してください</div>
     </div>
+
   </div>
 
 </div>
+
+<!-- 虫眼鏡セクション -->
+<div id="magnifier-glass-container" class="absolute rounded-full border-8 border-black box-content size-16 sm:size-20 hidden m-10">
+  <div id="magnifier-glass" class="w-full border-4 flex justify-center items-center rounded-full pt-[1px] pl-[1px] overflow-hidden">
+    <%# 一番真ん中のポインター %>
+    <div class="bg-transparent rounded-full border size-3"></div>
+  </div>
+</div>
+
+
