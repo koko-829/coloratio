@@ -254,6 +254,7 @@ document.addEventListener("turbo:load", function() {
       // displayColor();
       // カラーホイールごと色を変更する。(カラーホイールが変更されたら、ベースも変わるようにする。)
       colorPicker.color.hexString = `${colorObj.colorCode}`;
+      window.pickr.setColor(`${colorObj.colorCode}`);
     };
 
     ///////////////////////////////////////////////////////////////////////
