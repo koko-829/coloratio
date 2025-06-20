@@ -1,5 +1,7 @@
 document.addEventListener("turbo:load", function() {
+
   const paletteBase = document.getElementById("palette-base");
+  const colorSelector = document.getElementById("color-picker");
   if (paletteBase) {
     window.colorPicker = new iro.ColorPicker("#picker", {
       // Set the size of the color picker
@@ -25,41 +27,74 @@ document.addEventListener("turbo:load", function() {
       }
     }
 
-    function setColor(preSetColor) {
+    function setIro(preSetColor) {
       // 今から登録しようとしてる色が、既にパレットにある色とは違う時のみ、実際に変更する。
-      if (window.colors.includes(preSetColor)) {
-        console.log('既に同じ色がセットされています');
-      } else {
+      if (!window.colors.includes(preSetColor)) {
         selectorToBase(preSetColor);
+        // window.pickr.setColor(`${colorPicker.color.hexString}`);
+        document.getElementById("picker-hex-code").textContent = preSetColor;
+        document.getElementById("picker-hex-box").style.background = preSetColor;
       }
     }
 
     // カラーホイールの色が変化した時に選択中ベースの色も変更する。(選択中ベースはwindow.currentBaseNumで管理)
     colorPicker.on('color:change', function() {
       if (window.currentBaseNum){
-        setColor(colorPicker.color.hexString);
+        setIro(colorPicker.color.hexString);
+        // window.pickr.setColor(`${colorPicker.color.hexString}`);
+        // document.getElementById("picker-hex-code").textContent = colorPicker.color.hexString;
+        // document.getElementById("picker-hex-box").style.background = colorPicker.color.hexString;
       }
     });
 
-    // // input type="color"から値を変更した場合の処理
-    // function formChange(selectedColor) {
-    //   document.getElementById('selected-iro-mini-box').style.background = selectedColor;
-    //   document.getElementById('selected-iro').textContent = selectedColor;
-    //   colorPicker.color.hexString = selectedColor
-    // }
+    // カラーピッカーライブラリ作成用
+    window.pickr = new Pickr({
+        el: colorSelector,
+        useAsButton: true,
+        default: '#ffffff',
+        // falseにするとsave無しで直接変更できるようにする
+        comparison: false,
+        // 不透明度要素の無効化
+        lockOpacity: false,
 
-    // // 実際にinput type="color"の値が変更された時の処理。
-    // const colorInputForm = document.getElementById('selected-iro-box');
-    // colorInputForm.addEventListener('input', function() {
-    //   const selectedColor = colorInputForm.value;
-    //   formChange(selectedColor);
-    // });
+        swatches: [
+            '#F44336',
+            '#E91E63',
+            '#9C27B0',
+            '#673AB7',
+            '#3F51B5',
+            '#2196F3',
+            '#03A9F4',
+            '#00BCD4',
+            '#009688',
+            '#4CAF50',
+            '#8BC34A',
+            '#CDDC39',
+            '#FFEB3B',
+            '#FFC107',
+            '#FF5722',
+        ],
 
-    // const HexInputImageSection = document.getElementById('hex_input_image_section');
-    // HexInputImageSection.addEventListener('input', function() {
-    //   const withoutHashColor = HexInputImageSection.value;
-    //   document.getElementById('selected-iro-box').value = `${withoutHashColor}`;
-    // });
+        components: {
+
+            // ドラッグして動かすパレット部分は表示
+            palette: true,
+            // デフォルト色と現在の色の比較プレビュー部分は表示しない。
+            preview: false,
+            hue: true,
+
+            // Input / output Options
+            interaction: {
+              input: true,
+            }
+
+        }
+
+    }).on('change', (color) => {
+      colorPicker.color.hexString = color.toHEXA();
+    });
 
   };
+
+
 });

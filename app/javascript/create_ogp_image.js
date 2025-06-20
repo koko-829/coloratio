@@ -47,7 +47,7 @@ document.addEventListener("turbo:before-stream-render", function() {
 
     // ogpTriggerが存在する場合のみ実行(いいねボタンのturbo_streamでは走らないようにしたい。)
     if (ogpTrigger) {
-      console.log('実行します');
+      // console.log('実行します');
       // 元画像を一瞬だけ表示する
       ogpImageBaseModal.style.display = 'block';
 

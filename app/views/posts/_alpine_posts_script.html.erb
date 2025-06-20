@@ -18,10 +18,14 @@
   }
 
 
-  // ベースが選択された時にカラーサークルの色にも反映させるための関数。
+  // ベースが選択された時にカラーサークルとpickrの色にも反映させるための関数。
   function baseToSelector(basedNum){
     window.currentBaseNum = basedNum;
-    window.colorPicker.color.hexString = window.colors[basedNum - 1];
+    const color = window.colors[basedNum - 1]
+    window.colorPicker.color.hexString = color;
+    window.pickr.setColor(`${color}`);
+    document.getElementById("picker-hex-code").textContent = color;
+    document.getElementById("picker-hex-box").style.background = color;
   }
 
   // 削除ボタンが押された時のパレット再整列処理
