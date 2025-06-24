@@ -5,10 +5,10 @@
 
     <!-- 画像アップロードボタン -->
     <div id="drop-area" class="flex items-center gap-x-2">
-      <!-- 画像インポート用(こっちは非表示) -->
+      <!-- 画像インポート用(こっちは非表示・デザイン施したいため) -->
       <input class="hidden" id="browse-btn" name="browse-btn" type="file" />
       <!-- labelを押すことでfileタイプのinputに繋げる -->
-      <label for="browse-btn" class="py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" data-hs-file-upload-trigger="">
+      <label for="browse-btn" class="cursor-pointer py-2 px-3 inline-flex items-center gap-x-2 text-xs font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-hidden focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" data-hs-file-upload-trigger="">
         <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="17 8 12 3 7 8"></polyline>
