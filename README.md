@@ -1,6 +1,7 @@
-# ■アプリ名(仮)
-### タイトル「Coloratio」
-### URL: https://coloratio-app.com/
+# Coloratio
+サービスURL: https://coloratio-app.com/
+
+[![Image from Gyazo](https://i.gyazo.com/d3603fcc70ecac38076e71ba7feeabf0.png)](https://gyazo.com/d3603fcc70ecac38076e71ba7feeabf0)
 
 # ■サービス概要
 色をもっと身近に楽しもう。「Coloratio」は、あなたが好きな物を"色だけで再現"するカラーパレットアプリです。非デザイナーや非フロントエンジニア向けに特化し、色の知識がなくても誰でも簡単に色を登録することができます。登録した配色に基づいて、デザインのプロトタイプや他のおすすめ配色を提案することで、「デザインにそのまま使える色選び」をサポートします。
@@ -238,7 +239,10 @@
 https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=98-3836&t=puWVYFvVXkDzwcMp-1
 
 #  ■ER図
-ER図リンク：https://drive.google.com/file/d/1vktY-LZ0QD7LKSTwgLW3uwZGf3dFzwLh/view?usp=sharing
+※無料作図ツール[draw.io](https://app.diagrams.net/#G1i1hBEZDnE8quvHgMW9cDgSjxAfl7htHM#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D)にて作成しております。
 
+[![Image from Gyazo](https://i.gyazo.com/a1551461405e1d3b70e7e0c00444df7b.jpg)](https://gyazo.com/a1551461405e1d3b70e7e0c00444df7b)
 
-[![Image from Gyazo](https://i.gyazo.com/b5e83b50d29b46aaea1c855b72de09d6.jpg)](https://gyazo.com/b5e83b50d29b46aaea1c855b72de09d6)
+---
+
+※開発前・企画段階のREADMEは[こちら](https://github.com/koko-829/coloratio/blob/d0fa19fd8bcd33f6f311cf36eba846d26fc56eda/README.md)
