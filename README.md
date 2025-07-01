@@ -236,12 +236,18 @@
 
 
 # ■画面遷移図
-https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=98-3836&t=puWVYFvVXkDzwcMp-1
+[画面遷移図 - Figma](https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=0-1&t=cb127yaYOEk8vN4N-1)
+
+画面遷移図はFigmaで作成しました。
+
+未ログインとログイン後の2つの状態に分けて表示しております。<br>
+※実際の開発段階でデザインに変更を加えたため、こちらの画面遷移図とは異なる点が多くなっています。ご了承ください。
+[![Image from Gyazo](https://i.gyazo.com/cfcbba577a20f785685528be7525ec00.jpg)](https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=0-1&t=cb127yaYOEk8vN4N-1)
 
 #  ■ER図
-※無料作図ツール[draw.io](https://app.diagrams.net/#G1i1hBEZDnE8quvHgMW9cDgSjxAfl7htHM#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D)にて作成しております。
+※無料作図ツール[draw.io](https://app.diagrams.net/#G1i1hBEZDnE8quvHgMW9cDgSjxAfl7htHM#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D)で作成しました。
 
-[![Image from Gyazo](https://i.gyazo.com/a1551461405e1d3b70e7e0c00444df7b.jpg)](https://gyazo.com/a1551461405e1d3b70e7e0c00444df7b)
+[![Image from Gyazo](https://i.gyazo.com/a1551461405e1d3b70e7e0c00444df7b.jpg)](https://app.diagrams.net/#G1i1hBEZDnE8quvHgMW9cDgSjxAfl7htHM#%7B%22pageId%22%3A%22R2lEEEUBdFMjLlhIrx00%22%7D)
 
 ---
 
