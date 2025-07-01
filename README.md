@@ -190,6 +190,19 @@
 
 これらのポイントを通じて、気軽に色を楽しみめて創造的な表現を行えるアプリを目指します。
 
+# ■使用技術
+
+| カテゴリ | 技術 | 
+| --- | --- |
+| フロントエンド | Ruby on Rails 7.2.2.1 / Tailwind CSS 3.4.17 / SCSS / Hotwire / Alpine.js | 
+| バックエンド | Ruby 3.4.2 / Ruby on Rails 7.2.2.1 |
+| データベース | PostgreSQL |
+| API | devise, omniauth-google-oauth2 |
+| 開発環境 | Docker |
+| VCS | Github |
+| CI/CD | Github Actions |
+| インフラ | Fly.io / Cloudinary |
+| その他 | rubocop / noUiSlider / iro.js / swiper.js / Pickr / html2canvas / pagy / ransack |
 
 # ■画面遷移図
 [画面遷移図 - Figma](https://www.figma.com/design/vyIAnh7HeT643w2SOFqGe1/Coloratio?node-id=0-1&t=cb127yaYOEk8vN4N-1)
