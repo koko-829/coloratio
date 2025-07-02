@@ -121,6 +121,11 @@ Coloratio(カラティオ)で色をもっと身近に楽しもう。身の回り
   	- 言語対応後は、[ProductHunt](https://www.producthunt.com/) のようなプロダクト評価サイトへの投稿などを活用して、実際に認知度の向上を図る予定です。
 
 
+# ■今後の開発・実行予定のアクション
+追加予定の機能候補や、優先して行いたいと考えている本アプリに対するアクションを記載いたします。
+
+
+
 ---
 
 ※開発前・企画段階のREADMEは[こちら](https://github.com/koko-829/coloratio/blob/d0fa19fd8bcd33f6f311cf36eba846d26fc56eda/README.md)
