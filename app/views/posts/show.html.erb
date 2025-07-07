@@ -270,8 +270,8 @@
   <!-- 実際にOGP画像にしたい要素部分 -->
   <div id="ogp-image-base" class="hidden relative w-[1200px] mx-auto h-[630px]">
     <!-- ogpの基になる要素を動的に変更するためにパーシャル化 -->
-    <%#= render "shared/ogp_base/ogp_#{rand(0..1)}", post: post, ratio: ratio, color_count: color_count, colors: colors %>
-    <%= render "shared/ogp_base/ogp_1", post: post, ratio: ratio, color_count: color_count, colors: colors %>
+    <%= render "shared/ogp_base/ogp_#{rand(0..1)}", post: post, ratio: ratio, color_count: color_count, colors: colors %>
+    <%#= render "shared/ogp_base/ogp_1", post: post, ratio: ratio, color_count: color_count, colors: colors %>
   </div>
 
 </div>
