@@ -2,25 +2,24 @@ document.addEventListener("turbo:load", function() {
   const imagePicker = document.getElementById("image-picker");
   if (imagePicker) {
 
-    // Declare variables for various elements on the webpage
     let file; // The file to be processed
-    let dropArea = document.getElementById("drop-area"); // The area where files can be dropped
-    let browseBtn = document.getElementById("browse-btn"); // The button to browse and select a file
-    let removeBtn = document.getElementById("remove-btn"); // The button to remove colors
-    let img = document.getElementById("image"); // The image element to display the selected image
-    let dropdownBtn = document.getElementById("dropdown-btn"); // The button to open color format dropdown
-    let dropdownMenu = document.getElementById("dropdown-menu"); // The dropdown menu for color format
-    let hamburgerBtnArrow = document.getElementById("hamburger-btn-arrow"); // The arrow in the hamburger button
-    let colors = document.getElementById("colors"); // The container for displaying colors
-    let canvas = document.getElementById("canvas"); // The canvas for working with colors
-    let magnifierGlassContainer = document.getElementById("magnifier-glass-container"); // The container for the magnifier
-    let magnifierGlass = document.getElementById("magnifier-glass"); // The magnifier element
-    let hex; // Hexadecimal color code
-    let rgb; // RGB color code
-    let copyIcon = document.querySelectorAll(".copy-icon"); // Icons to copy color code
-    let removeIcon = document.querySelectorAll(".remove-icon"); // Icons to remove a color
-    let colorFormatOptions = document.querySelectorAll(".option"); // Options for color format
-    let colorFormat = "HEX"; // Default color format is HEX
+    let dropArea = document.getElementById("drop-area");
+    let browseBtn = document.getElementById("browse-btn");
+    let removeBtn = document.getElementById("remove-btn");
+    let img = document.getElementById("image");
+    let dropdownBtn = document.getElementById("dropdown-btn");
+    let dropdownMenu = document.getElementById("dropdown-menu");
+    let hamburgerBtnArrow = document.getElementById("hamburger-btn-arrow");
+    let colors = document.getElementById("colors");
+    let canvas = document.getElementById("canvas");
+    let magnifierGlassContainer = document.getElementById("magnifier-glass-container");
+    let magnifierGlass = document.getElementById("magnifier-glass");
+    let hex;
+    let rgb;
+    let copyIcon = document.querySelectorAll(".copy-icon");
+    let removeIcon = document.querySelectorAll(".remove-icon");
+    let colorFormatOptions = document.querySelectorAll(".option");
+    let colorFormat = "HEX";
 
     // Stores the colors
     // let colorsArr = [
@@ -197,7 +196,6 @@ document.addEventListener("turbo:load", function() {
       return { x: x, y: y };
     };
 
-    // Use canvas to draw the image
     //画像選択時の描画用？これ無効化したら画像の描画はできるけど色の抽出ができてないっぽい。
     const useCanvas = (el, img, callback) => {
       el.width = img.width;
@@ -224,7 +222,6 @@ document.addEventListener("turbo:load", function() {
       return hex;
     };
 
-    // Generate a random ID for a color
     function generateID() {
       const characters =
         "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -238,98 +235,20 @@ document.addEventListener("turbo:load", function() {
       return id;
     }
 
-    /////////////////////////////////////////////////////////////////////
     // 画像内でクリックした時に実際に実行される処理。色の取得などが行われる。
     const pickColor = function() {
       colors.innerHTML = "";
 
       let colorObj = {
         id: generateID(),
-        // rgbも選べるバージョン
-        //colorCode: colorFormat == "HEX" ? hex : rgb
         colorCode: hex
       };
-      // colorsArr.push(colorObj);
 
-      // displayColor();
       // カラーホイールごと色を変更する。(カラーホイールが変更されたら、ベースも変わるようにする。)
       colorPicker.color.hexString = `${colorObj.colorCode}`;
       window.pickr.setColor(`${colorObj.colorCode}`);
     };
 
-    ///////////////////////////////////////////////////////////////////////
-
-
-    // Display the color palette
-    // const displayColor = () => {
-    //   colors.innerHTML = "";
-
-    //   colorsArr.map((obj) => {
-    //     const colorContainer = document.createElement("div");
-    //     colorContainer.className = "color";
-
-    //     // Create the top section with class "color-top"
-    //     const topSection = document.createElement("div");
-    //     topSection.className = "color-top";
-
-    //     // Create an image element for the "remove" icon
-    //     const removeIcon = document.createElement("img");
-    //     removeIcon.src = "./assets/remove.svg";
-    //     removeIcon.alt = "remove";
-    //     removeIcon.className = "remove-icon";
-    //     removeIcon.id = obj.id;
-
-    //     topSection.appendChild(removeIcon);
-
-    //     // Create the bottom section with class "color-bottom"
-    //     const bottomSection = document.createElement("div");
-    //     bottomSection.className = "color-bottom";
-
-    //     // Create a div with class "preview"
-    //     const previewDiv = document.createElement("div");
-    //     previewDiv.className = "preview";
-    //     previewDiv.style.backgroundColor = obj.colorCode;
-
-    //     bottomSection.appendChild(previewDiv);
-
-    //     // Create a div with class "code"
-    //     const codeDiv = document.createElement("div");
-    //     codeDiv.className = "code";
-
-    //     // Create a paragraph with the color code
-    //     const colorCode = document.createElement("p");
-    //     colorCode.textContent = obj.colorCode;
-    //     codeDiv.appendChild(colorCode);
-
-    //     // Create an image element for the "copy" icon
-    //     const copyIcon = document.createElement("img");
-    //     copyIcon.src = "https://image-color-picker.css3.com/assets/copy.svg";
-    //     copyIcon.alt = "copy";
-    //     copyIcon.className = "copy-icon";
-    //     codeDiv.appendChild(copyIcon);
-
-    //     bottomSection.appendChild(codeDiv);
-
-    //     // Add the sections to the outer container
-    //     colorContainer.appendChild(topSection);
-    //     colorContainer.appendChild(bottomSection);
-
-    //     // Append the entire structure to the document
-    //     colors.appendChild(colorContainer);
-    //   });
-
-    //   // Attach events to newly created remove and copy icons
-    //   removeIcon = document.querySelectorAll(".remove-icon");
-    //   copyIcon = document.querySelectorAll(".copy-icon");
-    //   removeIcon.forEach((element) => {
-    //     element.addEventListener("click", removeColor);
-    //   });
-    //   copyIcon.forEach((element) => {
-    //     element.addEventListener("click", copyColor);
-    //   });
-    // };
-
-    // Remove a color from the palette
     const removeColor = function(e) {
       let id = e.target.id;
       let newColorsArr = colorsArr.filter(function (obj) {
@@ -339,7 +258,6 @@ document.addEventListener("turbo:load", function() {
       displayColor();
     };
 
-    // Copy a color code to the clipboard
     const copyColor = function(e) {
       let paragraph = e.target.parentElement.children[0];
       let colorCode = paragraph.innerHTML;
@@ -352,7 +270,6 @@ document.addEventListener("turbo:load", function() {
       }, 5000);
     };
 
-    // Handle color format change
     const handleColorFormat = function(e) {
       colorFormat = e.target.innerHTML;
       if (colorFormat == "HEX") {
@@ -375,7 +292,6 @@ document.addEventListener("turbo:load", function() {
       displayColor();
     };
 
-    // HEXコードとRGB値のフォーマット変更用
     const changeColorFormat = (color) => {
       if (color.startsWith("#")) {
         // Convert Hex to RGB
@@ -398,13 +314,11 @@ document.addEventListener("turbo:load", function() {
       }
     };
 
-    // Remove all colors from the palette
     const removeColors = function() {
       colorsArr = [];
       displayColor();
     };
 
-    // Initialize the code
     initialCode();
 
   }
