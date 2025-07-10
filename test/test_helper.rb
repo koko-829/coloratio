@@ -1,6 +1,3 @@
-# test/test_helper.rb
-
-# 忘れずに追加
 require "simplecov"
 
 ENV["RAILS_ENV"] ||= "test"
