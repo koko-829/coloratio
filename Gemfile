@@ -60,6 +60,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
   gem "simplecov", require: false
+  gem "minitest-reporters"
 end
 
 gem "tailwindcss-rails"
