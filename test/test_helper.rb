@@ -2,6 +2,7 @@ require "simplecov"
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
+require_relative 'login_helper'
 require "rails/test_help"
 # テスト結果見やすくするためのプラグイン
 require "minitest/reporters"
