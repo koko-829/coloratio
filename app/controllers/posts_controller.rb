@@ -46,8 +46,6 @@ class PostsController < ApplicationController
       [ "#494544", "#c41a30", "#bac8c6" ]
     ].sample
     @post = Post.new
-    # @existed_tags = Tag.pluck(:name) # Tagsテーブルの全てのtagを取得する場合
-    # @existed_tags = Tag.joins(:tag_posts).distinct.pluck(:name) # 公開状態もしくは下書き状態のパレットに使用されてるtagのみ取得する場合
     @existed_tags = Tag.joins(:posts).where(posts: { status: "published" }).distinct.pluck(:name) # 公開状態状態パレットのtagのみ取得する場合
   end
 
