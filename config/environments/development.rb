@@ -44,9 +44,7 @@ Rails.application.configure do
   # 開発環境でメールを送るためのホスト設定
   host = "localhost:3000"
   config.action_mailer.default_url_options = { host: host, protocol: "http" }
-
-  # letter_openerを使用するための設定
-  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.delivery_method = :letter_opener_web
   config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
