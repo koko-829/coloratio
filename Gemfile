@@ -52,7 +52,7 @@ group :development do
   gem "pry"
   gem "pry-rails"
   gem "pry-byebug"
-  gem "letter-opener"
+  gem "letter_opener"
 end
 
 group :test do
