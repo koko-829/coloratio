@@ -57,7 +57,9 @@
               autocomplete: "new-password",
               class: "w-full mt-1 px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 placeholder-gray-400 text-sm focus:bg-white",
               maxlength: 128,
-              ":type": "show ? 'text' : 'password'"
+              ":type": "show ? 'text' : 'password'",
+              "x-model": "password_confirmation",
+              "x-on:input": "validateSubmit();"
             %>
             <!-- パスワード表示非表示アイコン -->
             <button type="button" class="absolute right-2 bg-transparent flex items-center justify-center hover:text-blue-600" @click="show = !show">
@@ -70,6 +72,7 @@
                 </svg>
             </button>
           </div>
+          <div x-show="errors.password_confirmation" x-text="errors.password" class="text-red-500 text-xs mb-2"></div>
 
           <%#= f.submit  "パスワード変更", class:"mt-4 cursor-pointer tracking-wide shadow-lg border-2 text-sm font-semibold bg-orange-400 text-gray-100 py-2 px-8 rounded-3xl hover:bg-orange-500 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none disabled:opacity-50 disabled:pointer-events-none hover:scale-105 active:scale-95" %>
           <button
