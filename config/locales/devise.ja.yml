@@ -18,7 +18,11 @@ ja:
       confirmation_instructions:
         subject: "確認の指示"
       reset_password_instructions:
-        subject: "パスワードリセットの指示"
+        subject: "パスワードリセット"
+        hello: "%{name} 様"
+        thanks: "Coloratioをご利用いただきありがとうございます。"
+        password_reset: "パスワード再設定用のURLを送付いたします。以下のURLより、パスワードの変更をお願いいたします。"
+        password_reset_link: "再設定用URL"
       unlock_instructions:
         subject: "アカウント解除の指示"
       email_changed:
