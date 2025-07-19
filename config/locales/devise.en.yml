@@ -20,7 +20,11 @@ en:
       confirmation_instructions:
         subject: "Confirmation instructions"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Password Reset"
+        hello: "Hi, %{name}!"
+        thanks: "Thank you for using Coloratio."
+        password_reset: "You are receiving this email because we received a password reset request for your account. Please use the link below to reset your password."
+        password_reset_link: "Reset Password Link"
       unlock_instructions:
         subject: "Unlock instructions"
       email_changed:
