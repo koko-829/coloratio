@@ -18,7 +18,11 @@ ja:
       confirmation_instructions:
         subject: "確認の指示"
       reset_password_instructions:
-        subject: "パスワードリセットの指示"
+        subject: "パスワードリセット"
+        hello: "%{name} 様"
+        thanks: "Coloratioをご利用いただきありがとうございます。"
+        password_reset: "パスワード再設定用のURLを送付いたします。以下のURLより、パスワードの変更をお願いいたします。"
+        password_reset_link: "再設定用URL"
       unlock_instructions:
         subject: "アカウント解除の指示"
       email_changed:
@@ -31,7 +35,7 @@ ja:
       success: "%{kind}アカウントからの認証に成功しました。"
     passwords:
       no_token: "パスワードリセットのメールから来ていない限り、このページにアクセスできません。リセットメールからアクセスしている場合は、提供されたURLを正しく使用してください。"
-      send_instructions: "パスワードをリセットするための指示が記載されたメールが数分以内に届きます。"
+      send_instructions: "パスワードリセットメールが数分以内に届きます。"
       send_paranoid_instructions: "メールアドレスが私たちのデータベースに存在する場合、パスワード回復リンクが数分以内に届きます。"
       updated: "パスワードが正常に変更されました。現在サインインしています。"
       updated_not_active: "パスワードが正常に変更されました。"
@@ -60,5 +64,5 @@ ja:
       not_found: "見つかりません。"
       not_locked: "ロックされていません。"
       not_saved:
-        one: "1件のエラーが発生したため、%{resource}は保存されませんでした。"
-        other: "%{count}件のエラーが発生したため、%{resource}は保存されませんでした。"
+        one: "1件のエラーが発生しました"
+        other: "%{count}件のエラーが発生しました"

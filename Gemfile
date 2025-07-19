@@ -40,7 +40,7 @@ group :development, :test do
   gem "dotenv-rails"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  gem "brakeman", "~> 7.1.0"
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
@@ -52,7 +52,8 @@ group :development do
   gem "pry"
   gem "pry-rails"
   gem "pry-byebug"
-  # gem 'pry-nav'
+  gem "letter_opener"
+  gem "letter_opener_web"
 end
 
 group :test do

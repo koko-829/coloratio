@@ -103,10 +103,7 @@
             <% end %>
             <!-- パスワードをお忘れですか？ -->
             <div class="mt-6 text-center">
-              <button @click="modalDevelop = true" type="button" class="text-xs text-center text-orange-400 hover:text-orange-600 border-b border-orange-400">
-                パスワードをお忘れですか?
-              </button>
-              <%#= link_to "パスワードをお忘れですか?", new_user_password_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
+              <%= link_to "パスワードをお忘れですか?", new_user_password_path, class: "text-xs text-gray-400 text-center text-orange-400 hover:text-orange-600 border-b border-orange-400" %>
             </div>
 
             <!-- まだアカウントをお持ちでない方はこちら -->
