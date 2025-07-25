@@ -1,7 +1,6 @@
 @use "sass:math";
 @use "sass:color";
 
-// The suggestions list (dropdown) is appended to the document's body so the CSS variables should be defined at root-level
 :root {
 
     --tagify-dd-color-primary: rgb(53,149,246); // should be same as "$tags-focus-border-color"
@@ -28,7 +27,7 @@
     $tag-remove              : #D39494 !default;
     $tag-remove-btn-color    : $tag-text-color !default;
     $tag-remove-btn-bg       : none !default;
-    $tag-remove-btn-bg--hover: color.adjust($tag-remove, $lightness: -8) !default;
+    $tag-remove-btn-bg--hover: color.adjust($tag-remove, $lightness: -8%) !default;
     $tag-invalid-color       : $tag-remove !default;
     $tag-invalid-bg          : rgba($tag-remove, .5) !default;
     $tag-inset-shadow-size   : 1.2em !default;
@@ -68,6 +67,18 @@
     --placeholder-color-focus  : #{$placeholder-color-focus};
     --loader-size              : .8em;
     --readonly-striped         : 1;
+
+    display       : inline-flex;
+    align-items   : flex-start;
+    align-content : baseline;
+    flex-wrap     : wrap;
+    border        : 1px solid var(--tags-border-color);
+    padding       : 0;
+    line-height   : 0;
+    outline       : none;
+    position      : relative;
+    box-sizing    : border-box;
+    transition    : .1s;
 
     @mixin firefox {
         @at-root {
@@ -130,18 +141,6 @@
     @keyframes rotateLoader {
         to{ transform: rotate(1turn) }
     }
-
-    display       : inline-flex;
-    align-items   : flex-start;
-    align-content : baseline;
-    flex-wrap     : wrap;
-    border        : 1px solid var(--tags-border-color);
-    padding       : 0;
-    line-height   : 0;
-    outline       : none;
-    position      : relative;
-    box-sizing    : border-box;
-    transition    : .1s;
 
     &:has([contenteditable='true']) {
         cursor: text;
