@@ -14,6 +14,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [ :google_oauth2 ]
 
+  PROFILE_ICON_DEFAULT = 1
+
   # googleログイン時にユーザーネームとemailとpasswordを確認して、もしまだ存在してなかった場合は新しくユーザーを作成する用のメソッド
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

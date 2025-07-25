@@ -2,8 +2,10 @@ taro:
   name: "taro"
   email: "taro@example.com"
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  profile_icon: <%= User::PROFILE_ICON_DEFAULT %>
 
 hanako:
   name: "hanako"
   email: "hanako@example.com"
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  profile_icon: <%= User::PROFILE_ICON_DEFAULT %>
