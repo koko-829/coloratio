@@ -54,6 +54,7 @@ group :development do
   gem "pry-byebug"
   gem "letter_opener"
   gem "letter_opener_web"
+  gem "dockerfile-rails", ">= 1.7"
 end
 
 group :test do
@@ -72,8 +73,6 @@ gem "rails-i18n"
 gem "devise-i18n"
 gem "devise-i18n-views"
 gem "rails_admin"
-
-gem "dockerfile-rails", ">= 1.7", group: :development
 gem "sassc-rails"
 gem "pagy", "~> 9.3"
 gem "meta-tags"
