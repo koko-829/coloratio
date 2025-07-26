@@ -10,6 +10,21 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
+gem "tailwindcss-rails"
+gem "tailwindcss-ruby", "3.4.17"
+gem "dartsass-rails"
+gem "devise"
+gem "rails-i18n"
+gem "devise-i18n"
+gem "devise-i18n-views"
+gem "rails_admin"
+gem "sassc-rails"
+gem "pagy", "~> 9.3"
+gem "meta-tags"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+gem "ransack"
+gem "cloudinary"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -34,19 +49,3 @@ group :test do
   gem "simplecov", require: false
   gem "minitest-reporters"
 end
-
-gem "tailwindcss-rails"
-gem "tailwindcss-ruby", "3.4.17"
-gem "dartsass-rails"
-gem "devise"
-gem "rails-i18n"
-gem "devise-i18n"
-gem "devise-i18n-views"
-gem "rails_admin"
-gem "sassc-rails"
-gem "pagy", "~> 9.3"
-gem "meta-tags"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
-gem "ransack"
-gem "cloudinary"
