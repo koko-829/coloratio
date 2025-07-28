@@ -69,6 +69,7 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      # rails test実行用のCIジョブ設定
       - name: Run tests
         env:
           RAILS_ENV: test
